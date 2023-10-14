@@ -35,7 +35,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 
 ## 폴더 구조 
-.env
+.env  
 src
   - /app ()
   - /components
@@ -45,7 +45,7 @@ src
   - /hooks : custom usestate() 넣는 곳 
   - /store : 다른 페이지에 데이터 넘겨주기위한 저장소  
   - /lib : 외부 라이브러리
-  - /constants : 공통으로 사용될 상수값 모아두는 곳
+  - /constants : 공통으로 사용될 상수값 모아두는 곳   
 public
   - /fonts : 사용할 폰트
   - /svgs
