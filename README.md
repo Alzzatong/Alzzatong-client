@@ -35,6 +35,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 
 ## 폴더 구조 
+### 23.10.13
+```
 .env  
 src
   - /app ()
@@ -50,7 +52,7 @@ public
   - /fonts : 사용할 폰트
   - /svgs
   - /images
-
+```
 
 
 
