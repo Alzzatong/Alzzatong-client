@@ -1,0 +1,16 @@
+/* styles/globals.css */
+
+.appContainer {
+    display: flex;   
+  }
+  .sidebarContent {
+    flex-grow : 1;
+    height: 2316px;
+  }
+  .pageContent {
+    flex : 5;
+    flex-grow: 5;
+    margin-left: 0; /* 사이드바 너비 + 패딩 */
+
+  }
+  
