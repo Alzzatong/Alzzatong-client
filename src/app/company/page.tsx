@@ -1,5 +1,4 @@
 import Example from "@/components/Company/Check";
-import Sidebar from "@/components/Sidebar";
 import SidebarNav from "@/components/SidebarNav";
 import '@/styles/globals.css';
 
