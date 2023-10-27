@@ -1,6 +1,6 @@
 export default function FaxNumberInput() {
     return (
-      <div>
+      <div className="mt-4">
         <label
           htmlFor="fax-number"
           className="block text-sm font-medium leading-6 text-gray-900"
