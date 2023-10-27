@@ -1,7 +1,5 @@
 "use client";
 import { useState } from "react";
-import { RadioGroup } from "@headlessui/react";
-import { CheckCircleIcon, TrashIcon } from "@heroicons/react/20/solid";
 import BusinessNumberInput from "../Template/BusinessNumberInput";
 import BusinessYearInput from "../Template/BusinessYearInput";
 import CompanyNameAndCEONameInput from "../Template/CompanyNameInput";
