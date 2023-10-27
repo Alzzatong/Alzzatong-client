@@ -2,15 +2,21 @@
 
 .appContainer {
     display: flex;   
+    height: 100%;
   }
+.sidebarContainer{
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+}
   .sidebarContent {
-    flex-grow : 1;
-    height: 2316px;
+    width: 300px;
   }
   .pageContent {
-    flex : 1;
-    flex-grow: 10;
-    margin-left: 0; /* 사이드바 너비 + 패딩 */
-
+    width: 100%;
+    padding-right: 20px; /* 사이드바 너비 + 패딩 */
+    
   }
   
