@@ -5,16 +5,22 @@ import { CheckCircleIcon, TrashIcon } from "@heroicons/react/20/solid";
 import BusinessNumberInput from "../Template/BusinessNumberInput";
 import BusinessYearInput from "../Template/BusinessYearInput";
 import CompanyNameAndCEONameInput from "../Template/CompanyNameInput";
-import PhoneInput from "@/components/Template/PhoneInput";
+import PhoneInput from "@/components/Template/Input/PhoneInput";
 import JobCodeInput from "../Template/JobCodeInput";
 import FaxNumberInput from "../Template/FaxNumberInput";
-import CeoNameInput from "../Template/CEONameInput";
-import DoubleCheckButton from "@/components/Template/DoubleCheck";
+import CeoNameInput from "../Template/CeoNameInput";
+import DoubleCheckButton from "@/components/Template/Button/DoubleCheck";
+import SearchButton from "@/components/Template/Button/Search";
+import NameInput from "@/components/Template/Input/NameInput";
+import EmailInput from "@/components/Template/Input/EmailInput";
+import LabelText from "@/components/Template/LabelText/LabelText";
+import RadioButton from "@/components/Template/Button/RadioButton";
+import TextAreaBox from "@/components/Template/Input/TextAreaBox";
+import StringInput from "@/components/Template/Input/StringInput";
 
-const paymentMethods = [
-  { id: "credit-card", title: "Credit card" },
-  { id: "paypal", title: "PayPal" },
-  { id: "etransfer", title: "eTransfer" },
+const fourinsureMethods = [
+  { id: "yes", title: "가입" },
+  { id: "no", title: "미가입" },
 ];
 
 function classNames(...classes: string[]) {
@@ -63,228 +69,123 @@ export default function CompanyRegister() {
               <div className="mt-10">
                 <h2 className="text-lg font-medium text-gray-900">상세정보</h2>
               </div>
-              
+              <div>
+                <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+                  <div>
+                    <LabelText id={"manager-name"} text="담당자명"></LabelText>
+                    <NameInput id={"manager-name"}></NameInput>
+                  </div>
 
-              <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
-                <div>
-                  <label
-                    htmlFor="first-name"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    담당자 명
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      id="first-name"
-                      name="first-name"
-                      autoComplete="given-name"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  <div>
+                    <LabelText id={"manager-email"} text="이메일"></LabelText>
+                    <EmailInput id={"manager-email"}></EmailInput>
+                  </div>
+                </div>
+                <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
+                  <div>
+                    <LabelText id={"company-location"} text="기업소재지" />
+                    <NameInput id={"company-location"}></NameInput>
+                  </div>
+                  <div>
+                    <LabelText id={"company-address"} text="기업주소" />
+                    <NameInput id={"company-address"}></NameInput>
+                  </div>
+                  <div>
+                    <LabelText
+                      id={"company-establishment-year"}
+                      text="기업설립연도"
                     />
+                    <NameInput id={"company-establishment-year"} />
                   </div>
                 </div>
 
-                <div>
-                  <label
-                    htmlFor="last-name"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    이메일
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      id="last-name"
-                      name="last-name"
-                      autoComplete="family-name"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
+                <div className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+                  <div>
+                    <LabelText id={"fourinsure"} text="4대보험가입" />
+                    <RadioButton
+                      itemList={fourinsureMethods}
+                      groupName={"4대보험가입내역"}
+                    ></RadioButton>
                   </div>
                 </div>
-
-                <div className="sm:col-span-2">
-                  <label
-                    htmlFor="company"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    기업소재지
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      name="company"
-                      id="company"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                <div className="mt-6 grid grid-cols-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
+                  <div>
+                    <LabelText
+                      id={"company-registration"}
+                      text="사업자등록증"
                     />
-                  </div>
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label
-                    htmlFor="address"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    기업설립연도
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      name="address"
-                      id="address"
-                      autoComplete="street-address"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-                <fieldset className="mt-4">
-                <h2 className="text-lg font-medium text-gray-900">4대보험가입</h2>
-
-                <legend className="sr-only">Payment type</legend>
-                <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
-                  {paymentMethods.map((paymentMethod, paymentMethodIdx) => (
-                    <div key={paymentMethod.id} className="flex items-center">
-                      {paymentMethodIdx === 0 ? (
-                        <input
-                          id={paymentMethod.id}
-                          name="payment-type"
-                          type="radio"
-                          defaultChecked
-                          className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                        />
-                      ) : (
-                        <input
-                          id={paymentMethod.id}
-                          name="payment-type"
-                          type="radio"
-                          className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                        />
-                      )}
-
-                      <label
-                        htmlFor={paymentMethod.id}
-                        className="ml-3 block text-sm font-medium text-gray-700"
-                      >
-                        {paymentMethod.title}
-                      </label>
+                    <div className="mt-1">
+                      <input
+                        type="file"
+                        name="file"
+                        id="file"
+                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      />
                     </div>
-                  ))}
-                </div>
-              </fieldset>
-
-                <div className="sm:col-span-2">
-                  <label
-                    htmlFor="apartment"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    사업자등록증
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      name="apartment"
-                      id="apartment"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
+                  </div>
+                  <div className="mt-6">
+                    <SearchButton></SearchButton>
                   </div>
                 </div>
-
-                <div>
-                  <label
-                    htmlFor="city"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    주요사업
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      name="city"
-                      id="city"
-                      autoComplete="address-level2"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
+                <div className="mt-4">
+                  <div>
+                    <LabelText id={"main-business"} text="주요사업" />
+                    <TextAreaBox></TextAreaBox>
                   </div>
                 </div>
               </div>
             </div>
-            {/* Payment */}
+
             <div className="mt-10 border-t border-gray-200 pt-10">
               <h2 className="text-lg font-medium text-gray-900">구인내용</h2>
 
-              
-
               <div className="mt-6 grid grid-cols-4 gap-x-4 gap-y-6">
-                <div className="col-span-4">
-                  <label
-                    htmlFor="card-number"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    구인직무1
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      id="card-number"
-                      name="card-number"
-                      autoComplete="cc-number"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-
-                <div className="col-span-4">
-                  <label
-                    htmlFor="name-on-card"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    구인인원
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      id="name-on-card"
-                      name="name-on-card"
-                      autoComplete="cc-name"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-
-                <div className="col-span-3">
-                  <label
-                    htmlFor="expiration-date"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    급여
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      name="expiration-date"
-                      id="expiration-date"
-                      autoComplete="cc-exp"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-
                 <div>
-                  <label
-                    htmlFor="cvc"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    급무형태
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      name="cvc"
-                      id="cvc"
-                      autoComplete="csc"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
+                  <LabelText id={"job-type1"} text="구인직무1" />
+                  <NameInput id={"job-type1"}></NameInput>
+                </div>
+                <div>
+                  <LabelText id={"NumberOfHires"} text="구인인원" />
+                  <NameInput id={"NumberOfHires"}></NameInput>
+                </div>
+                <div>
+                  {/* 급여 */}
+                  <LabelText id={"salary"} text="급여" />
+                  <NameInput id={"salary"}></NameInput>
+                </div>
+              </div>
+              <div className="mt-6 grid grid-cols-4 gap-x-4 gap-y-6">
+                <div>
+                  {/* 근무형태 */}
+                  <LabelText id={"working-type"} text="근무형태" />
+                  <NameInput id={"working-type"}></NameInput>
+                </div>
+                <div>
+                  {/* 근무시간 */}
+                  <LabelText id={"working-time"} text="근무시간" />
+                  <div className="flex gap-3">
+                    {/* 시작시간, 종료시간 */}
+                    <NameInput id={"work-start-hour"}></NameInput>
+                    <NameInput id={"work-end-hour"}></NameInput>
                   </div>
                 </div>
+                <div>
+                  {/* 주 소정근로시간 계싼 */}
+                  <div className="mt-6">
+                    <div className="text-zinc-500 text-sm font-normal font-['Pretendard'] leading-tight">
+                      주 소정근로시간 : 40시간
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  {/* 점심시간 */}
+                  <LabelText id={"lunch-time"} text="점심시간" />
+                  <NameInput id={"lunch-time"}></NameInput>
+                </div>
+              </div>
+              <div className="mt-4">
+                <LabelText id={"etc"} text="비고" />
+                <StringInput id={"etc"} />
               </div>
             </div>
           </div>

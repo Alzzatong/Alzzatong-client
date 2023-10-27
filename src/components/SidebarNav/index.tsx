@@ -4,8 +4,8 @@ import {
   } from '@heroicons/react/24/outline'
   
   const navigation = [
-    { name: '조회', href: '#', icon: MagnifyingGlassIcon,  current: true },
-    { name: '등록', href: '#', icon: PencilSquareIcon, current: false },
+    { name: '조회', href: '#', icon: MagnifyingGlassIcon,  current: false },
+    { name: '등록', href: '#', icon: PencilSquareIcon, current: true },
   ]
   
   function classNames(...classes: string[]) {
