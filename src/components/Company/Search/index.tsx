@@ -92,7 +92,7 @@ export default function CompanySearch() {
                 key={company.id}
                 className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow"
               >
-                <Link href={`/company/${company.id}`}>
+                <Link href={`/company/${company.id}/detail`}>
                   
                     <div className="flex w-full items-center justify-between space-x-6 p-6 bg-gray-100 hover:bg-white shadow rounded">
                       <div className="flex-1 truncate">
