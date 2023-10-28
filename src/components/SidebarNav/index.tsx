@@ -19,22 +19,17 @@ const navigation = [
     icon: PencilSquareIcon,
   },
 ];
+interface props {
+  currentTab: string;
+  setCurrentTab: any;
+  onClick: any;
+}
 
-export default function SidebarNav() {
-  const [currentTab, setCurrentTab] = useState(navigation[0].name); // 상태 초기값을 '조회'로 설정
-
-  // 현재 선택된 탭에 따라 다른 컴포넌트를 렌더링하는 함수
-  const renderComponent = () => {
-    switch (currentTab) {
-      case "조회":
-        return <SearchComponent />;
-      case "등록":
-        return <RegisterComponent />;
-      default:
-        return null;
-    }
-  };
-
+export default function SidebarNav({
+  currentTab,
+  setCurrentTab,
+  onClick,
+}: props) {
   function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(" ");
   }
@@ -43,7 +38,6 @@ export default function SidebarNav() {
     <div className="sidebarContainer">
       <div className="sidebarContent">
         <div className="h-full flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-300 bg-white px-6">
-          
           <nav className="flex flex-1 flex-col">
             <ul role="list" className="flex flex-1 flex-col gap-y-7">
               <li>
@@ -52,7 +46,7 @@ export default function SidebarNav() {
                     <li key={item.name}>
                       <a
                         href={item.href}
-                        onClick={() => setCurrentTab(item.name)} // 클릭 시 현재 탭을 업데이트
+                        onClick={() => onClick(item.name)} // 클릭 시 현재 탭을 업데이트
                         className={classNames(
                           currentTab === item.name
                             ? "bg-gray-50 text-blue-600"
@@ -79,9 +73,6 @@ export default function SidebarNav() {
           </nav>
           {/* 여기에서 현재 선택된 탭에 따라 다른 컴포넌트를 렌더링 */}
         </div>
-      </div>
-      <div className="pageContent">
-        {renderComponent()}
       </div>
     </div>
   );
