@@ -45,7 +45,6 @@ export default function SidebarNav({
                   {navigation.map((item) => (
                     <li key={item.name}>
                       <a
-                        href={item.href}
                         onClick={() => onClick(item.name)} // 클릭 시 현재 탭을 업데이트
                         className={classNames(
                           currentTab === item.name
