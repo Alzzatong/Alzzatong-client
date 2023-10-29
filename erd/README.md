@@ -22,7 +22,7 @@
   - Recruit 테이블 점심시간 칼럼 추가 
   - Matching 테이블 -> Matching과 Meeting으로  테이블 나누기
   - 근로계약서 리스트 보관하는 테이블 추가필요! 
-  - 매칭 테이블 재활용! -> 등록, 사후관리등 추가 정보 입력이라!
+  - 매칭 테이블 재활용! -> 등록, 사후관리등 추가 정보 입력이라 중복데이터 이슈로 인한 변경
 
 <p align="center">
 <img src="https://github.com/Alzzatong/Alzzatong-client/assets/104331549/746c63e2-a817-43f3-85be-b8bee2959a29">

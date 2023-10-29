@@ -24,10 +24,7 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
           <NoticeBanner />
         </div>
 
-        <ul >
-          <li><Link href="/create">등록</Link></li>
-          <li><Link href="/search">조회</Link></li>
-          <li><Link href="/manage">관리</Link></li>
+        <ul>
         </ul>
       </body>
     </html>
