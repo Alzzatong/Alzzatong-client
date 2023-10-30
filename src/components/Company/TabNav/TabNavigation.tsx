@@ -3,12 +3,11 @@ interface props {
   handleClick: any;
 }
 
+const tabs = [
+  { name: "구직자 상세정보", href: "#", current: true },
+  { name: "상담내역", href: "#", current: false },
+];
 export default function TabNavigation({ currentTab, handleClick }: props) {
-  const tabs = [
-    { name: "구직자 상세정보", href: "#", current: true },
-    { name: "상담내역", href: "#", current: false },
-  ];
-
   function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(" ");
   }

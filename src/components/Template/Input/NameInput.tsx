@@ -2,7 +2,7 @@ import React from "react";
 
 interface Props {
   id: string;
-  holder: string;
+  holder?: string;
 }
 
 export default function NameInput({ id, holder }: Props) {
