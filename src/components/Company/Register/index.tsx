@@ -15,18 +15,47 @@ import LabelText from "@/components/Template/LabelText/LabelText";
 import RadioButton from "@/components/Template/Button/RadioButton";
 import TextAreaBox from "@/components/Template/Input/TextAreaBox";
 import StringInput from "@/components/Template/Input/StringInput";
+import YearInput from "@/components/Template/Input/YearInput";
+import NumberInput from "@/components/Template/Input/NumberInput";
+import AddButton from "@/components/Template/Button/Add";
+import JobContent from "../Template/JobContent";
 
 const fourinsureMethods = [
   { id: "yes", title: "가입" },
   { id: "no", title: "미가입" },
 ];
+const idCollection = {
+  BusinessYearId: "business-year",
+  BusinessNumberId: "business-number",
+  CompanyNameId: "company-name",
+  CEONameId: "ceo-name",
+  ManagerNameId: "manager-name",
+  ManagerEmailId: "manager-email",
+  CompanyLocationId: "company-location",
+  CompanyAddressId: "company-address",
+  CompanyEstablishmentYearId: "company-establishment-year",
+  FourInsureId: "fourinsure",
+  CompanyRegistrationId: "company-registration",
+  MainBusinessId: "main-business",
+};
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function CompanyRegister() {
-  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState();
+  const [items, setItems] = useState([{}]);
+  const addItem = () => {
+    setItems([...items, {}]);
+  };
+  // Item 삭제
+  const removeItem = (index: number) => {
+    if(index === 0) return; //안내 메시지 구현하기 
+    const newItems = [...items];
+    newItems.splice(index, 1);
+    setItems(newItems);
+  }
+
 
   return (
     <div className="bg-gray-50">
@@ -41,7 +70,13 @@ export default function CompanyRegister() {
               <div className="mt-20">
                 <h2 className="text-lg font-medium text-gray-900">기업정보</h2>
                 <div className="mt-4 grid grid-cols-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
-                  <BusinessYearInput></BusinessYearInput>
+                  <div>
+                    <LabelText
+                      id={idCollection.BusinessYearId}
+                      text="사업년도"
+                    ></LabelText>
+                    <YearInput id={idCollection.BusinessYearId}></YearInput>
+                  </div>
                   <BusinessNumberInput></BusinessNumberInput>
                   {/* 중복 확인 버튼 */}
                   <div className="mt-6 flex justify-between">
@@ -49,10 +84,21 @@ export default function CompanyRegister() {
                   </div>
                 </div>
                 <div className="mt-4 grid grid-cols-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
-                  <CompanyNameAndCEONameInput></CompanyNameAndCEONameInput>
-                  <CeoNameInput></CeoNameInput>
+                  <div>
+                    <LabelText
+                      id={idCollection.CompanyNameId}
+                      text="참여기업명"
+                    ></LabelText>
+                    <NameInput id={idCollection.CompanyNameId}></NameInput>
+                  </div>
+                  <div>
+                    <LabelText
+                      id={idCollection.CEONameId}
+                      text="대표자명"
+                    ></LabelText>
+                    <NameInput id={idCollection.CEONameId}></NameInput>
+                  </div>
                 </div>
-
                 <div className="mt-4">
                   <JobCodeInput></JobCodeInput>
                 </div>
@@ -70,46 +116,61 @@ export default function CompanyRegister() {
               <div>
                 <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
                   <div>
-                    <LabelText id={"manager-name"} text="담당자명"></LabelText>
-                    <NameInput id={"manager-name"}></NameInput>
+                    <LabelText
+                      id={idCollection.ManagerNameId}
+                      text="담당자명"
+                    ></LabelText>
+                    <NameInput id={idCollection.ManagerNameId}></NameInput>
                   </div>
 
                   <div>
-                    <LabelText id={"manager-email"} text="이메일"></LabelText>
-                    <EmailInput id={"manager-email"}></EmailInput>
+                    <LabelText
+                      id={idCollection.ManagerEmailId}
+                      text="이메일"
+                    ></LabelText>
+                    <EmailInput id={idCollection.ManagerEmailId}></EmailInput>
                   </div>
                 </div>
                 <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
                   <div>
-                    <LabelText id={"company-location"} text="기업소재지" />
-                    <NameInput id={"company-location"}></NameInput>
-                  </div>
-                  <div>
-                    <LabelText id={"company-address"} text="기업주소" />
-                    <NameInput id={"company-address"}></NameInput>
+                    <LabelText
+                      id={idCollection.CompanyLocationId}
+                      text="기업소재지"
+                    />
+                    <NameInput id={idCollection.CompanyLocationId}></NameInput>
                   </div>
                   <div>
                     <LabelText
-                      id={"company-establishment-year"}
+                      id={idCollection.CompanyAddressId}
+                      text="기업주소"
+                    />
+                    <NameInput id={idCollection.CompanyAddressId}></NameInput>
+                  </div>
+                  <div>
+                    <LabelText
+                      id={idCollection.CompanyEstablishmentYearId}
                       text="기업설립연도"
                     />
-                    <NameInput id={"company-establishment-year"} />
+                    <NameInput id={idCollection.CompanyEstablishmentYearId} />
                   </div>
                 </div>
 
                 <div className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
                   <div>
-                    <LabelText id={"fourinsure"} text="4대보험가입" />
+                    <LabelText
+                      id={idCollection.FourInsureId}
+                      text="4대보험가입"
+                    />
                     <RadioButton
                       itemList={fourinsureMethods}
-                      groupName={"4대보험가입내역"}
+                      groupName={idCollection.FourInsureId}
                     ></RadioButton>
                   </div>
                 </div>
                 <div className="mt-6 grid grid-cols-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
                   <div>
                     <LabelText
-                      id={"company-registration"}
+                      id={idCollection.CompanyRegistrationId}
                       text="사업자등록증"
                     />
                     <div className="mt-1">
@@ -127,64 +188,37 @@ export default function CompanyRegister() {
                 </div>
                 <div className="mt-4">
                   <div>
-                    <LabelText id={"main-business"} text="주요사업" />
+                    <LabelText
+                      id={idCollection.MainBusinessId}
+                      text="주요사업"
+                    />
                     <TextAreaBox></TextAreaBox>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="mt-10 border-t border-gray-200 pt-10">
-              <h2 className="text-lg font-medium text-gray-900">구인내용</h2>
+            <div className="mt-10 border-t pt-10 block w-full border-gray-200">
+              {/* <AddButton></AddButton> */}
+              <h2 className="flex border-b text-lg font-medium text-gray-900  border-gray-300">
+                <div className="flex-glow border-b-4 border-b-blue-500">
+                  구인내용
+                </div>
+                <button
+                  type="button" 
+                  className="ml-auto rounded bg-indigo-50 px-2 py-1 my-1 text-xs font-semibold text-blue-600 shadow-sm hover:bg-indigo-100"
+                  onClick={addItem}
 
-              <div className="mt-6 grid grid-cols-4 gap-x-4 gap-y-6">
-                <div>
-                  <LabelText id={"job-type1"} text="구인직무1" />
-                  <NameInput id={"job-type1"}></NameInput>
-                </div>
-                <div>
-                  <LabelText id={"NumberOfHires"} text="구인인원" />
-                  <NameInput id={"NumberOfHires"}></NameInput>
-                </div>
-                <div>
-                  {/* 급여 */}
-                  <LabelText id={"salary"} text="급여" />
-                  <NameInput id={"salary"}></NameInput>
-                </div>
-              </div>
-              <div className="mt-6 grid grid-cols-4 gap-x-4 gap-y-6">
-                <div>
-                  {/* 근무형태 */}
-                  <LabelText id={"working-type"} text="근무형태" />
-                  <NameInput id={"working-type"}></NameInput>
-                </div>
-                <div>
-                  {/* 근무시간 */}
-                  <LabelText id={"working-time"} text="근무시간" />
-                  <div className="flex gap-3">
-                    {/* 시작시간, 종료시간 */}
-                    <NameInput id={"work-start-hour"}></NameInput>
-                    <NameInput id={"work-end-hour"}></NameInput>
+                >
+                  + 추가하기
+                </button>
+
+              </h2>
+              {items.map((item, index) => (
+                <div key={index}>
+                  <JobContent index={index} removeItem={removeItem} />
                   </div>
-                </div>
-                <div>
-                  {/* 주 소정근로시간 계싼 */}
-                  <div className="mt-6">
-                    <div className="text-zinc-500 text-sm font-normal font-['Pretendard'] leading-tight">
-                      주 소정근로시간 : 40시간
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  {/* 점심시간 */}
-                  <LabelText id={"lunch-time"} text="점심시간" />
-                  <NameInput id={"lunch-time"}></NameInput>
-                </div>
-              </div>
-              <div className="mt-4">
-                <LabelText id={"etc"} text="비고" />
-                <StringInput id={"etc"} />
-              </div>
+              ))}
             </div>
           </div>
         </form>
