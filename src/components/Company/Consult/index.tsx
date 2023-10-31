@@ -39,9 +39,11 @@ export default function CompanyConsult() {
           </div>
         </div>
       </div>
-      <ChatingIcon className="w-10 h-10" />
-  
-      <div className="mt-8 text-black text-base font-bold font-['Pretendard'] leading-normal">상담내용</div>
+
+      <div className="mt-8 flex gap-2 text-black text-base font-bold font-['Pretendard'] leading-normal">
+        <ChatingIcon className="w-10 h-10" />
+        <div>상담내용</div>
+      </div>
       <div className="mt-2 w-100% h-44 bg-white rounded-md border border-neutral-200" />
       <div className="flex justify-end  sm:ml-16 sm:mt-0 sm:flex-none">
         <button
@@ -51,8 +53,7 @@ export default function CompanyConsult() {
           저장
         </button>
       </div>
-      <div className="mt-10 border-t border-gray-200 pt-10">
-      </div>
+      <div className="mt-10 border-t border-gray-200 pt-10"></div>
       <TableList />
     </div>
   );

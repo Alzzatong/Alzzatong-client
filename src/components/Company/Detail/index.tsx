@@ -13,11 +13,26 @@ import SearchButton from "@/components/Template/Button/Search";
 import TextAreaBox from "@/components/Template/Input/TextAreaBox";
 import EmailInput from "@/components/Template/Input/EmailInput";
 import StringInput from "@/components/Template/Input/StringInput";
+import YearInput from "@/components/Template/Input/YearInput";
 
 const fourinsureMethods = [
   { id: "yes", title: "가입" },
   { id: "no", title: "미가입" },
 ];
+const idCollection = {
+  BusinessYearId: "business-year",
+  BusinessNumberId: "business-number",
+  CompanyNameId: "company-name",
+  CEONameId: "ceo-name",
+  ManagerNameId: "manager-name",
+  ManagerEmailId: "manager-email",
+  CompanyLocationId: "company-location",
+  CompanyAddressId: "company-address",
+  CompanyEstablishmentYearId: "company-establishment-year",
+  FourInsureId: "fourinsure",
+  CompanyRegistrationId: "company-registration",
+  MainBusinessId: "main-business",
+};
 const dummy = {
   businessYear: "2021",
   businessNumber: "123456789",
@@ -73,12 +88,23 @@ export default function CompanyDetail() {
         <form className="lg:grid lg:gap-x-12 xl:gap-x-16">
           <div>
             <div>
-              <h1 className="text-4xl	font-medium text-gray-900">구인처 상세조회</h1>
+              <h1 className="text-4xl	font-medium text-gray-900">
+                구인처 상세조회
+              </h1>
 
               <div className="mt-10">
                 <h2 className="text-lg font-medium text-gray-900">기업정보</h2>
                 <div className="mt-4 grid grid-cols-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
-                  <BusinessYearInput></BusinessYearInput>
+                  <div>
+                    <LabelText
+                      id={idCollection.BusinessYearId}
+                      text="사업년도"
+                    ></LabelText>
+                    <YearInput
+                      id={idCollection.BusinessYearId}
+                      holder={dummy.businessYear}
+                    ></YearInput>
+                  </div>
                   <BusinessNumberInput></BusinessNumberInput>
                   {/* 중복 확인 버튼 */}
                   <div className="mt-6 flex justify-between">
@@ -86,8 +112,20 @@ export default function CompanyDetail() {
                   </div>
                 </div>
                 <div className="mt-4 grid grid-cols-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
-                  <CompanyNameInput></CompanyNameInput>
-                  <CeoNameInput></CeoNameInput>
+                  <div>
+                    <LabelText
+                      id={idCollection.CompanyNameId}
+                      text="참여기업명"
+                    ></LabelText>
+                    <NameInput id={idCollection.CompanyNameId}></NameInput>
+                  </div>
+                  <div>
+                    <LabelText
+                      id={idCollection.CEONameId}
+                      text="대표자명"
+                    ></LabelText>
+                    <NameInput id={idCollection.CEONameId}></NameInput>
+                  </div>
                 </div>
 
                 <div className="mt-4">
