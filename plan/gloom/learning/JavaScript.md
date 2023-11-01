@@ -43,6 +43,10 @@ console.log(weeks);//['Mon', 'Tue', 'Thu', 'Fri', 'Sat', 'Sun']
 
 - 요약: Axios는 Ajax보다 더 편리하고 강력한 HTTP 클라이언트 라이브러리
 
+
+
+
+
 # React 문법(TypeScript)
  
 ### 하위 컴포넌트로 함수 전달하기 

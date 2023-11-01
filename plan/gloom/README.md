@@ -10,7 +10,8 @@
 <br></br>
 
 ### 2023.11.01 
-진행하는 것 :  API를 활용한 사업자 등록 번호 조회 구현   
+진행하는 것 :  API를 활용한 사업자 등록 번호 조회 구현  
+- 사용한 라이브러리 : axios, swr
 - 절차 
   - [공공 데이터 포털 사이트](https://www.data.go.kr/tcs/dss/selectDataSetList.do?keyword=%EC%82%AC%EC%97%85%EC%9E%90%EB%93%B1%EB%A1%9D%EC%A0%95%EB%B3%B4&brm=&svcType=&instt=&recmSe=N&conditionType=init&extsn=&kwrdArray=) 에 가입 (네이버 소셜로그인)
   - 국세청_사업자등록정보 진위확인 및 상태조회 서비스 오픈API 활용신청 (승인이 자동단계라 내용만 잘 적으면 됨)
@@ -35,6 +36,16 @@
   - 다중 작업 처리 가능!
 - 이외에도 여러가지가 있으나, 일단 현재 페이지가 로드된 상태에서 추가적으로 작업을 할수 있는 것을 말하며, 대표적으로 ajax랑 axios가 있다.
   - [비동기처리 ajax랑 axios 차이](./learning/JavaScript.md)
+- axios 사용방법
+  - 먼저 해당 라이브러리를 설치해야된다. `yarn add axios` [사이트확인](https://classic.yarnpkg.com/en/package/axios)
+  - 자연스레 따라오는 `swr` 도 설치 `yarn add swr`  [사이트 확인](https://swr.vercel.app/ko/docs/getting-started)
+    - SWR은 먼저 캐시(stale)로부터 데이터를 반환한 후, fetch 요청(revalidate)을 하고, 최종적으로 최신화된 데이터를 가져오는 전략
+      - 즉, 캐시 역할
+    - SWR의 fetcher 함수는 원격 데이터를 가져오는데 사용되는 비동기 함수
+      - 이 함수는 원격 데이터 소스에 접근하는 데 필요한 로직을 포함하며, 결과를 반환하거나 에러를 throw한다.
+      - 기본적으로 fetcher 함수는 첫 번째 인자로 key을 받는다.(보통 api의 엔드포인트(URL))
+
+
 
 <br></br>
 
