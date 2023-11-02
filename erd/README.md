@@ -12,7 +12,18 @@
 - 변경 혹은 업데이트가 된 이유    
 - ERD 이미지 삽입
 
+
 <br></br>
+
+### 2023.11.02
+- ERD설계 중 빠진 부분 보완
+  - senior(구직자)페이지 속 phoneNumber 컬럼 추가
+<p align="center">
+<img src="https://github.com/Alzzatong/Alzzatong-client/assets/104331549/814d608f-1507-419b-b394-06ce808c2906">
+</p>
+
+<br></br>
+
 
 ### 2023.10.19
 - 링크 : [DBdiagram](https://dbdiagram.io/d/65211b4bffbf5169f038730c)
