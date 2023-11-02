@@ -10,13 +10,18 @@
 <br></br>
 
 ### 2023.11.02
-- 진행할 것: supabase에 폼 저장 및 조회 
-- 절차
-  - supabase 다운(`yarn add @supabase/supabase-js`) 
-  - 그리고 supabase를 세팅해줄 .tsx 파일 생성(위치: src/lib/supabase)
-    - [공식홈페이지 참고](https://supabase.com/docs/guides/getting-started/quickstarts/nextjs)
-- 주의사항
-  - .env 사용시, Next.js의 경우는 변수명 앞에 `NEXT_PUBLIC`을 붙여줘야한다.(React의 경우 `REACT_APP`)
+- 진행할 것 : supabase에 폼 저장기능 구현
+  - 절차
+    - supabase 다운(`yarn add @supabase/supabase-js`) 
+    - 그리고 supabase를 세팅해줄 .tsx 파일 생성(위치: src/lib/supabase)
+      - [공식홈페이지 참고](https://supabase.com/docs/guides/getting-started/quickstarts/nextjs)
+  - 주의사항  
+    - .env 사용시, Next.js의 경우는 변수명 앞에 `NEXT_PUBLIC`을 붙여줘야한다.(React의 경우 `REACT_APP`)
+- 진행한 것 : LabelText id 불필요하여 제거(Template.md 변경!)
+- 진행한 것 : form안에 들어갈 id, name, value, 저장할 값을 다 따로 작성하여 중복 이슈 및 유지보수 이슈 생김
+  - 일단 id 값을 담는 배열 객체와, supabase에 넘길 데이터를 보관하는 객체와 인터페이스를 만듬(이게 효율적인지는 모름. id명이 하나 바뀌면 3개 다 바꿔야 되기 때문에..)
+
+<br></br>
 
 
 ### 2023.11.01 
