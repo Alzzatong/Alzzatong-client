@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import BusinessNumberInput from "../Template/BusinessNumberInput";
 import BusinessYearInput from "../Template/BusinessYearInput";
 import CompanyNameAndCEONameInput from "../Template/CompanyNameInput";
@@ -19,6 +19,8 @@ import YearInput from "@/components/Template/Input/YearInput";
 import NumberInput from "@/components/Template/Input/NumberInput";
 import AddButton from "@/components/Template/Button/Add";
 import JobContent from "../Template/JobContent";
+// 위에서 초기화한 Supabase 클라이언트를 import합니다.
+import  {supabase}  from "@/lib/supabase/supabase";
 
 const fourinsureMethods = [
   { id: "yes", title: "가입" },
@@ -38,10 +40,29 @@ const idCollection = {
   CompanyRegistrationId: "company-registration",
   MainBusinessId: "main-business",
 };
+// form에서 입력받은 데이터를 가져옵니다.
+// 이 예제에서는 간단하게 hard coding 하였습니다.
+const data = {
+  businessYear: "2023",
+  businessNumber: "123-45-67890",
+  // ...
+};
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
+
+// 인터페이스 정의
+interface CompanyData {
+  businessYear: string;
+  businessNumber: string;
 }
+
+// 초기 상태 정의
+const initialCompanyData: CompanyData = {
+  businessYear: '',
+  businessNumber: '',
+
+};
+
+
 
 export default function CompanyRegister() {
   const [items, setItems] = useState([{}]);
@@ -50,11 +71,29 @@ export default function CompanyRegister() {
   };
   // Item 삭제
   const removeItem = (index: number) => {
-    if(index === 0) return; //안내 메시지 구현하기 
+    if (index === 0) return; //안내 메시지 구현하기
     const newItems = [...items];
     newItems.splice(index, 1);
     setItems(newItems);
-  }
+  };
+
+  const data = {
+    businessYear: '2023',
+    businessNumber: '123-45-67890',
+    // ...
+  };
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    
+    const { error } = await supabase.from("company").insert([ data ]);
+
+    if(error) {
+      console.error('Error inserting data: ', error);
+    } else {
+      console.log('Data inserted successfully');
+    }
+  };
 
 
   return (
@@ -205,19 +244,17 @@ export default function CompanyRegister() {
                   구인내용
                 </div>
                 <button
-                  type="button" 
+                  type="button"
                   className="ml-auto rounded bg-indigo-50 px-2 py-1 my-1 text-xs font-semibold text-blue-600 shadow-sm hover:bg-indigo-100"
                   onClick={addItem}
-
                 >
                   + 추가하기
                 </button>
-
               </h2>
               {items.map((item, index) => (
                 <div key={index}>
                   <JobContent index={index} removeItem={removeItem} />
-                  </div>
+                </div>
               ))}
             </div>
           </div>

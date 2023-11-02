@@ -11,6 +11,12 @@
 
 ### 2023.11.02
 - 진행할 것: supabase에 폼 저장 및 조회 
+- 절차
+  - supabase 다운(`yarn add @supabase/supabase-js`) 
+  - 그리고 supabase를 세팅해줄 .tsx 파일 생성(위치: src/lib/supabase)
+    - [공식홈페이지 참고](https://supabase.com/docs/guides/getting-started/quickstarts/nextjs)
+- 주의사항
+  - .env 사용시, Next.js의 경우는 변수명 앞에 `NEXT_PUBLIC`을 붙여줘야한다.(React의 경우 `REACT_APP`)
 
 
 ### 2023.11.01 
