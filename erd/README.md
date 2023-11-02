@@ -14,6 +14,10 @@
 
 <br></br>
 
+### 2023.11.02
+- ERD설계 중 빠진 부분 보완
+  - senior(구직자)페이지 속 phoneNumber 컬럼 추가
+
 ### 2023.10.19
 - 링크 : [QuickDBD](https://app.quickdatabasediagrams.com/#/user/87482/diagrams?page=1&pageSize=20&ownerId=87482&sortBy=schemaSourceId)
     - 사용 이유: 무료로 사용가능하며, QuickDBD는 테이블 10개까지만 무료로 제공하는 것과 달리 테이블 전부 표현가능함.
