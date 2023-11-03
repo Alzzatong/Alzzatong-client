@@ -11,12 +11,12 @@ import RadioButton from "@/components/Template/Button/RadioButton";
 import TextAreaBox from "@/components/Template/Input/TextAreaBox";
 import YearInput from "@/components/Template/Input/YearInput";
 import NumberInput from "@/components/Template/Input/NumberInput";
-import JobContent from "../Template/JobContent";
-// 위에서 초기화한 Supabase 클라이언트를 import합니다.
+import JobContent, { initialRecruitData } from "../Template/JobContent";
 import { supabase } from "@/lib/supabase/supabase";
 import PhoneNumberInput from "@/components/Template/Input/PhoneInput";
 import StringInput from "@/components/Template/Input/StringInput";
 import FileInputButton from "@/components/Template/Button/FileBtn";
+import AddButton from "@/components/Template/Button/Add";
 
 const fourinsureMethods = [
   { id: "true", title: "가입" },
@@ -69,6 +69,19 @@ interface CompanyData {
   content: string;
   // employee_list: object[];
 }
+export interface RecruitData {
+  created_at: Date;
+  company_id: number;
+  job_type: string;
+  number_of_hires: string;
+  salary: string;
+  working_type: string;
+  work_start_hour: string;
+  work_end_hour: string;
+  lunch_hour: string;
+  job_availablility: boolean;
+  etc: string;
+}
 
 // 초기 상태 정의
 const initialCompanyData: CompanyData = {
@@ -99,21 +112,34 @@ const initialCompanyData: CompanyData = {
 export default function CompanyRegister() {
   const [items, setItems] = useState([{}]);
   const [companyData, setCompanyData] = useState(initialCompanyData);
+  const [recruits, setRecruits] = useState<RecruitData[]>([]);
 
-  useEffect(() => {
-    console.log(companyData.certification_link);
-  }, [companyData.certification_link]);
+  // 변경 사항 확인용
+  // useEffect(() => {
+  //   console.log(companyData.certification_link);
+  //   console.log(companyData.content);
+  //   console.log(recruits);
+  // }, [companyData.certification_link, companyData.content, recruits]);
 
   const addItem = () => {
     setItems([...items, {}]);
+    setRecruits([...recruits, initialRecruitData]);
   };
   // Item 삭제
   const removeItem = (index: number) => {
     if (index === 0) return; //안내 메시지 구현하기
     const newItems = [...items];
-    newItems.splice(index, 1);
+    const data = newItems.splice(index, 1);
     setItems(newItems);
   };
+
+  // 추가하기 버튼의 onClick 이벤트 핸들러
+  const handleJobContent = (index: number, updatedRecruit: RecruitData) => {
+    let newRecruits = [...recruits];
+    newRecruits[index] = updatedRecruit;
+    setRecruits(newRecruits);
+  };
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCompanyData({
       ...companyData,
@@ -138,31 +164,44 @@ export default function CompanyRegister() {
       certification_link: fileUrl,
     });
   };
+  const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setCompanyData({
+      ...companyData,
+      content: e.target.value,
+    });
+  };
   const doubleCheck = async () => {
     alert("중복확인");
-    // // 잠시 다운로드 되는지 확인하는 코드
-    // const { data, error } = await supabase.storage
-    //   .from("company")
-    //   .download(companyData.certification_link);
-
-    // if (error) {
-    //   console.log(error.message);
-    // }
-    // if (data) {
-    //   console.log(data);
-    // }
   };
 
+  // 저장 버튼 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    const { error } = await supabase.from("company").insert([companyData]);
-
+    const { data, error } = await supabase
+      .from("company")
+      .insert([companyData])
+      .select("id");
     if (error) {
       console.error("Error inserting data: ", error);
-    } else {
-      console.log("Data inserted successfully");
-      alert("저장되었습니다.");
+    }
+
+    const companyId = data?.[0].id;
+    if (!companyId) {
+      console.error("Error getting company ID");
+      return;
+    }
+
+    for (const recruit of recruits) {
+      if(recruit.job_type === "" ) continue;
+      recruit.company_id = companyId;
+      recruit.job_availablility = true;
+      const { error } = await supabase.from("recruit").insert([recruit]);
+
+      if (error) {
+        console.error("Error inserting recruit data: ", error);
+        return;
+      }
     }
   };
   const handleCancel = (event: FormEvent) => {
@@ -327,35 +366,36 @@ export default function CompanyRegister() {
                     ></FileInputButton>
                   </div>
                   <div className="mt-6">
-                    <SearchButton></SearchButton>
+                    {/* <SearchButton></SearchButton> */}
                   </div>
                 </div>
                 <div className="mt-4">
                   <div>
                     <LabelText text="주요사업" />
-                    <TextAreaBox></TextAreaBox>
+                    <TextAreaBox
+                      id={idCollection.contentId}
+                      value={companyData.content}
+                      onChange={handleTextAreaChange}
+                    ></TextAreaBox>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="mt-10 border-t pt-10 block w-full border-gray-200">
-              {/* <AddButton></AddButton> */}
               <h2 className="flex border-b text-lg font-medium text-gray-900  border-gray-300">
                 <div className="flex-glow border-b-4 border-b-blue-500">
                   구인내용
                 </div>
-                <button
-                  type="button"
-                  className="ml-auto rounded bg-indigo-50 px-2 py-1 my-1 text-xs font-semibold text-blue-600 shadow-sm hover:bg-indigo-100"
-                  onClick={addItem}
-                >
-                  + 추가하기
-                </button>
+                <AddButton addItem={addItem}></AddButton>
               </h2>
               {items.map((item, index) => (
                 <div key={index}>
-                  <JobContent index={index} removeItem={removeItem} />
+                  <JobContent
+                    index={index}
+                    removeItem={removeItem}
+                    handleJobContent={handleJobContent}
+                  />
                 </div>
               ))}
             </div>
