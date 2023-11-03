@@ -14,7 +14,7 @@
 <br></br>
 
 ### Label(라벨 정리)
-> 기본적으로 필수 인자는 `id` 값과 `text`이다.
+> 기본적으로 필수 인자는 `text`이다.
 - 입력칸위에 라벨 텍스트 : LabelText 
 
 <br></br>
@@ -43,14 +43,17 @@
 <br></br>
 
 ### Input(입력칸 정리)
-> 기본적으로 필수 인자는 `id` 값, 선택 인자는 `holder`이다.
+> 기본적으로 필수 인자는 `id` 값, 선택 인자는 `holder`이다.  
+> 추가된 변경사항 `value`값, `onChang`값이고`onChang`는 change이벤트 함수 이다.
 
-- 년도 : YearInput  
-- 문자열 : StringInput
+- 년도 : YearInput(변경됨)  
+- 문자열 : StringInput(변경됨)
 - 긴 문자열 : TextAreaBox
-- 숫자 : NumberInput
-- 이메일 : EmailInput
-- 이름 : NameInput
+- 숫자 : NumberInput(변경됨)
+- 이메일 : EmailInput(변경됨)
+- 이름 : NameInput(변경됨)
+
+
 - 전화번호 : PhoneInput
 
 <br></br>
