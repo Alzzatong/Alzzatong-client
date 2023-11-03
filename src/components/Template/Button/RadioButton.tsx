@@ -1,5 +1,5 @@
 import { group } from "console";
-import React from "react";
+import React, { use } from "react";
 
 interface RadioitemName {
   id: string;
@@ -9,8 +9,10 @@ interface RadioitemName {
 interface Props {
   itemList: RadioitemName[];
   groupName: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+
 }
-const RadioButton: React.FC<Props> = ({ itemList, groupName }) => {
+const RadioButton: React.FC<Props> = ({ itemList, groupName, onChange }) => {
   return (
     <div>
       <fieldset className="mt-4">
@@ -20,10 +22,10 @@ const RadioButton: React.FC<Props> = ({ itemList, groupName }) => {
             <div key={RadioitemName.id} className="flex items-center">
               <input
                 id={RadioitemName.id}
-                name="notification-method"
+                name={groupName}
                 type="radio"
-                // defaultChecked={RadioitemName.id === "email"}
                 className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                onChange={onChange}
               />
               <label
                 htmlFor={RadioitemName.id}
