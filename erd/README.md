@@ -12,7 +12,67 @@
 - 변경 혹은 업데이트가 된 이유    
 - ERD 이미지 삽입
 
+<br></br>
 
+### 2023.11.03
+- 보다 효율적이고 알맞는 칼럼 타입으로 변환
+- 기존Company테이블
+```
+Table Company {
+    CompanyID int [PK]
+    BusinessID int
+    BusinessYear date
+    Name text
+    President varchar(20)
+    MainPhoneNumber varchar(16)
+    SecondPhoneNumber varchar(16)
+    FaxNumber varchar(16)
+    Address text
+    Region varchar(255)
+    LocalDetail varchar(255)
+    FoundationYear date
+    Type varchar(255)
+    Insurance boolean
+    ManagerName varchar(20)
+    ManagerEmail text
+    ManagerPhoneNumber varchar(16)
+    CertificationLink text
+    Content text
+}
+```
+- 변경된 Company 테이블
+  - 전부 카멜표기법에서 스네이크표기법으로 변경
+  - 이름을 보다 직관적이거나 짧게 변경
+    - President -> ceo_name
+    - Name -> company_name
+    - FaxNumber -> fax
+  - business_year, foundation_year: data 타입 -> varchar로 변경
+  - 업종코드 입력란인 business_code 추가
+```
+Table Company {
+    id int [PK]
+    created_at Data
+    business_number varchar
+    business_year varchar
+    company_name text
+    ceo_name varchar(20)
+    main_phone varchar(16)
+    second_phone varchar(16)
+    fax varchar(16)
+    address text
+    region varchar(255)
+    local_detail varchar(255)
+    foundation_year varchar
+    type varchar(255)
+    is_insurance boolean
+    manager_name varchar(20)
+    manager_email text
+    manager_phone varchar(16)
+    certification_link text
+    content text
+    business_code varchar
+}
+```
 <br></br>
 
 ### 2023.11.02
