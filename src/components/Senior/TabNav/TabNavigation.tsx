@@ -3,11 +3,12 @@ interface props {
   handleClick: any;
 }
 
+const tabs = [
+  { name: "구직자 상세조회", href: "#", current: true },
+  { name: "상담내역", href: "#", current: false },
+];
+
 export default function TabNavigation({ currentTab, handleClick }: props) {
-  const tabs = [
-    { name: "구직자 상세정보", href: "#", current: true },
-    { name: "상담내역", href: "#", current: false },
-  ];
 
   function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(" ");
@@ -39,7 +40,7 @@ export default function TabNavigation({ currentTab, handleClick }: props) {
                 className={classNames(
                   currentTab === tab.name // 현재 탭이면 특정 스타일을 적용합니다.
                     ? "border-blue-500 text-blue-600"
-                    : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
+                    : "border-transparent text-black text-2xl font-medium font-['Pretendard'] leading-loose hover:border-gray-300 hover:text-gray-700",
                   "whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium"
                 )}
                 aria-current={tab.current ? "page" : undefined}

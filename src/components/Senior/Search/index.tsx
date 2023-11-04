@@ -1,92 +1,62 @@
+'use client';
 import YearInput from "@/components/Template/Input/YearInput";
 import NameInput from "@/components/Template/Input/NameInput";
 import SearchButton from "@/components/Template/Button/Search";
-import Link from "next/link";
 import NumberInput from "@/components/Template/Input/NumberInput";
 import ManAgeCalculate from "../Template/ManAgeCalculate";
 import AgreementButton from "../Template/AgreementButton";
+
+import Link from "next/link";
+import { supabase } from "@/services/SupabaseClient";
+import { useEffect, useState } from "react";
+
+interface SeniorType {
+  senior_id: number;
+  name: string;
+  regi_first_num: string;
+  regi_second_num: string;
+  address: string;
+  health_status: number;
+  phone_num: string;
+  agreement_link: string;
+}
+
+interface WishListType {
+  wish_list_id: number;
+  senior_id: number;
+  location: string;
+  location_detail: string;
+  job_code_number: number;
+  job_code_name: string;
+  priority: number;
+  salary: number;
+  work_hour: number;
+  work_type: number;
+  etc: string;
+}
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const senior = [
-  {
-    senior_id: 1,
-    name: "홍길동",
-    regi_first_num: "901010",
-    regi_second_num: "1234567",
-    address: "서울특별시 서울구 서울동",
-    health_status: 2,
-    phone_num: "01011112222",
-    agreement_link: "link...",
-  },
-  {
-    senior_id: 2,
-    name: "김이환",
-    regi_first_num: "881010",
-    regi_second_num: "1234567",
-    address: "서울특별시 서울구 서울동",
-    health_status: 2,
-    phone_num: "01011112222",
-    agreement_link: "link...",
-  },
-  {
-    senior_id: 3,
-    name: "임꺽정",
-    regi_first_num: "771010",
-    regi_second_num: "1234567",
-    address: "서울특별시 서울구 서울동",
-    health_status: 2,
-    phone_num: "01011112222",
-    agreement_link: "link...",
-  },
-  //테스트용 더미 데이터
-];
-
-const seniorWishList = [
-  {
-    wish_list_id: 1,
-    senior_id: 1,
-    location: "서울",
-    location_detail: "강남구",
-    job_code_number: 11,
-    job_code_name: "농업",
-    priority: 1,
-    salary: 800,
-    work_hour: 8,
-    work_type: 1,
-    etc: "없음",
-  },
-  {
-    wish_list_id: 2,
-    senior_id: 1,
-    location: "서울",
-    location_detail: "동대문구",
-    job_code_number: 12,
-    job_code_name: "임업",
-    priority: 3,
-    salary: 800,
-    work_hour: 8,
-    work_type: 1,
-    etc: "없음",
-  },
-  {
-    wish_list_id: 3,
-    senior_id: 1,
-    location: "경기도",
-    location_detail: "수원시",
-    job_code_number: 13,
-    job_code_name: "제조업",
-    priority: 2,
-    salary: 800,
-    work_hour: 8,
-    work_type: 1,
-    etc: "없음",
-  },
-];
-
 export default function SeniorSearch() {
+  const [senior, setSenior] = useState<SeniorType[] | null>(null);
+  const [senior_wishlist, setSenior_wishlist] = useState<WishListType[] | null>(null);
+  
+  //supabase connect
+  const call = async () => {
+    const { data, error } = await supabase.from("senior").select();
+    if (error) {
+      console.log(error);
+      return;
+    }
+    setSenior(data);
+  };
+
+  useEffect(() => {
+    call();
+  }, []);
+
   return (
     <div className="bg-gray-50">
       <div className="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -106,19 +76,19 @@ export default function SeniorSearch() {
 
         <h2 className="mt-10 text-l	font-semibold text-gray-900">
           검색 결과
-          <span className="text-xl  text-blue-500 text-l font-bold font-['Pretendard'] leading-tight">{senior.length}</span>
+          <span className="text-xl  text-blue-500 text-l font-bold font-['Pretendard'] leading-tight">{senior?.length}</span>
         </h2>
         <div className="min-h-[560px]">
           <ul
             role="list"
             className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-1 lg:grid-cols-1"
           >
-            {senior.map((senior: any) => (
+            {senior && senior.map((senior: SeniorType) => (
               <li
                 key={senior.senior_id}
                 className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow"
               >
-                <Link href={`/senoir/${senior.senior_id}/detail`}>
+                <Link href={`/senior/${senior.senior_id}/detail`}>
                   <div className="flex w-full items-center justify-between space-x-6 p-6 bg-gray-100 hover:bg-white shadow rounded">
                     <div className="flex-1 truncate">
                       <div className="gap-1">
@@ -126,7 +96,7 @@ export default function SeniorSearch() {
                           <div className="text-black text-xl font-bold font-['Pretendard'] leading-7">
                             {senior.name}
                           </div>
-                          <div className="text-blue-500 text-l font-medium font-['Pretendard'] leading-tight">
+                          <div className="text-blue-500 text-l font-bold font-['Pretendard'] leading-tight">
                             <ManAgeCalculate
                               firstPart={senior.regi_first_num}
                               secondPart={senior.regi_second_num}
@@ -173,7 +143,7 @@ export default function SeniorSearch() {
                         </div>
                       </div>
                       <div className="grid grid-cols-5 gap-4">
-                        {seniorWishList.map((wishList: any) => (
+                        {senior_wishlist&& senior_wishlist.map((wishList: WishListType) => (
                           <div className="mt-4 flex pr-8 py-0.5 gap-2.5">
                             <div
                               key={wishList.wish_list_id}

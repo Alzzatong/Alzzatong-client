@@ -6,13 +6,10 @@ import { useState } from "react";
 import SeniorRegister from "@/components/Senior/Register";
 
 export default function Senior(props: any) {
-  const [currentTab, setCurrentTab] = useState("조회"); // 상태를 'Company' 컴포넌트로 이동
-  // 초기상태 조회
+  const [currentTab, setCurrentTab] = useState("조회");
   const handleSidebarClick = (componentName: string) => {
     setCurrentTab(componentName);
   };
-  // const detail = props.params.cid;
-  // console.log(detail);
 
   return (
     <div className="sidebarContainer">

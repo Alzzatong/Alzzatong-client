@@ -1,22 +1,18 @@
 "use client";
 import { useState } from "react";
-import BusinessNumberInput from "../Template/BusinessNumberInput";
 import PhoneInput from "@/components/Template/Input/PhoneInput";
 import ResidentNumberInput from "../Template/RegiNumberInput";
-import JobCodeInput from "../Template/JobCodeInput";
 import SeniorNameInput from "../Template/SeniorNameInput";
 import SearchButton from "@/components/Template/Button/Search";
 import NameInput from "@/components/Template/Input/NameInput";
-import EmailInput from "@/components/Template/Input/EmailInput";
 import LabelText from "@/components/Template/LabelText/LabelText";
 import RadioButton from "@/components/Template/Button/RadioButton";
 import TextAreaBox from "@/components/Template/Input/TextAreaBox";
-import StringInput from "@/components/Template/Input/StringInput";
 import DropBox from "@/components/Template/SelectBox/DropBox";
 import MultiDropBox from "@/components/Template/SelectBox/MultiDropBox";
 import { BigDistrict, SmallDistrict } from "@/components/Dummy/District";
+import { BigJobCode, SmallJobCode } from "@/components/Dummy/JobCode";
 import ControlWishList from "../Template/ControlWishList";
-import AddButton from "@/components/Template/Button/Add";
 import CalculateAge from "../Template/CalculateAge";
 import { RegiNumberContext } from "../Template/RegiNumberInput";
 
@@ -212,8 +208,8 @@ export default function SeniorRegister() {
                         <div className="mt-4">
                           <LabelText id={"company-address"} text="희망직종" />
                           <MultiDropBox
-                            itemList1={BigDistrict}
-                            itemList2={SmallDistrict}
+                            itemList1={BigJobCode}
+                            itemList2={SmallJobCode}
                             groupName="근무지 분류"
                           />
                         </div>
