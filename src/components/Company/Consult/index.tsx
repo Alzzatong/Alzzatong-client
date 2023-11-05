@@ -2,10 +2,14 @@ import RadioButton from "@/components/Template/Button/RadioButton";
 import TableList from "@/components/Template/List/TableList";
 import ChatingIcon from "../../../../public/svgs/chatingIcon";
 import { ChangeEvent, FormEvent, use, useEffect, useState } from "react";
-import { idCollection } from "../Interface/CompanyInterface";
 import NumberInput from "@/components/Template/Input/NumberInput";
 import TextAreaBox from "@/components/Template/Input/TextAreaBox";
 import { supabase } from "@/lib/supabase/supabase";
+import {
+  deleteConsultServerSideProps,
+  getConsultServerSideProps,
+} from "@/services/supabase/companySelect";
+import Loading from "@/components/Loading";
 
 export const employMethods = [
   { id: "main", title: "본기관" },
@@ -18,12 +22,12 @@ export const employStatus = [
 ];
 export interface ConsultProps {
   company_id: number;
-  consult_list: ConsultData[];
 }
 
 export interface ConsultData {
+  id?: number;
   company_id: number;
-  created_at?: Date;
+  created_at: string;
   employ_method: string;
   employ_status: string;
   employ_date: string;
@@ -32,7 +36,7 @@ export interface ConsultData {
   manager_phone: string;
   content: string;
 }
-export  const consultIdCollection = {
+export const consultIdCollection = {
   company_id: "company_id",
   employ_method: "employ_method",
   employ_status: "employ_status",
@@ -42,7 +46,8 @@ export  const consultIdCollection = {
   manager_phone: "manager_phone",
   content: "content",
 };
-export  const initialConsultData: ConsultData = {
+export const initialConsultData: ConsultData = {
+  created_at: "",
   company_id: 0,
   employ_method: "",
   employ_status: "false",
@@ -53,14 +58,33 @@ export  const initialConsultData: ConsultData = {
   content: "",
 };
 
-export default function CompanyConsult({company_id, consult_list}: ConsultProps) {
-  console.log("company_id: ", company_id);
-  console.log("CompanyConsult에서 consult_list: ", consult_list);
+export default function CompanyConsult({ company_id }: ConsultProps) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [consultList, setConsultList] = useState<ConsultData[]>([]);
+
   initialConsultData.company_id = company_id;
   const [consultData, setConsultData] =
     useState<ConsultData>(initialConsultData);
   const [showEmployInput, setShowEmployInput] = useState(false); // 추가 입력칸 상태
 
+  const checkConsult = (consult: ConsultData) => {
+    setConsultData(consult); // 인자로 받은 consult을 추가합니다.
+  };
+
+  const deleteConsult = (consult: ConsultData) => {
+    if (consult.id != undefined) {
+      setConsultList(consultList.filter((item) => item !== consult)); // 인자로 받은 consult을 제외한 나머지를 저장합니다.
+      console.log("consult.id: ", consult.id);
+      deleteConsultServerSideProps({
+        id: consult.id,
+      });
+      return;
+    } else {
+      // id가 없으면 삭제할 수 없습니다.
+      alert("삭제할 수 없습니다.");
+    }
+  };
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setConsultData({
       ...consultData,
@@ -80,23 +104,42 @@ export default function CompanyConsult({company_id, consult_list}: ConsultProps)
       content: e.target.value,
     });
   };
+  // setConsultData({
 
   //저장버튼
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    const { data, error } = await supabase
-      .from("consult_company")
-      .insert([consultData]);
+    const { data, error } = await supabase.from("consult_company").insert([
+      {
+        company_id: consultData.company_id,
+        employ_method: consultData.employ_method,
+        employ_status: consultData.employ_status,
+        employ_date: consultData.employ_date,
+        manager_name: consultData.manager_name,
+        manager_email: consultData.manager_email,
+        manager_phone: consultData.manager_phone,
+        content: consultData.content,
+      },
+    ]);
     if (error) {
       console.error("Error inserting company data:", error);
     } else {
       alert("저장되었습니다.");
     }
-
   };
 
   useEffect(() => {
-    console.log("consultData: ", consultData);
+    const fetchData = async () => {
+      setIsLoading(true);
+      getConsultServerSideProps({
+        id: company_id,
+        setConsultList: setConsultList,
+      });
+      setIsLoading(false);
+    };
+    fetchData();
+  }, []);
+  useEffect(() => {
     if (consultData.employ_status === "true") {
       setShowEmployInput(true);
     } else {
@@ -117,6 +160,7 @@ export default function CompanyConsult({company_id, consult_list}: ConsultProps)
             <RadioButton
               itemList={employMethods}
               groupName={consultIdCollection.employ_method}
+              value={consultData.employ_method}
               onChange={handleEmployRadioButtonChange}
             ></RadioButton>
           </div>
@@ -127,6 +171,7 @@ export default function CompanyConsult({company_id, consult_list}: ConsultProps)
             <RadioButton
               itemList={employStatus}
               groupName={consultIdCollection.employ_status}
+              value={consultData.employ_status}
               onChange={handleEmployRadioButtonChange}
             ></RadioButton>
             {showEmployInput && (
@@ -163,7 +208,16 @@ export default function CompanyConsult({company_id, consult_list}: ConsultProps)
         </button>
       </div>
       <div className="mt-10 border-t border-gray-200 pt-10"></div>
-      <TableList />
+      {/* 만약 isLoading이 true이면 */}
+      {isLoading && <Loading />}
+      {!isLoading && (
+        <TableList
+          consults={consultList}
+          checkConsult={checkConsult}
+          deleteConsult={deleteConsult}
+        />
+      )}
+      {/* <TableList consults={consultList} /> */}
     </div>
   );
 }

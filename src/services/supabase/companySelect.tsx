@@ -14,7 +14,9 @@ interface ConsultDataProps {
   id: number;
   setConsultList: (data: ConsultData[]) => void;
 }
-
+interface DeleteConsultDataProps {
+  id: number;
+}
 export async function getDetailServerSideProps({
   id,
   setCompanyData,
@@ -48,5 +50,20 @@ export async function getConsultServerSideProps({
   } else {
     console.log("getConsultServerSideProps에서 data: ", data);
     setConsultList(data);
+  }
+}
+export async function deleteConsultServerSideProps({
+  id,
+}: DeleteConsultDataProps) {
+  //supabse에서 삭제
+  const { error } = await supabase
+    .from("consult_company")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    console.error("Error fetching company data:", error);
+  } else {
+    alert("삭제되었습니다.");
   }
 }
