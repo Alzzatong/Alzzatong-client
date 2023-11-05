@@ -4,32 +4,24 @@ import CompanyConsult, { ConsultData } from "@/components/Company/Consult";
 import TabNavigation from "@/components/Company/TabNav/TabNavigation";
 import { use, useEffect, useState } from "react";
 import Loading from "@/components/Loading";
-import { supabase } from "@/lib/supabase/supabase";
 import { CompanyData, RecruitData, initialCompanyData } from "@/components/Company/Interface/CompanyInterface";
-import { getConsultServerSideProps, getDetailServerSideProps } from "@/services/supabase/companySelect";
-import { get } from "http";
+import { getDetailServerSideProps } from "@/services/supabase/companySelect";
 
 export default function DetailPage(props: any) {
   const [isLoading, setIsLoading] = useState(true);
   const [currentTab, setCurrentTab] = useState("구직자 상세정보");
   const [companyData, setCompanyData] = useState<CompanyData>(initialCompanyData);
   const [recruits, setRecruits] = useState<RecruitData[]>([]);
-  // 상담 리스트를 받아와서 저장합니다.
-  const [consultList, setConsultList] = useState<ConsultData[]>([]);
   
   const addRecruit = (recruit : RecruitData) =>{
     setRecruits([...recruits, recruit]); // 인자로 받은 recruit을 추가합니다.
   }
-  const addConsult = (consult : ConsultData) =>{
-    setConsultList([...consultList, consult]); // 인자로 받은 consult을 추가합니다.
-  }
+ 
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       getDetailServerSideProps({id: props.params.cid, setCompanyData: setCompanyData, addRecruit: addRecruit});
-      getConsultServerSideProps({id: props.params.cid, setConsultList: setConsultList});
-      console.log("레이아웃에서 consultList: ", consultList);
       setIsLoading(false);
     };
     fetchData();
@@ -40,7 +32,7 @@ export default function DetailPage(props: any) {
   }
 
   if (isLoading) {
-    return <Loading />;
+    return <Loading/>;
   } else {
     return (
       <div className="sidebarContainer">
@@ -55,7 +47,7 @@ export default function DetailPage(props: any) {
             {currentTab == "구직자 상세정보" ? (
               <CompanyDetail companyInfo={companyData} recruitsInfo={recruits}/>
             ) : (
-              <CompanyConsult company_id={props.params.cid} consult_list={consultList}/>
+              <CompanyConsult company_id={props.params.cid}/>
             )}
           </div>
         </div>
