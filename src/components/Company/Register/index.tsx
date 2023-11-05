@@ -9,14 +9,13 @@ import RadioButton from "@/components/Template/Button/RadioButton";
 import TextAreaBox from "@/components/Template/Input/TextAreaBox";
 import YearInput from "@/components/Template/Input/YearInput";
 import NumberInput from "@/components/Template/Input/NumberInput";
-import JobContent, { initialRecruitData } from "../Template/JobContent";
+import JobContent from "../Template/JobContent";
 import { supabase } from "@/lib/supabase/supabase";
 import PhoneNumberInput from "@/components/Template/Input/PhoneInput";
 import StringInput from "@/components/Template/Input/StringInput";
 import FileInputButton from "@/components/Template/Button/FileBtn";
 import AddButton from "@/components/Template/Button/Add";
-import { RecruitData } from "../Interface/RecruitInterface";
-import { fourinsureMethods, idCollection, initialCompanyData } from "../Interface/CompanyInterface";
+import { RecruitData, fourinsureMethods, idCollection, initialCompanyData, initialRecruitData } from "../Interface/CompanyInterface";
 
 
 export default function CompanyRegister() {
@@ -231,6 +230,14 @@ export default function CompanyRegister() {
                     ></EmailInput>
                   </div>
                 </div>
+                {/* <div className="mt-4 ">
+                <LabelText text="담당자 전화번호"></LabelText>
+                  <PhoneNumberInput
+                    id={idCollection.managerPhoneId}
+                    onPhoneNumberChange={handlePhoneNumberChange}
+                    phoneNumber={companyData.main_phone}
+                  ></PhoneNumberInput>
+                  </div> */}
                 <div className="mt-4 ">
                   <div>
                     <LabelText text="기업소재지" />

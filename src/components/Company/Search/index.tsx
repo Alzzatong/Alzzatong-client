@@ -30,7 +30,6 @@ interface CompanyBox {
   manager_email: string;
   address: string;
 }
-interface JoinedData {}
 
 export default function CompanySearch() {
   const [year, setYear] = useState<string>("");
@@ -61,11 +60,9 @@ export default function CompanySearch() {
       .filter("recruit.job_availablility", "eq", jobAvailability);
     if (error) console.error("Error loading data: ", error);
     else  setCompany(joinedData ||[]);
-    console.log("joinedData: ", joinedData);
   };
 
   useEffect(() => {
-    console.log("jobAvailability: ", jobAvailability);
     // handleSearch 한번 실행
     handleSearch();
   }, [year, name, jobAvailability]);

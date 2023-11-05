@@ -45,7 +45,6 @@ export default function TabNavigation({ currentTab, handleClick }: props) {
                 onClick={(event) => {
                   event.preventDefault();
                   handleClick(tab.name); // 탭을 클릭하면 handleClick 함수를 호출합니다.
-                  console.log(tab.name);
                 }}
               >
                 {tab.name}

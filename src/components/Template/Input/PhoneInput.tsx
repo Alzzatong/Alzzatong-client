@@ -2,14 +2,17 @@ import React, { useState, useEffect, useRef } from "react";
 
 interface PhoneNumberInputProps {
   onPhoneNumberChange: (phoneNumber: string) => void;
+  phone1?: string;
+  phone2?: string;
+  phone3?: string;
 }
 
-export default function PhoneNumberInput({
-  onPhoneNumberChange,
-}: PhoneNumberInputProps) {
-  const [phoneNumber1, setPhoneNumber1] = useState<string>("");
-  const [phoneNumber2, setPhoneNumber2] = useState<string>("");
-  const [phoneNumber3, setPhoneNumber3] = useState<string>("");
+export default function PhoneNumberInput({onPhoneNumberChange,
+  phone1, phone2, phone3
+ }: PhoneNumberInputProps) {
+  const [phoneNumber1, setPhoneNumber1] = useState<string>(phone1 || "");
+  const [phoneNumber2, setPhoneNumber2] = useState<string>(phone2 || "");
+  const [phoneNumber3, setPhoneNumber3] = useState<string>(phone3 || "");
 
   const inputRef2 = useRef<HTMLInputElement>(null);
   const inputRef3 = useRef<HTMLInputElement>(null);
@@ -17,7 +20,6 @@ export default function PhoneNumberInput({
   useEffect(() => {
     const fullPhoneNumber = `${phoneNumber1}-${phoneNumber2}-${phoneNumber3}`;
     onPhoneNumberChange(fullPhoneNumber);
-    // console.log(fullPhoneNumber);
   }, [phoneNumber1, phoneNumber2, phoneNumber3]);
 
   const handleChange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +52,6 @@ export default function PhoneNumberInput({
           onChange={handleChange1}
           pattern="[0-9]{3}"
           required // 반드시 채워져있어야 한다는 속성
-          
         />
         <div className="w-auto flex items-center justify-center mx-2">-</div>
 
