@@ -1,3 +1,5 @@
+import exp from "constants";
+
 // id모음
 export const idCollection = {
   businessYearId: "business_year",
@@ -25,9 +27,17 @@ export const fourinsureMethods = [
   { id: "true", title: "가입" },
   { id: "false", title: "미가입" },
 ];
+export const employMethods = [
+  { id: "main", title: "본기관" },
+  { id: "other", title: "타기관" },
+  { id: "self", title: "자가 취업" },
+];
+export const employStatus = [
+  { id: "false", title: "구인중" },
+  { id: "true", title: "구인완료" },
+];
 
-export interface CompanyData {
-  created_at: Date;
+export interface CompanyData{
   business_year: string;
   business_number: string;
   company_name: string;
@@ -37,21 +47,44 @@ export interface CompanyData {
   second_phone: string;
   fax: string;
   address: string;
-  region: string;
-  local_detail: string;
   foundation_year: string;
-  type: string;
   is_insurance: boolean;
+  type: string;
   manager_name: string;
   manager_email: string;
   manager_phone: string;
   certification_link: string;
   content: string;
-  // employee_list: object[];
+}
+
+export interface GetCompanyData extends CompanyData{
+  created_at: Date;
+  // region: string;
+  // local_detail: string;  
 }
 
 // 초기 상태 정의
 export const initialCompanyData: CompanyData = {
+  business_year: "",
+  business_number: "",
+  company_name: "",
+  ceo_name: "",
+  business_code: "",
+  main_phone: "",
+  second_phone: "",
+  fax: "",
+  address: "",
+  foundation_year: "",
+  type: "",
+  is_insurance: false,
+  manager_name: "",
+  manager_email: "",
+  manager_phone: "",
+  certification_link: "",
+  content: "",
+};
+// 초기 상태 정의
+export const initialGetCompanyData: GetCompanyData = {
   created_at: new Date(),
   business_year: "",
   business_number: "",
@@ -62,8 +95,6 @@ export const initialCompanyData: CompanyData = {
   second_phone: "",
   fax: "",
   address: "",
-  region: "",
-  local_detail: "",
   foundation_year: "",
   type: "",
   is_insurance: false,
@@ -72,13 +103,9 @@ export const initialCompanyData: CompanyData = {
   manager_phone: "",
   certification_link: "",
   content: "",
-  // employee_list: [],
 };
-
 // 구인정보
 export interface RecruitData {
-  created_at: Date;
-  company_id: number;
   job_type: string;
   number_of_hires: string;
   salary: string;
@@ -86,12 +113,25 @@ export interface RecruitData {
   work_start_hour: string;
   work_end_hour: string;
   lunch_hour: string;
-  job_availablility: boolean;
   etc: string;
 }
+
+
+
+export interface SaveRecruitData extends RecruitData {
+  company_id: number;
+  job_availablility: boolean;
+
+}
+
+export interface GetRecruitData extends RecruitData{
+  id: number;
+  created_at: Date;
+  job_availablility: boolean;
+}
+
+//초기화
 export const initialRecruitData: RecruitData = {
-  created_at: new Date(),
-  company_id: 0,
   job_type: "",
   number_of_hires: "",
   salary: "",
@@ -100,8 +140,9 @@ export const initialRecruitData: RecruitData = {
   work_end_hour: "",
   lunch_hour: "",
   etc: "",
-  job_availablility: false,
 };
+
+
 
 // 조인테이블
 export interface JoinData {
@@ -125,7 +166,7 @@ export interface JoinData {
   manager_phone: string;
   certification_link: string;
   content: string;
-  recruit: RecruitData[];
+  recruit: GetRecruitData[];
 }
 
 export const initialJoinData: JoinData = {
@@ -151,6 +192,9 @@ export const initialJoinData: JoinData = {
   content: "",
   recruit: [], // 초기화용 RecruitData 배열을 추가해야 할 수도 있습니다.
 };
+
+
+
 
 export const dummy: JoinData = {
   business_year: "2021",

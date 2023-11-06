@@ -1,14 +1,16 @@
 import { ConsultData } from "@/components/Company/Consult";
 import {
   CompanyData,
+  GetCompanyData,
+  GetRecruitData,
   RecruitData,
 } from "@/components/Company/Interface/CompanyInterface";
 import { supabase } from "@/lib/supabase/supabase";
 
 interface CompanyDataProps {
   id: number;
-  setCompanyData: (data: CompanyData) => void;
-  addRecruit: (recruit: RecruitData) => void;
+  setCompanyData: (data: GetCompanyData) => void;
+  addRecruit: (recruit: GetRecruitData) => void;
 }
 interface ConsultDataProps {
   id: number;
@@ -31,7 +33,7 @@ export async function getDetailServerSideProps({
     console.error("Error fetching company data:", error);
   } else {
     setCompanyData(data);
-    data.recruit.forEach((recruit: RecruitData) => {
+    data.recruit.forEach((recruit: GetRecruitData) => {
       addRecruit(recruit);
     });
   }

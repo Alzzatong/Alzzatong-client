@@ -15,24 +15,18 @@ import PhoneNumberInput from "@/components/Template/Input/PhoneInput";
 import StringInput from "@/components/Template/Input/StringInput";
 import FileInputButton from "@/components/Template/Button/FileBtn";
 import AddButton from "@/components/Template/Button/Add";
-import { RecruitData, fourinsureMethods, idCollection, initialCompanyData, initialRecruitData } from "../Interface/CompanyInterface";
+import { RecruitData, SaveRecruitData, fourinsureMethods, idCollection, initialCompanyData, initialRecruitData } from "../Interface/CompanyInterface";
 
 
 export default function CompanyRegister() {
   const [items, setItems] = useState([{}]);
+  const [reset, setReset] = useState(false);
   const [companyData, setCompanyData] = useState(initialCompanyData);
-  const [recruits, setRecruits] = useState<RecruitData[]>([]);
-
-  // 변경 사항 확인용
-  // useEffect(() => {
-  //   console.log(companyData.certification_link);
-  //   console.log(companyData.content);
-  //   console.log(recruits);
-  // }, [companyData.certification_link, companyData.content, recruits]);
+  const [recruits, setRecruits] = useState<RecruitData[]>([initialRecruitData]);
 
   const addItem = () => {
     setItems([...items, {}]);
-    setRecruits([...recruits, initialRecruitData]);
+    setRecruits([...recruits, initialRecruitData]); 
   };
   // Item 삭제
   const removeItem = (index: number) => {
@@ -65,6 +59,12 @@ export default function CompanyRegister() {
     setCompanyData({
       ...companyData,
       [e.target.name]: e.target.id,
+    });
+  };
+  const handleBooleanRadioButtonChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setCompanyData({
+      ...companyData,
+      [e.target.name]: e.target.id === "true" ? true : false,
     });
   };
   const handleFileChange = (fileUrl: string) => {
@@ -103,21 +103,28 @@ export default function CompanyRegister() {
 
     for (const recruit of recruits) {
       if(recruit.job_type === "" ) continue;
-      recruit.company_id = companyId;
-      recruit.job_availablility = true;
-      const { error } = await supabase.from("recruit").insert([recruit]);
-
+      const saveRecruitData: SaveRecruitData ={
+        ...recruit,
+        company_id: companyId,
+        job_availablility: true,
+      }
+      const { error } = await supabase.from("recruit").insert([saveRecruitData]);
       if (error) {
         console.error("Error inserting recruit data: ", error);
         return;
       }
     }
+    alert("저장되었습니다.");
+    handleCancel(event);
   };
   const handleCancel = (event: FormEvent) => {
     event.preventDefault();
 
     // form 초기화
     setCompanyData(initialCompanyData);
+    setRecruits([initialRecruitData]);
+    setItems([{}]);
+    setReset(!reset);
     // 페이지 최상단으로 이동
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -193,6 +200,8 @@ export default function CompanyRegister() {
                   <LabelText text="전화번호"></LabelText>
                   <PhoneNumberInput
                     onPhoneNumberChange={handlePhoneNumberChange}
+                    reset={reset}
+                    setReset={setReset}
                   ></PhoneNumberInput>
                   <div className="mt-4 w-1/2">
                     <LabelText text="팩스번호"></LabelText>
@@ -230,27 +239,15 @@ export default function CompanyRegister() {
                     ></EmailInput>
                   </div>
                 </div>
-                {/* <div className="mt-4 ">
-                <LabelText text="담당자 전화번호"></LabelText>
-                  <PhoneNumberInput
-                    id={idCollection.managerPhoneId}
-                    onPhoneNumberChange={handlePhoneNumberChange}
-                    phoneNumber={companyData.main_phone}
-                  ></PhoneNumberInput>
-                  </div> */}
                 <div className="mt-4 ">
                   <div>
                     <LabelText text="기업소재지" />
                     <StringInput
-                      id={idCollection.localDetailId}
+                      id={idCollection.addressId}
                       value={companyData.address}
                       onChange={handleChange}
                     ></StringInput>
                   </div>
-                  {/* <div>
-                    <LabelText text="기업주소" />
-                    <StringInput id={idCollection.addressId}></StringInput>
-                  </div> */}
                 </div>
                 <div className="mt-4 w-1/3">
                   <div>
@@ -269,7 +266,8 @@ export default function CompanyRegister() {
                     <RadioButton
                       itemList={fourinsureMethods}
                       groupName={idCollection.isInsuranceId}
-                      onChange={handleRadioButtonChange}
+                      value={companyData.is_insurance.toString()}
+                      onChange={handleBooleanRadioButtonChange}
                     ></RadioButton>
                   </div>
                 </div>
@@ -312,6 +310,7 @@ export default function CompanyRegister() {
                     index={index}
                     removeItem={removeItem}
                     handleJobContent={handleJobContent}
+                    recruitData={recruits[index]}
                   />
                 </div>
               ))}

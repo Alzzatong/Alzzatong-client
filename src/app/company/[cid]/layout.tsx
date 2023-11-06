@@ -2,18 +2,18 @@
 import CompanyDetail from "@/components/Company/Detail";
 import CompanyConsult, { ConsultData } from "@/components/Company/Consult";
 import TabNavigation from "@/components/Company/TabNav/TabNavigation";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "@/components/Loading";
-import { CompanyData, RecruitData, initialCompanyData } from "@/components/Company/Interface/CompanyInterface";
+import { GetCompanyData, GetRecruitData, initialGetCompanyData,  } from "@/components/Company/Interface/CompanyInterface";
 import { getDetailServerSideProps } from "@/services/supabase/companySelect";
 
 export default function DetailPage(props: any) {
   const [isLoading, setIsLoading] = useState(true);
   const [currentTab, setCurrentTab] = useState("구직자 상세정보");
-  const [companyData, setCompanyData] = useState<CompanyData>(initialCompanyData);
-  const [recruits, setRecruits] = useState<RecruitData[]>([]);
+  const [companyData, setCompanyData] = useState<GetCompanyData>(initialGetCompanyData);
+  const [recruits, setRecruits] = useState<GetRecruitData[]>([]);
   
-  const addRecruit = (recruit : RecruitData) =>{
+  const addRecruit = (recruit : GetRecruitData) =>{
     setRecruits([...recruits, recruit]); // 인자로 받은 recruit을 추가합니다.
   }
  

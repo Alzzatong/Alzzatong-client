@@ -5,10 +5,12 @@ interface PhoneNumberInputProps {
   phone1?: string;
   phone2?: string;
   phone3?: string;
+  reset: boolean;
+  setReset: (reset: boolean) => void;
 }
 
 export default function PhoneNumberInput({onPhoneNumberChange,
-  phone1, phone2, phone3
+  phone1, phone2, phone3, reset, setReset
  }: PhoneNumberInputProps) {
   const [phoneNumber1, setPhoneNumber1] = useState<string>(phone1 || "");
   const [phoneNumber2, setPhoneNumber2] = useState<string>(phone2 || "");
@@ -16,6 +18,16 @@ export default function PhoneNumberInput({onPhoneNumberChange,
 
   const inputRef2 = useRef<HTMLInputElement>(null);
   const inputRef3 = useRef<HTMLInputElement>(null);
+
+   // reset prop이 변경될 때마다 전화번호 상태를 초기화합니다.
+  useEffect(() => {
+    if (reset) {
+      setPhoneNumber1("");
+      setPhoneNumber2("");
+      setPhoneNumber3("");
+      setReset(false)
+    }
+  }, [reset]);
 
   useEffect(() => {
     const fullPhoneNumber = `${phoneNumber1}-${phoneNumber2}-${phoneNumber3}`;

@@ -10,16 +10,9 @@ import {
   getConsultServerSideProps,
 } from "@/services/supabase/companySelect";
 import Loading from "@/components/Loading";
+import { employMethods, employStatus } from "../Interface/CompanyInterface";
 
-export const employMethods = [
-  { id: "main", title: "본기관" },
-  { id: "other", title: "타기관" },
-  { id: "self", title: "자가 취업" },
-];
-export const employStatus = [
-  { id: "false", title: "구인중" },
-  { id: "true", title: "구인완료" },
-];
+
 export interface ConsultProps {
   company_id: number;
 }
@@ -29,7 +22,7 @@ export interface ConsultData {
   company_id: number;
   created_at: string;
   employ_method: string;
-  employ_status: string;
+  employ_status: boolean;
   employ_date: string;
   manager_name: string;
   manager_email: string;
@@ -50,7 +43,7 @@ export const initialConsultData: ConsultData = {
   created_at: "",
   company_id: 0,
   employ_method: "",
-  employ_status: "false",
+  employ_status: false,
   employ_date: "",
   manager_name: "",
   manager_email: "",
@@ -98,6 +91,12 @@ export default function CompanyConsult({ company_id }: ConsultProps) {
       [e.target.name]: e.target.id,
     });
   };
+  const handleBooleanRadioButtonChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setConsultData({
+      ...consultData,
+      [e.target.name]: e.target.id === "true" ? true : false,
+    });
+  };
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setConsultData({
       ...consultData,
@@ -140,7 +139,7 @@ export default function CompanyConsult({ company_id }: ConsultProps) {
     fetchData();
   }, []);
   useEffect(() => {
-    if (consultData.employ_status === "true") {
+    if (consultData.employ_status == true) {
       setShowEmployInput(true);
     } else {
       setShowEmployInput(false);
@@ -171,8 +170,8 @@ export default function CompanyConsult({ company_id }: ConsultProps) {
             <RadioButton
               itemList={employStatus}
               groupName={consultIdCollection.employ_status}
-              value={consultData.employ_status}
-              onChange={handleEmployRadioButtonChange}
+              value={consultData.employ_status.toString()}
+              onChange={handleBooleanRadioButtonChange}
             ></RadioButton>
             {showEmployInput && (
               <div className="mt-1 ml-3">

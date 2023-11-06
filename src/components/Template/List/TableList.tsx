@@ -104,7 +104,7 @@ export default function TableList({ consults, checkConsult, deleteConsult}: Cons
                         {consult.manager_email|| "미등록"}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 flex justify-center items-center">
-                        {consult.employ_status == "true" ? (
+                        {consult.employ_status == true ? (
                           // 가운데 정렬을 위해 div로 감싸줍니다.
                           // <div className="w-5 h-5 bg-blue-500 rounded" />
                           <CheckCircleIcon 
