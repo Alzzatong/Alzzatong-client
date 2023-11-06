@@ -2,33 +2,24 @@
 import React, { useState, useEffect } from "react";
 import SearchComponent from "@/components/Company/Search";
 import RegisterComponent from "@/components/Company/Register";
-import {
-  PencilSquareIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/outline";
 
-const navigation = [
-  {
-    name: "조회",
-    href: "#search",
-    icon: MagnifyingGlassIcon,
-  },
-  {
-    name: "등록",
-    href: "#register",
-    icon: PencilSquareIcon,
-  },
-];
+
+interface navigation{
+  name: string;
+  href: string;
+  icon: any;
+
+}
 interface props {
   currentTab: string;
   setCurrentTab: any;
-  onClick: any;
+  navigationList: navigation[];
 }
 
 export default function SidebarNav({
   currentTab,
   setCurrentTab,
-  onClick,
+  navigationList,
 }: props) {
   function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(" ");
@@ -42,10 +33,11 @@ export default function SidebarNav({
             <ul role="list" className="flex flex-1 flex-col gap-y-7">
               <li>
                 <ul role="list" className="-mx-2 space-y-1">
-                  {navigation.map((item) => (
+                  {navigationList.map((item) => (
                     <li key={item.name}>
                       <a
-                        onClick={() => onClick(item.name)} // 클릭 시 현재 탭을 업데이트
+                        onClick={() => setCurrentTab(item.name)} // 클릭 시 현재 탭을 업데이트
+                        href={item.href}
                         className={classNames(
                           currentTab === item.name
                             ? "bg-gray-50 text-blue-600"
