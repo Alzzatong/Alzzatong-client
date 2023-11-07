@@ -1,6 +1,6 @@
 import RadioButton from "@/components/Template/Button/RadioButton";
 import TableList from "@/components/Template/List/TableList";
-import ChatingIcon from "../../../../public/svgs/chatingIcon";
+import ChatingIcon from "../../../styles/svgs/chatingIcon";
 import { ChangeEvent, FormEvent, use, useEffect, useState } from "react";
 import NumberInput from "@/components/Template/Input/NumberInput";
 import TextAreaBox from "@/components/Template/Input/TextAreaBox";

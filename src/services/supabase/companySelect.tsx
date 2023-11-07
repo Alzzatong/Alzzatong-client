@@ -7,6 +7,16 @@ import {
 } from "@/components/Company/Interface/CompanyInterface";
 import { supabase } from "@/lib/supabase/supabase";
 
+// interface CompanyNameAndAddressProps {
+//   company_name: string;
+//   address: string;
+// }
+interface CompanyNameProps {
+  id: number;
+  setCompanyName: (data: string) => void;
+  setAddress: (data: string) => void;
+}
+
 interface CompanyDataProps {
   id: number;
   setCompanyData: (data: GetCompanyData) => void;
@@ -19,6 +29,21 @@ interface ConsultDataProps {
 interface DeleteConsultDataProps {
   id: number;
 }
+
+export async function getServerSideCompanyName({ id, setCompanyName, setAddress }: CompanyNameProps) {
+  const { data, error } = await supabase
+    .from("company")
+    .select(`company_name, address`) //recruit 테이블과 조인
+    .eq("id", id)
+    .single();
+  if (error) {
+    console.error("Error fetching company data:", error);
+  } else {
+    setCompanyName(data.company_name);
+    setAddress(data.address);
+  }
+}
+
 export async function getDetailServerSideProps({
   id,
   setCompanyData,
