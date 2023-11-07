@@ -16,6 +16,7 @@ import StringInput from "@/components/Template/Input/StringInput";
 import FileInputButton from "@/components/Template/Button/FileBtn";
 import AddButton from "@/components/Template/Button/Add";
 import { RecruitData, SaveRecruitData, fourinsureMethods, idCollection, initialCompanyData, initialRecruitData } from "../Interface/CompanyInterface";
+import JobCodeInput from "@/components/Template/Input/JobCodeInput";
 
 
 export default function CompanyRegister() {
@@ -189,11 +190,11 @@ export default function CompanyRegister() {
                 <div className="mt-4  w-1/3">
                   <LabelText text="업종코드"></LabelText>
                   <div className="mt-1">
-                    <NumberInput
+                    <JobCodeInput
                       id={idCollection.businessCodeId}
                       value={companyData.business_code}
                       onChange={handleChange}
-                    ></NumberInput>
+                    ></JobCodeInput>
                   </div>
                 </div>
                 <div className="mt-4">
