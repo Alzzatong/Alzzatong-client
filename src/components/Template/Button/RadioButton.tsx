@@ -1,5 +1,5 @@
 import { group } from "console";
-import React from "react";
+import React, { use } from "react";
 
 interface RadioitemName {
   id: string;
@@ -9,8 +9,11 @@ interface RadioitemName {
 interface Props {
   itemList: RadioitemName[];
   groupName: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value: string; // 현재 선택된 라디오 버튼의 id
+
 }
-const RadioButton: React.FC<Props> = ({ itemList, groupName }) => {
+const RadioButton: React.FC<Props> = ({ itemList, groupName, value, onChange }) => {
   return (
     <div>
       <fieldset className="mt-4">
@@ -20,10 +23,12 @@ const RadioButton: React.FC<Props> = ({ itemList, groupName }) => {
             <div key={RadioitemName.id} className="flex items-center">
               <input
                 id={RadioitemName.id}
-                name="notification-method"
+                name={groupName}
                 type="radio"
-                // defaultChecked={RadioitemName.id === "email"}
                 className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                onChange={onChange}
+                checked={value === RadioitemName.id} // value prop과 id가 일치하면 체크됨
+
               />
               <label
                 htmlFor={RadioitemName.id}

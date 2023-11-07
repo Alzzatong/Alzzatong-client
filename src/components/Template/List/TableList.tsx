@@ -1,26 +1,18 @@
-const consults = [
-  {
-    id: 1,
-    consultDate: "2021-09-01",
-    manageName: "홍길동",
-    managePhone: "010-1234-5678",
-    manageEmail: "ddong@example.com",
-    employStatus: true,
-    consultContent: "상담내용입니다. 아 개발하기 싫어~~~",
-  },
-  {
-    id: 2,
-    consultDate: "2021-09-02",
-    manageName: "홍길동",
-    managePhone: "010-1234-5678",
-    manageEmail: "ddong@example.com",
-    employStatus: true,
-    consultContent: "상담내용입니다. 아 하루종일 컴퓨터앞에 있어서 하기싫어~",
-  },
+import { ConsultData } from "@/components/Company/Consult";
+import {
+  MinusCircleIcon,
+  CheckCircleIcon,
+} from "@heroicons/react/24/outline";
+import { ChangeEvent } from "react";
 
-];
+interface ConsultListProps {
+  consults: ConsultData[];
+  checkConsult: (consult: ConsultData) => void;
+  deleteConsult: (consult: ConsultData) => void;
+}
 
-export default function TableList() {
+export default function TableList({ consults, checkConsult, deleteConsult}: ConsultListProps) {
+
   return (
     <div className="mt-10">
       <div className="sm:flex sm:items-center">
@@ -29,7 +21,6 @@ export default function TableList() {
             최신순
           </h1>
         </div>
-        
       </div>
       <div className="mt-8 flow-root">
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -40,49 +31,49 @@ export default function TableList() {
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                      className="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-gray-900 sm:pl-6"
                     >
                       순번
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-sm font-semibold text-gray-900 text-center"
                     >
                       상담일자
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
                     >
                       담당자
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
                     >
                       담당자 연락처
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
                     >
                       담당자 이메일
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
                     >
                       구인 유무
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
                     >
                       상담 내용
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
                     >
                       삭제
                     </th>
@@ -95,33 +86,46 @@ export default function TableList() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {consults.map((consult) => (
-                    <tr key={consult.id}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                        {consult.id}
+                  {consults.map((consult, index) => (
+                    <tr key={index} onClick={() => checkConsult(consult)}>
+                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 text-center">
+                        {index + 1}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {consult.consultDate}
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
+                        {consult.created_at.slice(0, 10)}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {consult.manageName}
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
+                        {consult.manager_name || "미등록"}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {consult.managePhone}
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
+                        {consult.manager_phone||  "미등록"}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {consult.manageEmail}
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
+                        {consult.manager_email|| "미등록"}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {consult.employStatus}
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 flex justify-center items-center">
+                        {consult.employ_status == true ? (
+                          // 가운데 정렬을 위해 div로 감싸줍니다.
+                          // <div className="w-5 h-5 bg-blue-500 rounded" />
+                          <CheckCircleIcon 
+                          className="w-8 h-8 text-blue-600"/>
+                        ) : (
+                          <MinusCircleIcon
+                          className="w-8 h-8 text-gray-600"/>
+                        )}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {consult.consultContent}
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
+                        {consult.content}
                       </td>
-                      <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                      <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6 ">
                         <a
                           href="#"
                           className="text-blue-600 hover:text-blue-900"
+                          onClick={(e) => {
+                            e.stopPropagation(); // tr의 onClick 이벤트 방지
+                            deleteConsult(consult); // 삭제 함수 호출
+                          }}
+                    
                         >
                           삭제<span className="sr-only"></span>
                         </a>

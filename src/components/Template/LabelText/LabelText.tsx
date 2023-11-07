@@ -1,10 +1,10 @@
 interface Props {
-  id: string;
+  // id: string;
   text: string;
 }
-export default function LabelText({ id, text }: Props) {
+export default function LabelText({  text }: Props) {
   return (
-    <label htmlFor={id} className="block text-sm font-medium text-gray-700">
+    <label className="block text-sm font-medium text-gray-700">
       {text}
     </label>
   );
