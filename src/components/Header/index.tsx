@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 
 const navigation = [
-  { name: '구직자', href: '/seeker' },
+  { name: '구직자', href: '/senior' },
   { name: '구인처', href: '/company' },
   { name: '매칭', href: '/matching' },
   { name: '메일', href: '/email' },

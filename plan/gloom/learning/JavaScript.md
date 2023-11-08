@@ -1,4 +1,26 @@
 # JavaScript 문법
+## Modal 
+- [리엑트-모달 라이브러리 공식 링크](https://reactcommunity.org/react-modal/)
+- 보통 alert(경고)창 대신에 custom한 모달창을 쓴다. (모달창을 쓰는 이유는 아래와 같다.)
+  - 이유는 화면의 일부를 가리면서 사용자에게 주의를 집중시킬 수 있고
+  - 단순히 메시지를 표시하고 확인버튼 누르면 닫히는 alert창과는 다르게, 다양한 상호작용이 가능하다.
+  - 디자인과 스타일링도 가능
+- 이러한 모달창을 사용하기 좋게, 라이브러리로 제공을 해준다. 
+  - React Modal, Material-UI, React-Bootstrap, Reach UI 등의 라이브러리가 있다.
+  - 이중 react기반으로 개발된 React Modal이 기존 컴포넌트와함께 자연스럽게 통합되기 좋다.
+  - 또한, React Modal은 경량화되어 있어, 다른 모달 라이브러리에 비해 더 가볍고 효율적이다.
+### React Modal 제공하는 기능
+- 이 외에도 많은 기능이 있지만, 알게된 내용 및 사용할 것 같은 것만 정리해봤다.
+
+|prop명|타입|설명| 
+|--|--|--|
+|isOpen|boolean|모달 창이 표시되어야 하는지 여부를 나타냄. 기본값은 false이며, 해당값이 true이면 모달창이 열린다.| 
+|onRequestClose|event: React.MouseEvent 혹은 React KeyboardEvent|모달이 닫힐 때 실행될 함수. 즉, 사용자가 모달을 닫으려고 할 때 실행되는 함수이다.|
+|style| Styles 혹은 undefined|	모달 창과 모달 창 바깥에 대한 style을 지정 |
+|contentLabel|string|스크린리더 사용자(시각장애인)에게 콘텐츠를 전달할 때 음성으로 나갈 문자열이다.|
+|shouldCloseOnOverlayClick|boolean|팝업창이 아닌 바깥 부분에서 클릭하였을 때, 닫히도록 할 것인지에 대한 처리이다. 기본값은 true|
+
+
 
 
 ### Splice()

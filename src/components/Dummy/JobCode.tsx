@@ -12,7 +12,7 @@ export interface itemListValues {
 }
 
 export const majorJobCode: itemListValues[] = [
-  { id: "직무코드", title: "선택해주세요." },
+  { id: "업종코드", title: "선택해주세요." },
   { id: "0", title: "경영·사무· 금융· 보험직" },
   { id: "1", title: "연구직 및 공학 기술직" },
   { id: "2", title: "교육·법률·사회복지·경찰·소방직 및 군인" },
@@ -26,7 +26,7 @@ export const majorJobCode: itemListValues[] = [
 ];
 
 export const intermediateJobCode: itemListValues[] = [
-  { id: "직무코드", title: "선택해주세요." },
+  { id: "업종코드", title: "선택해주세요." },
   { id: "01", title: "관리직 (임원·부서장)" },
   { id: "02", title: "경영·행정· 사무직" },
   { id: "03", title: "금융·보험직" },
@@ -68,7 +68,7 @@ export const intermediateJobCode: itemListValues[] = [
 ];
 
 export const minorJobCode: itemListValues[] = [
-  { id: "직무코드", title: "선택해주세요." },
+  { id: "업종코드", title: "선택해주세요." },
   { id: "011", title: "의회의원·고위 공무원 및 기업 고위임원" },
   { id: "012", title: "행정·경영·금융· 보험 관리자" },
   { id: "013", title: "전문서비스 관리자" },
@@ -208,7 +208,7 @@ export const minorJobCode: itemListValues[] = [
 ];
 
 export const detailedJobCode: itemListValues[] = [
-  { id: "직무코드", title: "선택해주세요." },
+  { id: "업종코드", title: "선택해주세요." },
   { id: "0111", title: "의회의원·고위공무 원 및 공공단체임원" },
   { id: "0112", title: "기업 고위임원" },
   { id: "0121", title: "정부행정 관리자" },
