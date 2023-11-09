@@ -59,9 +59,9 @@ export default function PhoneNumberInput({onPhoneNumberChange,
           type="tel"
           id="phoneNumber1"
           name="phoneNumber1"
-          value={phoneNumber1}
+          defaultValue={phoneNumber1}
           className="ring-1 ring-gray-400 block w-full p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          onChange={handleChange1}
+          onBlur={handleChange1}
           pattern="[0-9]{3}"
           required // 반드시 채워져있어야 한다는 속성
         />
@@ -71,9 +71,9 @@ export default function PhoneNumberInput({onPhoneNumberChange,
           type="tel"
           id="phoneNumber2"
           name="phoneNumber2"
-          value={phoneNumber2}
+          defaultValue={phoneNumber2}
           className="ring-1 ring-gray-400 block w-full p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          onChange={handleChange2}
+          onBlur={handleChange2}
           pattern="[0-9]{4}"
           required
           ref={inputRef2}
@@ -84,9 +84,9 @@ export default function PhoneNumberInput({onPhoneNumberChange,
           type="tel"
           id="phoneNumber3"
           name="phoneNumber3"
-          value={phoneNumber3}
+          defaultValue={phoneNumber3}
           className="ring-1 ring-gray-400 block w-full p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          onChange={handleChange3}
+          onBlur={handleChange3}
           pattern="[0-9]{4}"
           maxLength={4}
           required

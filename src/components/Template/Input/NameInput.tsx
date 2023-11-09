@@ -14,8 +14,8 @@ export default function NameInput({ id, holder, value, onChange }: Props) {
         type="text"
         id={id}
         name={id}
-        value={value}
-        onChange={onChange}
+        defaultValue={value}
+        onBlur={onChange}
         autoComplete="off"
         placeholder={holder}
         maxLength={10}
