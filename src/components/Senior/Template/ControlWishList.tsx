@@ -1,5 +1,4 @@
-import React, { FC, useState } from "react";
-
+import { useState } from "react";
 
 export default function ControlWishList() {
     const [fields, setFields] = useState([""]);
