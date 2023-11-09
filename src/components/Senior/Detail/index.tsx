@@ -46,6 +46,7 @@ interface sidProps {
   sid: IdType;
 }
 
+
 export default function SeniorDetail(sid: sidProps) {
   const [callData, setCallData] = useState<DataType[] | null>(null);
   const { fields, handleRemove, handleAdd } = ControlWishList();
@@ -63,7 +64,6 @@ export default function SeniorDetail(sid: sidProps) {
       return;
     }
     setCallData(data);
-    // console.log(data);
   };
 
   useEffect(() => {
@@ -171,11 +171,11 @@ export default function SeniorDetail(sid: sidProps) {
                           {/* {senior_wishlist&& senior_wishlist.map((wishList: WishListType) => ( */}
                           <div className="mt-4 flex pr-8 py-0.5 gap-2.5">
                             <div
-                              //   key={wishList.wish_list_id}
                               className="grid grid-rows-2"
                             >
                               <div className="col-span-1">
                                 <div className="inline-flex py-2 text-right text-zinc-500 text-sm font-medium font-['Pretendard'] leading-tight">
+
                                   {/* <div className="inline-flex"> */}
                                   희망직종
                                   {/* {wishList.priority} */}
@@ -187,6 +187,7 @@ export default function SeniorDetail(sid: sidProps) {
                               </div>
                               <div className="col-span-1">
                                 <div className="inline-flex py-2 text-right text-zinc-500 text-sm font-medium font-['Pretendard'] leading-tight">
+
                                   희망근무지
                                   {/* {wishList.priority} */}
                                   <div className="text-zinc-300 text-sm font-medium font-['Pretendard'] leading-tight">
@@ -197,6 +198,7 @@ export default function SeniorDetail(sid: sidProps) {
                               </div>
                             </div>
                           </div>
+
                           {/* ))} */}
                         </div>
                       </div>

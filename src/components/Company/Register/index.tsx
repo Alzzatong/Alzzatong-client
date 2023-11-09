@@ -15,8 +15,19 @@ import PhoneNumberInput from "@/components/Template/Input/PhoneInput";
 import StringInput from "@/components/Template/Input/StringInput";
 import FileInputButton from "@/components/Template/Button/FileBtn";
 import AddButton from "@/components/Template/Button/Add";
-import { RecruitData, SaveRecruitData, fourinsureMethods, idCollection, initialCompanyData, initialRecruitData } from "../Interface/CompanyInterface";
-
+import {
+  CompanyData,
+  RecruitData,
+  SaveRecruitData,
+  companyDataKoean,
+  fourinsureMethods,
+  idCollection,
+  initialCompanyData,
+  initialRecruitData,
+} from "../Interface/CompanyInterface";
+import JobCodeInput from "@/components/Template/Input/JobCodeInput";
+import { BigDistrict, SmallDistrict } from "@/components/Dummy/District";
+import MultiDropBox from "@/components/Template/SelectBox/MultiDropBox";
 
 export default function CompanyRegister() {
   const [items, setItems] = useState([{}]);
@@ -26,7 +37,7 @@ export default function CompanyRegister() {
 
   const addItem = () => {
     setItems([...items, {}]);
-    setRecruits([...recruits, initialRecruitData]); 
+    setRecruits([...recruits, initialRecruitData]);
   };
   // Item 삭제
   const removeItem = (index: number) => {
@@ -36,9 +47,58 @@ export default function CompanyRegister() {
     setItems(newItems);
   };
 
+  // 검증 함수
+  const validateData = (companyData: CompanyData): string | null => {
+    const requiredFields = [
+      "business_year",
+      "business_number",
+      "company_name",
+      "ceo_name",
+      "business_code",
+      "main_phone",
+      "address",
+      "foundation_year",
+      "manager_name",
+      "manager_email",
+      "content",
+    ];
+    const missingFields = [];
+
+    for (let field of requiredFields) {
+      if (companyData[field] === "") {
+        missingFields.push(companyDataKoean[field]);
+      }
+    }
+
+    if (missingFields.length > 0) {
+      return `${missingFields.join(", ")}는 필수 입력 사항입니다.`;
+    }
+
+    if (companyData.business_number.length !== 10) {
+      return "사업자번호는 10자리입니다.";
+    }
+    if (companyData.main_phone.length !== 11) {
+      return "대표 전화번호는 11자리입니다.";
+    }
+    if (companyData.manager_email.indexOf("@") === -1) {
+      return "이메일 형식이 올바르지 않습니다.";
+    }
+    if (companyData.foundation_year.length !== 4) {
+      return "설립연도는 4자리입니다.";
+    }
+    if (companyData.manager_phone.length !== 11) {
+      return "매니저 전화번호는 11자리입니다.";
+    }
+    if (companyData.certification_link === "") {
+      return "사업자등록증을 첨부해주세요.";
+    }
+
+    return null;
+  };
+
   // 추가하기 버튼의 onClick 이벤트 핸들러
   const handleJobContent = (index: number, updatedRecruit: RecruitData) => {
-    let newRecruits = [...recruits];
+    const newRecruits = [...recruits];
     newRecruits[index] = updatedRecruit;
     setRecruits(newRecruits);
   };
@@ -49,18 +109,32 @@ export default function CompanyRegister() {
       [e.target.name]: e.target.value,
     });
   };
+  const handleRegionChange = (region: string) => {
+    setCompanyData({
+      ...companyData,
+      region: region,
+    });
+  };
+  const handleLocalChange = (local: string) => {
+    setCompanyData({
+      ...companyData,
+      local_detail: local,
+    });
+  };
+  const handleJobCodeChange = (jobCode: string) => {
+    setCompanyData({
+      ...companyData,
+      business_code: jobCode,
+    });
+  };
+
   const handlePhoneNumberChange = (newPhoneNumber: string) => {
     setCompanyData({
       ...companyData,
       main_phone: newPhoneNumber,
     });
   };
-  const handleRadioButtonChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCompanyData({
-      ...companyData,
-      [e.target.name]: e.target.id,
-    });
-  };
+
   const handleBooleanRadioButtonChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCompanyData({
       ...companyData,
@@ -83,9 +157,21 @@ export default function CompanyRegister() {
     alert("중복확인");
   };
 
-  // 저장 버튼 
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+  };
+  // 저장 버튼
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    console.log(companyData);
+    const errorMessage = validateData(companyData);
+    if (errorMessage) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      alert(errorMessage);
+      return;
+    }
 
     const { data, error } = await supabase
       .from("company")
@@ -102,13 +188,15 @@ export default function CompanyRegister() {
     }
 
     for (const recruit of recruits) {
-      if(recruit.job_type === "" ) continue;
-      const saveRecruitData: SaveRecruitData ={
+      if (recruit.job_type === "") continue;
+      const saveRecruitData: SaveRecruitData = {
         ...recruit,
         company_id: companyId,
         job_availablility: true,
-      }
-      const { error } = await supabase.from("recruit").insert([saveRecruitData]);
+      };
+      const { error } = await supabase
+        .from("recruit")
+        .insert([saveRecruitData]);
       if (error) {
         console.error("Error inserting recruit data: ", error);
         return;
@@ -136,7 +224,7 @@ export default function CompanyRegister() {
 
         <form
           className="lg:grid lg:gap-x-12 xl:gap-x-16"
-          onSubmit={handleSubmit}
+          onKeyPress={handleKeyPress}
         >
           <div>
             <div>
@@ -151,6 +239,7 @@ export default function CompanyRegister() {
                       id={idCollection.businessYearId}
                       value={companyData.business_year}
                       onChange={handleChange}
+                      min="2023"
                     ></YearInput>
                   </div>
                   <div>
@@ -189,11 +278,11 @@ export default function CompanyRegister() {
                 <div className="mt-4  w-1/3">
                   <LabelText text="업종코드"></LabelText>
                   <div className="mt-1">
-                    <NumberInput
+                    <JobCodeInput
                       id={idCollection.businessCodeId}
                       value={companyData.business_code}
-                      onChange={handleChange}
-                    ></NumberInput>
+                      onChange={handleJobCodeChange}
+                    ></JobCodeInput>
                   </div>
                 </div>
                 <div className="mt-4">
@@ -239,6 +328,20 @@ export default function CompanyRegister() {
                     ></EmailInput>
                   </div>
                 </div>
+                <div className="mt-4">
+                  <LabelText text="기업 주소" />
+                  <MultiDropBox
+                    id1={idCollection.regionId}
+                    id2={idCollection.localDetailId}
+                    value1={companyData.region}
+                    value2={companyData.local_detail}
+                    onChange1={handleRegionChange}
+                    onChange2={handleLocalChange}
+                    itemList1={BigDistrict}
+                    itemList2={SmallDistrict}
+                    groupName="근무지 분류"
+                  />
+                </div>
                 <div className="mt-4 ">
                   <div>
                     <LabelText text="기업소재지" />
@@ -256,6 +359,7 @@ export default function CompanyRegister() {
                       id={idCollection.foundationYearId}
                       value={companyData.foundation_year}
                       onChange={handleChange}
+                      min="1960"
                     />
                   </div>
                 </div>

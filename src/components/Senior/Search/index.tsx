@@ -5,8 +5,9 @@ import SearchButton from "@/components/Template/Button/Search";
 import NumberInput from "@/components/Template/Input/NumberInput";
 import ManAgeCalculate from "../Template/ManAgeCalculate";
 import AgreementButton from "../Template/AgreementButton";
+import Link from "next/link";
+import { supabase } from "@/services/SupabaseClient";
 import { SmallJobCode } from "@/components/Senior/Interface/SeniorInterface";
-
 import Link from "next/link";
 import { supabase } from "@/lib/supabase/supabase";
 import { useEffect, useState } from "react";
@@ -66,15 +67,13 @@ export default function SeniorSearch() {
     call();
   }, []);
 
-  console.log(senior);
-
-
   return (
     <div className="bg-gray-50">
       <div className="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
         <h1 className="text-4xl	font-bold text-gray-900">조회</h1>
 
         <div className="mt-4 grid grid-cols-4 gap-y-6 sm:grid-cols-4 sm:gap-x-4">
+
           {/* <YearInput id="business-year" holder="사업년도"></YearInput>
           <NameInput id="senior-name" holder="구직자명 입력"></NameInput>
           <NumberInput
@@ -82,12 +81,14 @@ export default function SeniorSearch() {
             holder="앞 6자리 입력"
           ></NumberInput>
           <div className="relative flex items-end">
+
             <SearchButton onClick={}></SearchButton>
           </div> */}
         </div>
 
         <h2 className="mt-10 text-l	font-semibold text-gray-900">
           검색 결과
+
           <span className="text-xl  text-blue-500 text-l font-bold font-['Pretendard'] leading-tight">
             {senior?.length}
           </span>
@@ -208,6 +209,7 @@ export default function SeniorSearch() {
                               <AgreementButton></AgreementButton>
                               {/* {senior.agreement_link} */}
                             </div>
+
                           </div>
                         </div>
                       </div>

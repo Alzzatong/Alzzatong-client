@@ -1,35 +1,59 @@
 "use client";
 import { supabase } from "@/lib/supabase/supabase";
-import { use, useEffect } from "react";
+import { use, useEffect, useState } from "react";
 
 interface MatchingTabRecuruitSeniorSearchProps {
-    location: string;
-    job_type: number;
+  company_id: number;
+  recruit_id: number;
 }
 
-export default function MatchingTabRecuruitSeniorSearch({location, job_type} : MatchingTabRecuruitSeniorSearchProps) {
+export default function MatchingTabRecuruitSeniorSearch({
+  company_id,
+  recruit_id,
+}: MatchingTabRecuruitSeniorSearchProps) {
+  const [region, setRegion] = useState<string>();
+  const [location, setLocation] = useState<string>();
+  const [jobType, setJobType] = useState<string>();
 
-    console.log(location);
-    console.log(job_type);
+  // 구인처의 직무 위치 및 타입 조회
+  const locationAndJobType = async () => {
+    let { data: companyData, error: companyError } = await supabase
+      .from("company")
+      .select(`region, local_detail`)
+      .eq("id", company_id);
 
-    
- // 해당 직무와 희망직종이 같고, 희망 근무지도 같은 경우만 조회
-    const handleSearch = async () => {
-        let { data, error } = await supabase
-            .from("senior_wishlist")
-            .select(`*`) //recruit 테이블과 조인
-            .eq("location", location)
-            .eq("job_code_name", job_type)
+    if (companyError)
+      console.error("Error loading company data: ", companyError);
 
-        if (error) console.error("Error loading data: ", error);
-        console.log(data);
-    };
+    let { data: recruitData, error: recruitError } = await supabase
+      .from("recruit")
+      .select(`id, job_type`)
+      .eq("id", recruit_id);
 
-    useEffect(() => {
-        // handleSearch 한번 실행
-        handleSearch();
-        
-    }, []);
+    if (recruitError)
+      console.error("Error loading recruit data: ", recruitError);
+    setRegion(companyData![0].region);
+    setLocation(companyData![0].local_detail);
+    setJobType(recruitData![0].job_type);
+    handleSearch();
+
+  };
+
+  // 해당 직무와 희망직종이 같고, 희망 근무지도 같은 경우만 조회
+  const handleSearch = async () => {
+      let { data, error } = await supabase
+        .from("senior_wishlist")
+        .select(`*`) //recruit 테이블과 조인
+        .eq("location", region)
+        .eq("location_detail", location);
+
+      if (error) console.error("Error loading data: ", error);
+      console.log(data);
+  };
+
+  useEffect(() => {
+    locationAndJobType();
+  }, []);
 
   return <div>구직자 조회</div>;
 }

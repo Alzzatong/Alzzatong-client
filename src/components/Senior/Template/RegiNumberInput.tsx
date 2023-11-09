@@ -39,9 +39,6 @@ const RegiNumberInput = ({firstSelect, secondSelect, onBlur} : props) => {
   }
   
   const alert = isValid ? "" : "맞는 번호를 입력해주세요.";
-
-
-
   
   return (
     <div>

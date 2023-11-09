@@ -18,6 +18,7 @@ export default function DropBox({ id, itemList, groupName, onSelect}: props) {
     <div>
       <legend className="sr-only">{groupName}</legend>
       <label
+
         htmlFor="select-items"
         className="block text-sm font-medium leading-6 text-gray-900"
       ></label>

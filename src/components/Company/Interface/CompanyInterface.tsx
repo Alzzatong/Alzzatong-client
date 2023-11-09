@@ -38,6 +38,7 @@ export const employStatus = [
 ];
 
 export interface CompanyData{
+  [key: string]: any;  // 인덱스 서명 추가
   business_year: string;
   business_number: string;
   company_name: string;
@@ -55,6 +56,26 @@ export interface CompanyData{
   manager_phone: string;
   certification_link: string;
   content: string;
+}
+export const companyDataKoean : CompanyData = {
+  business_year: "사업년도",
+  business_number: "사업자번호",
+  company_name: "회사명",
+  ceo_name: "대표자명",
+  business_code: "업종코드",
+  main_phone: "대표전화",
+  second_phone: "보조전화",
+  fax: "팩스",
+  address: "주소",
+  foundation_year: "설립년도",
+  is_insurance: false,
+  type: "기관구분",
+  manager_name: "담당자명",
+  manager_email: "담당자 이메일",
+  manager_phone: "담당자 전화번호",
+  certification_link: "사업자등록증",
+  content: "내용",
+
 }
 
 export interface GetCompanyData extends CompanyData{

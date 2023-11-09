@@ -137,7 +137,6 @@ Table Career {
 
 <br></br>
 
-
 ### 2023.11.02
 - ERD설계 중 빠진 부분 보완
   - senior(구직자)페이지 속 phoneNumber 컬럼 추가

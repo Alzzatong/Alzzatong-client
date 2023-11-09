@@ -9,6 +9,7 @@ import LabelText from "@/components/Template/LabelText/LabelText";
 import RadioButton from "@/components/Template/Button/RadioButton";
 import TextAreaBox from "@/components/Template/Input/TextAreaBox";
 import DropBox from "@/components/Template/SelectBox/DropBox";
+
 import {
   healthStatusItem,
   genderItem,
@@ -42,6 +43,7 @@ function classNames(...classes: string[]) {
 }
 
 export default function SeniorRegister() {
+
   // const [form, setForm] = useState([{}]);
   const { fields, handleAdd, handleRemove } = ControlWishList();
   // const { optionFields, handleOptionAdd, handleOptionRemove } =
