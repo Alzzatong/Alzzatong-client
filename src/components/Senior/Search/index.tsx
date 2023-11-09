@@ -5,8 +5,6 @@ import SearchButton from "@/components/Template/Button/Search";
 import NumberInput from "@/components/Template/Input/NumberInput";
 import ManAgeCalculate from "../Template/ManAgeCalculate";
 import AgreementButton from "../Template/AgreementButton";
-import Link from "next/link";
-import { supabase } from "@/services/SupabaseClient";
 import { SmallJobCode } from "@/components/Senior/Interface/SeniorInterface";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase/supabase";
