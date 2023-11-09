@@ -14,6 +14,18 @@
 
 <br></br>
 
+### 2023.11.06 - solji
+
+- 테이블을 많이 수정해서 사진 참고
+![Alt text](image.png)
+- Table admin 추가
+  - 더미데이터 추가
+- Table senior_wishlist의 job_code_number와 job_code_name을 대분류/중분류로 넣을까 고민 중. 실제 구직자 등록 창이 애매하게 되어있어서 고려 필요.
+
+<br></br>
+
+
+
 ### 2023.11.03
 - 보다 효율적이고 알맞는 칼럼 타입으로 변환
 - 기존Company테이블
@@ -74,6 +86,57 @@ Table Company {
 }
 ```
 <br></br>
+
+### 2023.11.03 - solji
+- 스네이크표기법으로 변경
+- 일부 컬럼을 직관적인 이름으로 변경
+  - SeniorWishList 테이블
+     Region → location, 
+     LocalDetail → location_detail
+- phone_num은 '-'하이픈을 넣을지 고민 중!!
+```
+Table Senior {
+    senior_id int [PK] 
+    name varchar(20)
+    regi_first_num varchar(6)
+    regi_second_num varchar(7)
+    gender int
+    phone_num varchar(20)
+    address text
+    health_status int
+    agreement_link text
+}
+
+Table SeniorWishList {
+    wish_list_id int [PK]
+    senior_id int [FK]
+    location varchar(255)
+    location_detail varchar(255)
+    job_code_number int
+    job_code_name text
+    priority int
+    salary int
+    work_hour int
+    work_type int
+    etc text
+}
+
+Table Career {
+    career_id int [PK]
+    senior_id int [FK]
+    company_name text
+    start_period date
+    end_period date
+    task_type text
+}
+```
+- 만 나이 계산기 추가 (수정 필요)
+- 구직자-조회의 List 나열에서 '등록일'은 Senior테이블에 등록되어있지 않음. 추가할까요?
+- supabase와 연동 시도
+- SQL모듈화를 할지 고민 중.
+
+<br></br>
+
 
 ### 2023.11.02
 - ERD설계 중 빠진 부분 보완
