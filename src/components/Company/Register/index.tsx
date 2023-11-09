@@ -26,6 +26,8 @@ import {
   initialRecruitData,
 } from "../Interface/CompanyInterface";
 import JobCodeInput from "@/components/Template/Input/JobCodeInput";
+import { BigDistrict, SmallDistrict } from "@/components/Dummy/District";
+import MultiDropBox from "@/components/Template/SelectBox/MultiDropBox";
 
 export default function CompanyRegister() {
   const [items, setItems] = useState([{}]);
@@ -64,7 +66,6 @@ export default function CompanyRegister() {
 
     for (let field of requiredFields) {
       if (companyData[field] === "") {
-        
         missingFields.push(companyDataKoean[field]);
       }
     }
@@ -108,6 +109,18 @@ export default function CompanyRegister() {
       [e.target.name]: e.target.value,
     });
   };
+  const handleRegionChange = (region: string) => {
+    setCompanyData({
+      ...companyData,
+      region: region,
+    });
+  };
+  const handleLocalChange = (local: string) => {
+    setCompanyData({
+      ...companyData,
+      local_detail: local,
+    });
+  };
   const handleJobCodeChange = (jobCode: string) => {
     setCompanyData({
       ...companyData,
@@ -121,7 +134,7 @@ export default function CompanyRegister() {
       main_phone: newPhoneNumber,
     });
   };
- 
+
   const handleBooleanRadioButtonChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCompanyData({
       ...companyData,
@@ -152,14 +165,14 @@ export default function CompanyRegister() {
   // 저장 버튼
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-
+    console.log(companyData);
     const errorMessage = validateData(companyData);
     if (errorMessage) {
       window.scrollTo({ top: 0, behavior: "smooth" });
-      alert(errorMessage);      
+      alert(errorMessage);
       return;
     }
-    
+
     const { data, error } = await supabase
       .from("company")
       .insert([companyData])
@@ -314,6 +327,20 @@ export default function CompanyRegister() {
                       onChange={handleChange}
                     ></EmailInput>
                   </div>
+                </div>
+                <div className="mt-4">
+                  <LabelText text="기업 주소" />
+                  <MultiDropBox
+                    id1={idCollection.regionId}
+                    id2={idCollection.localDetailId}
+                    value1={companyData.region}
+                    value2={companyData.local_detail}
+                    onChange1={handleRegionChange}
+                    onChange2={handleLocalChange}
+                    itemList1={BigDistrict}
+                    itemList2={SmallDistrict}
+                    groupName="근무지 분류"
+                  />
                 </div>
                 <div className="mt-4 ">
                   <div>
