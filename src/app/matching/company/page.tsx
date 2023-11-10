@@ -2,8 +2,7 @@ import MatchingTabCompanySearch from "@/components/Matching/Search/MatchingTabCo
 
 export default function CompanyMatchingPage(props: any) {
     return (
-        <div>
-            구인처 조회
+        <div className="border-l border-gray-300">
             <MatchingTabCompanySearch />
         </div>
     );

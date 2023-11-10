@@ -1,8 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import SearchComponent from "@/components/Company/Search";
-import RegisterComponent from "@/components/Company/Register";
-
+import "@/styles/globals.css";
 
 interface navigation{
   name: string;
@@ -26,9 +24,9 @@ export default function SidebarNav({
   }
 
   return (
-    <div className="sidebarContainer">
-      <div className="sidebarContent">
-        <div className="h-full flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-300 bg-white px-6">
+    <div className="flex">
+      <div className="w-[300px] mt-10">
+        <div className="h-full flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6">
           <nav className="flex flex-1 flex-col">
             <ul role="list" className="flex flex-1 flex-col gap-y-7">
               <li>
