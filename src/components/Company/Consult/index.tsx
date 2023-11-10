@@ -97,7 +97,7 @@ export default function CompanyConsult({ company_id }: ConsultProps) {
       [e.target.name]: e.target.id === "true" ? true : false,
     });
   };
-  const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextAreaChange = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     setConsultData({
       ...consultData,
       content: e.target.value,
@@ -195,7 +195,7 @@ export default function CompanyConsult({ company_id }: ConsultProps) {
         id={consultIdCollection.content}
         value={consultData.content}
         holder="상담내용을 입력해주세요."
-        onChange={handleTextAreaChange}
+        onBlur={handleTextAreaChange}
       ></TextAreaBox>
       <div className="flex justify-end  sm:ml-16 sm:mt-0 sm:flex-none">
         <button
