@@ -1,4 +1,23 @@
 # JavaScript 문법
+## function 과 React.FC 차이
+- function
+  - JavaScript의 표준 함수를 이용하여 컴포넌트를 생성하며, 이 방식은 React.FC보다 더 일반적이고 유연하다.
+     - 특히 TypeScript를 사용하지 않는 경우에는 이 방식을 주로 사용
+- React.FC
+  - TypeScript와 함께 사용되는 방식으로, FC는 Function Component의 약자
+  - React.FC는 children이라는 props를 자동으로 포함하므로, children을 받지 않는 컴포넌트를 만들 경우에는 이를 명시적으로 제거해야 한다는 단점
+
+## value 와 defaultbValue
+### 이둘의 차이점이 뭘까?
+- uncontrolled Component VS controlled Component 이 둘의 차이점을 알면된다. 
+- controlled Component : react의 state와 통합된 폼 컨트롤
+- uncontrolled Component : 통합하지 않고 useRef를 이용하여 DOM을 다루는 방식
+### form의 value를 처리하는 방식 
+- state값을 사용하고 handler를 통해 변경해주는 법 (controlled Component)
+- 컴포넌트 안에 DOM handler를 사용하는 법 (uncontrolled Component)
+
+
+
 ## Modal 
 - [리엑트-모달 라이브러리 공식 링크](https://reactcommunity.org/react-modal/)
 - 보통 alert(경고)창 대신에 custom한 모달창을 쓴다. (모달창을 쓰는 이유는 아래와 같다.)
