@@ -2,7 +2,7 @@
 import { GetRecruitData } from "@/components/Company/Interface/CompanyInterface";
 import Loading from "@/components/Loading";
 import RecruitBox from "@/components/Matching/SelectBox/RecruitBox";
-import MatchingTabRecuruitSeniorSearch from "@/components/Matching/SelectSenior";
+import MatchingTabRecuruitSeniorSearch from "@/components/Matching/Search/MatchingTabRecuruitSeniorSearch";
 import { supabase } from "@/lib/supabase/supabase";
 import {
   getRegionAndLocationJobTypeConsultServerSideProps,
@@ -84,6 +84,8 @@ export default function CompanyMatchingRecruitsSeniorPage(props: any) {
           <RecruitBox recruit={recruit}/>
           </Link>}
           <MatchingTabRecuruitSeniorSearch
+            company_id={company_id}
+            recruit_id={recruit_id}
             region={region}
             location={location}
             job_type={jobType}

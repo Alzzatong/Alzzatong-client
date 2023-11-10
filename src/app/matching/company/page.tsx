@@ -1,4 +1,4 @@
-import MatchingTabCompanySearch from "@/components/Matching/Search";
+import MatchingTabCompanySearch from "@/components/Matching/Search/MatchingTabCompanySearch";
 
 export default function CompanyMatchingPage(props: any) {
     return (

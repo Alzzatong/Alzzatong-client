@@ -1,5 +1,5 @@
 "use client";
-import MatchingTabRecuruitSearch from "@/components/Matching/SelectRecruit";
+import MatchingTabRecuruitSearch from "@/components/Matching/Search/MatchingTabRecuruitSearch";
 import CancelButton from "@/components/Template/Button/CancelButton";
 import { getServerSideCompanyName } from "@/services/supabase/companySelectAPI";
 import { useState } from "react";
