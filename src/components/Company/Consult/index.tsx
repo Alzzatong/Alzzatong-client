@@ -8,7 +8,7 @@ import { supabase } from "@/lib/supabase/supabase";
 import {
   deleteConsultServerSideProps,
   getConsultServerSideProps,
-} from "@/services/supabase/companySelect";
+} from "@/services/supabase/companySelectAPI";
 import Loading from "@/components/Loading";
 import { employMethods, employStatus } from "../Interface/CompanyInterface";
 

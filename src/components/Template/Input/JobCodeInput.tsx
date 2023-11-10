@@ -11,7 +11,6 @@ interface Props {
 
 export default function JobCodeInput({ id, holder, value, onChange }: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
-  const [jobCode, setJobCode] = useState(""); // 직무코드
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
@@ -60,7 +59,6 @@ export default function JobCodeInput({ id, holder, value, onChange }: Props) {
         isOpen={isModalOpen}
         onRequestClose={handleCloseModal}
         style={customStyles}
-        contentLabel="예시 모달"
       >
         <JobCodeModal
           onClose={handleCloseModal}
