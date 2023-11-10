@@ -147,7 +147,7 @@ export default function CompanyRegister() {
       certification_link: fileUrl,
     });
   };
-  const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextAreaChange = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     setCompanyData({
       ...companyData,
       content: e.target.value,
@@ -394,7 +394,7 @@ export default function CompanyRegister() {
                     <TextAreaBox
                       id={idCollection.contentId}
                       value={companyData.content}
-                      onChange={handleTextAreaChange}
+                      onBlur={handleTextAreaChange}
                     ></TextAreaBox>
                   </div>
                 </div>
