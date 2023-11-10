@@ -7,6 +7,8 @@ import { use, useEffect, useRef, useState } from "react";
 import RecruitBox from "../SelectBox/RecruitBox";
 import { SeniorData } from "@/components/Senior/Interface/SeniorInterface";
 import SeniorBox from "../SelectBox/SeniorBox";
+import { get } from "http";
+import { getSeniorInfoList } from "@/services/supabase/matchingCompanyAPI";
 
 interface MatchingTabRecuruitSeniorSearchProps {
   company_id: number;
@@ -29,7 +31,6 @@ export interface SeniorBoxType {
 }
 // Wishlist도 선언 필요
 
-
 export default function MatchingTabRecuruitSeniorSearch({
   company_id,
   recruit_id,
@@ -39,39 +40,44 @@ export default function MatchingTabRecuruitSeniorSearch({
 }: MatchingTabRecuruitSeniorSearchProps) {
   const [seniors, setSeniors] = useState<SeniorBoxType[]>([]);
 
-  // 희망 근무지와 희망 직종에 맞는 구직자조회
-  const handleSeniorSearch = async () => {
-    let { data, error } = await supabase
-      .from("senior_wishlist")
-      .select(`senior_id`)
-      .eq("location", region)
-      .eq("location_detail", location)
-      .eq("job_type_name", job_type);
+  // // 희망 근무지와 희망 직종에 맞는 구직자조회
+  // const handleSeniorSearch = async () => {
+  //   let { data, error } = await supabase
+  //     .from("senior_wishlist")
+  //     .select(`senior_id`)
+  //     .eq("location", region)
+  //     .eq("location_detail", location)
+  //     .eq("job_type_name", job_type);
 
-    if (error) console.error("Error loading data: ", error);
-    else {
-      if (data && data.length > 0) {
-        let tempSenior = []; // 임시 배열 생성
-        console.log("data: ", data);
-        for (let i = 0; i < data.length; i++) {
-          let { data: seniorData, error: seniorError } = await supabase
-            .from("senior")
-            .select(`*`)
-            .eq("senior_id", data[i].senior_id)
-            .single();
-          if (seniorError) console.error("Error loading data: ", seniorError);
-          else {
-            console.log("seniorData: ", seniorData);
-            tempSenior.push(seniorData);
-          }
-        }
-        setSeniors(tempSenior);
-      }
-    }
-  };
+  //   if (error) console.error("Error loading data: ", error);
+  //   else {
+  //     if (data && data.length > 0) {
+  //       let tempSenior = []; // 임시 배열 생성
+  //       console.log("data: ", data);
+  //       for (let i = 0; i < data.length; i++) {
+  //         let { data: seniorData, error: seniorError } = await supabase
+  //           .from("senior")
+  //           .select(`*`)
+  //           .eq("senior_id", data[i].senior_id)
+  //           .single();
+  //         if (seniorError) console.error("Error loading data: ", seniorError);
+  //         else {
+  //           console.log("seniorData: ", seniorData);
+  //           tempSenior.push(seniorData);
+  //         }
+  //       }
+  //       setSeniors(tempSenior);
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
-    handleSeniorSearch();
+    const fetchData = async () => {
+      if (seniors.length < 1) { // 무한 렌더링 방지
+        await getSeniorInfoList({ region, location, job_type, setSeniors });
+      }
+    };
+    fetchData();
   }, [job_type]);
 
   return (
@@ -97,9 +103,17 @@ export default function MatchingTabRecuruitSeniorSearch({
                   key={senior.senior_id}
                   className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow"
                 >
-                  <Link href={`/matching/company/${company_id}/${recruit_id}/${senior.senior_id}`}>
+                  <Link
+                    href={`/matching/company/${company_id}/${recruit_id}/${senior.senior_id}`}
+                  >
                     {/* //컴포넌트화 해야할 부분 */}
-                    <SeniorBox  senior={senior} date={date} job_type={job_type} region={region} location={location}/>
+                    <SeniorBox
+                      senior={senior}
+                      date={date}
+                      job_type={job_type}
+                      region={region}
+                      location={location}
+                    />
                   </Link>
                 </li>
               );
@@ -109,5 +123,3 @@ export default function MatchingTabRecuruitSeniorSearch({
     </div>
   );
 }
-
-
