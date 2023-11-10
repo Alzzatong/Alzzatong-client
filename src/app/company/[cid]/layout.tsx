@@ -5,7 +5,7 @@ import TabNavigation from "@/components/Company/TabNav/TabNavigation";
 import { useEffect, useState } from "react";
 import Loading from "@/components/Loading";
 import { GetCompanyData, GetRecruitData, initialGetCompanyData,  } from "@/components/Company/Interface/CompanyInterface";
-import { getDetailServerSideProps } from "@/services/supabase/companySelect";
+import { getDetailServerSideProps } from "@/services/supabase/companySelectAPI";
 
 export default function DetailPage(props: any) {
   const [isLoading, setIsLoading] = useState(true);
