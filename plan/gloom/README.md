@@ -8,6 +8,7 @@
 4. 날짜를 추가로 기입한다.      
 
 
+
 <br></br>
 
 
@@ -21,6 +22,15 @@
 - 진행할 일
   - 컴포넌트 MatchingTabRecuruitSeniorSearch의 검색결과를 템플릿화 할 필요 있음, 무한 랜더링 이슈
   - app-index.js:31 Warning: Each child in a list should have a unique "key" prop. 에러 해결
+- MUI 라이브러리 사용
+  - 다소 복잡한 라이브러리이다. 또한, 컴포넌트 함수를 만들줄 알아야만 사용 가능하다.
+  - [React UI 라이브러리 - MUI (Material-ui)](https://youtu.be/or3np70c7zU?si=EmFxEMTDg7UK3wYk)
+  - 설치해야될 라이브러리
+    - MUI사용 관련 기초 라이브러리 : @mui/meterial , @emotion/react , @emotion/styled ,
+    - 날짜계획 라이브러리 : @mui/x-date-pickers
+    - Date Library: dayjs
+
+
 <br></br>
 
 
