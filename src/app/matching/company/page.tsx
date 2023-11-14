@@ -1,9 +1,8 @@
-import MatchingTabCompanySearch from "@/components/Mating/Search";
+import MatchingTabCompanySearch from "@/components/Matching/Search/MatchingTabCompanySearch";
 
 export default function CompanyMatchingPage(props: any) {
     return (
-        <div>
-            구인처 조회
+        <div className="border-l border-gray-300">
             <MatchingTabCompanySearch />
         </div>
     );

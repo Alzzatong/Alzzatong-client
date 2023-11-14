@@ -9,7 +9,10 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import DropBox from "@/components/Template/SelectBox/DropBox";
-import { Score, JobAvailability } from "@/components/Senior/Interface/SeniorInterface";
+import {
+  Score,
+  JobAvailability,
+} from "@/components/Senior/Interface/SeniorInterface";
 import LabelText from "@/components/Template/LabelText/LabelText";
 import CustomButton from "@/components/Template/Button/CustomButton";
 import ConsultList from "../Template/ConsultList";
@@ -48,12 +51,12 @@ export default function SeniorConsult() {
     console.log(setContent, "handleContent");
   };
 
-  const handleAddButton = (e:React.ChangeEvent<HTMLSelectElement>) => {
-    console.log("등록 버튼 누름")
-  }
-  const handleRetouchButton = (e:React.ChangeEvent<HTMLSelectElement>) => {
-    console.log("수정 버튼 누름")
-  }
+  const handleAddButton = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log("등록 버튼 누름");
+  };
+  const handleRetouchButton = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log("수정 버튼 누름");
+  };
 
   return (
     <div className="w-full relative bg-white">
@@ -85,23 +88,25 @@ export default function SeniorConsult() {
             <div className="mt-4 min-w-[120px] text-zinc-500 text-base font-bold font-['Pretendard'] leading-normal">
               참여점수
               <DropBox
+                id="score"
                 itemList={Score}
                 groupName="참여점수"
                 onSelect={handleScoreChange}
-                className="mt-2 block w-full bg-white rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                // className="mt-2 block w-full bg-white rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
             {/* </div> */}
 
-              <div className="mt-4 min-w-[120px] text-zinc-500 text-base font-bold font-['Pretendard'] leading-normal">
-                구직상태
-                <DropBox
-                  itemList={JobAvailability}
-                  groupName="구직 상태"
-                  onSelect={handleJobAvailability}
-                  className="mt-2 block w-full bg-white rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
+            <div className="mt-4 min-w-[120px] text-zinc-500 text-base font-bold font-['Pretendard'] leading-normal">
+              구직상태
+              <DropBox
+                id="jobAvailability"
+                itemList={JobAvailability}
+                groupName="구직 상태"
+                onSelect={handleJobAvailability}
+                // className="mt-2 block w-full bg-white rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
           </div>
         </div>
 
@@ -123,22 +128,21 @@ export default function SeniorConsult() {
             />
           </div>
           <div className="flex flex-row-reverse ">
-
-            <CustomButton 
+            <CustomButton
               label="등록"
               onClick={handleAddButton}
               className="mt-4 rounded-md bg-blue-500 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-              />
-            <CustomButton 
+            />
+            <CustomButton
               label="수정"
               onClick={handleRetouchButton}
               className="mt-4 mr-4 rounded-md bg-gray-100 px-3 py-2 text-center text-sm font-semibold text-gray-600 shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200"
-              />
+            />
           </div>
         </div>
-          <div className="mt-8 w-100% bg-white rounded-md border border-neutral-200" />
-          <div className="flex justify-end  sm:ml-16 sm:mt-0 sm:flex-none"></div>
-          <ConsultList />
+        <div className="mt-8 w-100% bg-white rounded-md border border-neutral-200" />
+        <div className="flex justify-end  sm:ml-16 sm:mt-0 sm:flex-none"></div>
+        <ConsultList />
       </div>
     </div>
   );

@@ -43,7 +43,6 @@ function classNames(...classes: string[]) {
 }
 
 export default function SeniorRegister() {
-
   // const [form, setForm] = useState([{}]);
   const { fields, handleAdd, handleRemove } = ControlWishList();
   // const { optionFields, handleOptionAdd, handleOptionRemove } =
@@ -175,7 +174,7 @@ export default function SeniorRegister() {
   //       }
   // };
 
-  const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextAreaChange = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     setWishlistData({
       ...wishlistData,
       [e.target.name]: e.target.value,
@@ -651,7 +650,7 @@ export default function SeniorRegister() {
                                   id="etc"
                                   holder="기타사항"
                                   value={wishlistData.etc}
-                                  onChange={handleTextAreaChange}
+                                  onBlur={handleTextAreaChange}
                                 />
                               </div>
                             </div>

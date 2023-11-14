@@ -33,7 +33,7 @@ export default function Company(props: any) {
       <div className="sidebarContent">
         <SidebarNav currentTab={currentTab} setCurrentTab={setCurrentTab} navigationList={navigation}/>
       </div>
-      <div className="pageContent">
+      <div className="pageContent border-l border-gray-300">
       {(currentTab === "조회")? <CompanySearch /> :<CompanyRegister />}
       </div>
     </div>

@@ -10,7 +10,7 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase/supabase";
 import { useEffect, useState } from "react";
 
-interface SeniorType {
+export interface SeniorType {
   senior_id: number;
   name: string;
   regi_first_num: string;
@@ -23,7 +23,7 @@ interface SeniorType {
   senior_wishlist: WishListType[];
 }
 
-interface WishListType {
+export interface WishListType {
   wish_list_id: number;
   senior_id: number;
   location: string;

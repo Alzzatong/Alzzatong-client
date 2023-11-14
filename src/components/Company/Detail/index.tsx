@@ -12,7 +12,7 @@ import {
   JoinData,
   RecruitData,
   SaveRecruitData,
-  dummy,
+  
   fourinsureMethods,
   idCollection,
   initialCompanyData,
@@ -67,7 +67,7 @@ export default function CompanyDetail({ companyInfo, recruitsInfo }: Props) {
       certification_link: fileUrl,
     });
   };
-  const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextAreaChange = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     setCompanyData({
       ...companyData,
       content: e.target.value,
@@ -313,7 +313,7 @@ export default function CompanyDetail({ companyInfo, recruitsInfo }: Props) {
                       id={idCollection.contentId}
                       value={companyInfo.content}
                       holder={companyInfo.content}
-                      onChange={handleTextAreaChange}
+                      onBlur={handleTextAreaChange}
                     ></TextAreaBox>
                   </div>
                 </div>

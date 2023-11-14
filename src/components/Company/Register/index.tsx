@@ -26,7 +26,7 @@ import {
   initialRecruitData,
 } from "../Interface/CompanyInterface";
 import JobCodeInput from "@/components/Template/Input/JobCodeInput";
-import { BigDistrict, SmallDistrict } from "@/components/Dummy/District";
+import { BigDistrict, SmallDistrict } from "@/components/Information/District";
 import MultiDropBox from "@/components/Template/SelectBox/MultiDropBox";
 
 export default function CompanyRegister() {
@@ -147,7 +147,7 @@ export default function CompanyRegister() {
       certification_link: fileUrl,
     });
   };
-  const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextAreaChange = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     setCompanyData({
       ...companyData,
       content: e.target.value,
@@ -157,11 +157,11 @@ export default function CompanyRegister() {
     alert("중복확인");
   };
 
-  const handleKeyPress = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-    }
-  };
+  // const handleKeyPress = (event: React.KeyboardEvent) => {
+  //   if (event.key === "Enter") {
+  //     event.preventDefault();
+  //   }
+  // };
   // 저장 버튼
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -224,7 +224,7 @@ export default function CompanyRegister() {
 
         <form
           className="lg:grid lg:gap-x-12 xl:gap-x-16"
-          onKeyPress={handleKeyPress}
+          // onKeyPress={handleKeyPress}
         >
           <div>
             <div>
@@ -394,7 +394,7 @@ export default function CompanyRegister() {
                     <TextAreaBox
                       id={idCollection.contentId}
                       value={companyData.content}
-                      onChange={handleTextAreaChange}
+                      onBlur={handleTextAreaChange}
                     ></TextAreaBox>
                   </div>
                 </div>
@@ -422,6 +422,7 @@ export default function CompanyRegister() {
             <div className="flex justify-center items-center mt-20 ">
               <button
                 className="h-14 w-64 relative bg-blue-500 rounded-full text-center text-white text-xl font-semibold leading-7 hover:bg-blue-600"
+                type="button"
                 onClick={handleSubmit}
               >
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -430,6 +431,7 @@ export default function CompanyRegister() {
               </button>
               <button
                 className="h-14 w-64 relative bg-white rounded-full border border-neutral-200 text-center text-zinc-500 text-xl font-semibold leading-7 ml-4 hover:bg-gray-200"
+                type="button"
                 onClick={handleCancel}
               >
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">

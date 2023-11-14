@@ -23,13 +23,13 @@ export default function SeniorConsult() {
       날짜입력
       <div>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer>
+          {/* <DemoContainer>
             <DatePicker
               label="날짜 선택"
               format={datePickerFormat}
               onChange={handleDateChange}
             ></DatePicker>
-          </DemoContainer>
+          </DemoContainer> */}
         </LocalizationProvider>
       </div>
     </div>

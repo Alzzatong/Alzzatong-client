@@ -26,7 +26,7 @@ const navigation = [
   },
   {
     name: "면접관리",
-    href: "#meeting_manage",
+    href: "/matching/meeting_manage",
     icon: ChatBubbleOvalLeftEllipsisIcon,
   },
   {

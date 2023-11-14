@@ -10,8 +10,8 @@ interface props {
   id2: string;
   value1: string | number;
   value2: string | number;
-  onChange1: (value: string | number) => void;
-  onChange2: (value: string | number) => void;
+  onChange1: (value: string) => void;
+  onChange2: (value: string) => void;
   itemList1: { id: string | number; title: string | number }[];
   itemList2: {
     [key: string]: { id: string | number; title: string | number }[];

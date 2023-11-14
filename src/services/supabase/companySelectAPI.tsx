@@ -29,8 +29,22 @@ interface ConsultDataProps {
 interface DeleteConsultDataProps {
   id: number;
 }
+interface matchingDataProps {
+  company_id: number;
+  recruit_id: number;
+  setRegionLocation: (region: string, location: string) => void;
+  setJobType: (data: string) => void;
+}
+interface GetRecruitDataProps {
+  recruit_id: number;
+  setRecruit: (data: GetRecruitData) => void;
+}
 
-export async function getServerSideCompanyName({ id, setCompanyName, setAddress }: CompanyNameProps) {
+export async function getServerSideCompanyName({
+  id,
+  setCompanyName,
+  setAddress,
+}: CompanyNameProps) {
   const { data, error } = await supabase
     .from("company")
     .select(`company_name, address`) //recruit 테이블과 조인
@@ -43,6 +57,24 @@ export async function getServerSideCompanyName({ id, setCompanyName, setAddress 
     setAddress(data.address);
   }
 }
+export async function getServerSideRecruit({
+  recruit_id,
+  setRecruit,
+}: GetRecruitDataProps) {
+  const { data, error } = await supabase
+    .from("recruit")
+    .select(`*`) //recruit 테이블과 조인
+    .eq("id", recruit_id)
+  if (error) {
+    console.error("Error fetching company data:", error);
+  } else {
+    data.forEach((recruit: GetRecruitData) => {
+      setRecruit(recruit);
+    });
+  }
+}
+
+
 
 export async function getDetailServerSideProps({
   id,
@@ -92,5 +124,34 @@ export async function deleteConsultServerSideProps({
     console.error("Error fetching company data:", error);
   } else {
     alert("삭제되었습니다.");
+  }
+}
+export async function getRegionAndLocationJobTypeConsultServerSideProps({
+  company_id,
+  recruit_id,
+  setRegionLocation,
+  setJobType,
+}: matchingDataProps) {
+  const { data: companyData, error: companyError } = await supabase
+    .from("company")
+    .select(`region, local_detail`)
+    .eq("id", company_id)
+    .single();
+
+  if (companyError) {
+    console.error("Error loading company data: ", companyError);
+  } else {
+    setRegionLocation(companyData.region, companyData.local_detail);
+  }
+
+  const { data: recruitData, error: recruitError } = await supabase
+    .from("recruit")
+    .select(`job_type`)
+    .eq("id", recruit_id)
+    .single();
+
+  if (recruitError) console.error("Error loading recruit data: ", recruitError);
+  else {
+    setJobType(recruitData.job_type);
   }
 }

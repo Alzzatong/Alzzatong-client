@@ -5,9 +5,10 @@ import {
   minorJobCode,
   detailedJobCode,
   itemListValues,
-} from "@/components/Dummy/JobCode"; // 이전에 제공한 JobCode 데이터를 가져옵니다.
+} from "@/components/Information/JobCode"; // 이전에 제공한 JobCode 데이터를 가져옵니다.
 import "@/app/globals.css";
 import LabelText from "../LabelText/LabelText";
+import CancelButton from "../Button/CancelButton";
 
 interface Props {
   onClose: () => void;
@@ -162,14 +163,7 @@ export default function JobCodeModal({ onClose, onSelectJobCode }: Props) {
         </select>
       </div>
       <div className="mt-5 flex justify-center">
-        <button
-          className=" h-14 w-64 relative bg-white rounded-full border border-neutral-200 text-center text-zinc-500 text-xl font-semibold leading-7  hover:bg-gray-200"
-          onClick={onClose}
-        >
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            취소
-          </div>
-        </button>
+        <CancelButton onClose={onClose} text="취소" />
       </div>
     </div>
   );

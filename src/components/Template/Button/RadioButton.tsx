@@ -1,7 +1,7 @@
 import { group } from "console";
 import React, { use } from "react";
 
-interface RadioitemName {
+export interface RadioitemName {
   id: string;
   title: string | number;
 }
