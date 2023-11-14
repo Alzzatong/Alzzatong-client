@@ -1,27 +1,30 @@
 "use client";
 
-
-import { useState } from 'react'
-import { Dialog } from '@headlessui/react'
+import { useState } from "react";
+import { Dialog } from "@headlessui/react";
+import LogoIcon from "@/styles/svgs/logo";
 
 const navigation = [
-  { name: '구직자', href: '/senior' },
-  { name: '구인처', href: '/company' },
-  { name: '매칭', href: '/matching' },
-  { name: '메일', href: '/email' },
-  { name: '문자', href: '/sms' },
-]
+  { name: "구직자", href: "/senior" },
+  { name: "구인처", href: "/company" },
+  { name: "매칭", href: "/matching" },
+  { name: "메일", href: "/email" },
+  { name: "문자", href: "/sms" },
+];
 
 export default function Example() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <header className="bg-white border-gray-200 border-b">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+      <nav
+        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 sm:px-6 xl:px-0"
+        aria-label="Global"
+      >
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <a href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
-            <img className="h-8 w-auto" src="" alt="로고 넣을 자리" />
+            <LogoIcon />
           </a>
         </div>
         <div className="flex lg:hidden">
@@ -35,7 +38,11 @@ export default function Example() {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           {navigation.map((item) => (
-            <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+            <a
+              key={item.name}
+              href={item.href}
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
               {item.name}
             </a>
           ))}
@@ -46,7 +53,12 @@ export default function Example() {
           </a>
         </div>
       </nav>
-      <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+      <Dialog
+        as="div"
+        className="lg:hidden"
+        open={mobileMenuOpen}
+        onClose={setMobileMenuOpen}
+      >
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
@@ -92,5 +104,5 @@ export default function Example() {
         </Dialog.Panel>
       </Dialog>
     </header>
-  )
+  );
 }
