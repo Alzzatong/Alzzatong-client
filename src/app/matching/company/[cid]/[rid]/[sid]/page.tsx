@@ -30,7 +30,6 @@ export default function CompanyMatchingRecruitsSeniorDetailPage(props: any) {
       content: content,
       status: 0,
     });
-    
   };
 
   const handleCancel = (event: FormEvent) => {
@@ -59,25 +58,27 @@ export default function CompanyMatchingRecruitsSeniorDetailPage(props: any) {
               onBlur={onBlur}
             />
           </div>
+          <div className="mt-20 flex justify-center">
+            <button
+              className="h-14 w-64 relative bg-blue-500 rounded-full text-center text-white text-xl font-semibold leading-7 hover:bg-blue-600"
+              type="button"
+              onClick={handleSubmit}
+            >
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                저장
+              </div>
+            </button>
+            <button
+              className="h-14 w-64 relative bg-white rounded-full border border-neutral-200 text-center text-zinc-500 text-xl font-semibold leading-7 ml-4 hover:bg-gray-200"
+              type="button"
+              onClick={handleCancel}
+            >
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                취소
+              </div>
+            </button>
+          </div>
         </form>
-        <button
-          className="h-14 w-64 relative bg-blue-500 rounded-full text-center text-white text-xl font-semibold leading-7 hover:bg-blue-600"
-          type="button"
-          onClick={handleSubmit}
-        >
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            저장
-          </div>
-        </button>
-        <button
-          className="h-14 w-64 relative bg-white rounded-full border border-neutral-200 text-center text-zinc-500 text-xl font-semibold leading-7 ml-4 hover:bg-gray-200"
-          type="button"
-          onClick={handleCancel}
-        >
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            취소
-          </div>
-        </button>
       </div>
     </div>
   );
