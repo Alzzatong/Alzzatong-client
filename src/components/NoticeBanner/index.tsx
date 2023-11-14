@@ -2,7 +2,6 @@ import ServiceNameText from "@/styles/svgs/ServiceNameText";
 import CircleL from "@/styles/svgs/circleL";
 import CircleM from "@/styles/svgs/circleM";
 import CircleSmall from "@/styles/svgs/circleS";
-import MainBanner from "@/styles/svgs/mainBanner";
 import People1 from "@/styles/svgs/people1";
 import People2 from "@/styles/svgs/people2";
 
