@@ -1,4 +1,4 @@
-import { supabase } from "@/services/supabaseClient";
+import { supabase } from "@/lib/supabase/supabase";
 import SeniorSearch from "@/components/Senior/Search";
 
 interface DataType {
@@ -25,6 +25,6 @@ export async function getServerSideProps() {
   return { props: { data } };
 }
 
-export default function SelectSenior({ data }: {data:DataType[]}) {
-  return <SeniorSearch data={data} />;
+export default function SelectSenior({ data }: { data: DataType[] }) {
+  return <SeniorSearch />;
 }

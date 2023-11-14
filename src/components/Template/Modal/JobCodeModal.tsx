@@ -5,7 +5,7 @@ import {
   minorJobCode,
   detailedJobCode,
   itemListValues,
-} from "@/components/Dummy/JobCode"; // 이전에 제공한 JobCode 데이터를 가져옵니다.
+} from "@/components/Information/JobCode"; // 이전에 제공한 JobCode 데이터를 가져옵니다.
 import "@/app/globals.css";
 import LabelText from "../LabelText/LabelText";
 import CancelButton from "../Button/CancelButton";

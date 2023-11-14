@@ -2,7 +2,7 @@ import { group } from "console";
 import React, { use } from "react";
 
 interface RadioitemName {
-  id: number;
+  id: string | number;
   title: string | number;
 }
 
@@ -11,9 +11,13 @@ interface Props {
   groupName: string;
   onChange: any;
   value: string | number; // 현재 선택된 라디오 버튼의 id
-
 }
-const RadioNumberButton: React.FC<Props> = ({ itemList, groupName, value, onChange }) => {
+const RadioNumberButton: React.FC<Props> = ({
+  itemList,
+  groupName,
+  value,
+  onChange,
+}) => {
   return (
     <div>
       <fieldset className="mt-4">
@@ -27,9 +31,7 @@ const RadioNumberButton: React.FC<Props> = ({ itemList, groupName, value, onChan
                 className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                 onBlur={onChange}
               />
-              <label
-                className="ml-3 block text-sm font-medium leading-6 text-gray-900"
-              >
+              <label className="ml-3 block text-sm font-medium leading-6 text-gray-900">
                 {RadioitemName.title}
               </label>
             </div>

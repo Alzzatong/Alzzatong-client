@@ -26,7 +26,7 @@ import {
   initialRecruitData,
 } from "../Interface/CompanyInterface";
 import JobCodeInput from "@/components/Template/Input/JobCodeInput";
-import { BigDistrict, SmallDistrict } from "@/components/Dummy/District";
+import { BigDistrict, SmallDistrict } from "@/components/Information/District";
 import MultiDropBox from "@/components/Template/SelectBox/MultiDropBox";
 
 export default function CompanyRegister() {

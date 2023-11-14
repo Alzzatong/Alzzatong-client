@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { supabase } from "@/services/SupabaseClient";
+import { supabase } from "@/lib/supabase/supabase";
 import PhoneNumberInput from "@/components/Template/Input/PhoneInput";
 import SeniorNameInput from "../Template/SeniorNameInput";
 import SearchButton from "@/components/Template/Button/Search";
@@ -9,9 +9,14 @@ import LabelText from "@/components/Template/LabelText/LabelText";
 import RadioButton from "@/components/Template/Button/RadioButton";
 import TextAreaBox from "@/components/Template/Input/TextAreaBox";
 import DropBox from "@/components/Template/SelectBox/DropBox";
-import DropBox from "@/components/Template/SelectBox/DropBox";
-import { Location, LocationDetail } from "@/components/Senior/Interface/SeniorInterface";
-import { BigJobCode, SmallJobCode } from "@/components/Senior/Interface/SeniorInterface";
+import {
+  Location,
+  LocationDetail,
+} from "@/components/Senior/Interface/SeniorInterface";
+import {
+  BigJobCode,
+  SmallJobCode,
+} from "@/components/Senior/Interface/SeniorInterface";
 import ControlWishList from "../Template/ControlWishList";
 import CalculateAge from "../Template/CalculateAge";
 import RegiNumberInput from "../Template/RegiNumberInput";
@@ -21,6 +26,7 @@ import {
   scheduleItem,
   workHourItem,
 } from "@/components/Senior/Interface/SeniorInterface";
+import PhoneInput from "@/components/Template/Input/PhoneInput";
 
 interface DataType {
   senior_id: number;
@@ -45,7 +51,6 @@ interface IdType {
 interface sidProps {
   sid: IdType;
 }
-
 
 export default function SeniorDetail(sid: sidProps) {
   const [callData, setCallData] = useState<DataType[] | null>(null);
@@ -170,12 +175,9 @@ export default function SeniorDetail(sid: sidProps) {
                         <div className="grid grid-cols-5 gap-4">
                           {/* {senior_wishlist&& senior_wishlist.map((wishList: WishListType) => ( */}
                           <div className="mt-4 flex pr-8 py-0.5 gap-2.5">
-                            <div
-                              className="grid grid-rows-2"
-                            >
+                            <div className="grid grid-rows-2">
                               <div className="col-span-1">
                                 <div className="inline-flex py-2 text-right text-zinc-500 text-sm font-medium font-['Pretendard'] leading-tight">
-
                                   {/* <div className="inline-flex"> */}
                                   희망직종
                                   {/* {wishList.priority} */}
@@ -187,7 +189,6 @@ export default function SeniorDetail(sid: sidProps) {
                               </div>
                               <div className="col-span-1">
                                 <div className="inline-flex py-2 text-right text-zinc-500 text-sm font-medium font-['Pretendard'] leading-tight">
-
                                   희망근무지
                                   {/* {wishList.priority} */}
                                   <div className="text-zinc-300 text-sm font-medium font-['Pretendard'] leading-tight">
@@ -214,7 +215,7 @@ export default function SeniorDetail(sid: sidProps) {
                         <div className="mt-4 grid grid-cols-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
                           <SeniorNameInput></SeniorNameInput>
                           <div>
-                            <LabelText gender"} text="성별"></LabelText>
+                            <LabelText text="성별"></LabelText>
                           </div>
                         </div>
                         <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
@@ -224,40 +225,36 @@ export default function SeniorDetail(sid: sidProps) {
                             secondSelect={senior.regi_second_num}
                           />
                           <div>
-                            <LabelText age"} text="만 나이"></LabelText>
+                            <LabelText text="만 나이"></LabelText>
                             <div className="mt-1 flex justify-between">
                               <div className="mt-1 block w-full p-2 rounded-md bg-white shadow-sm sm:text-sm"></div>
                             </div>
                           </div>
                         </div>
-                        <div>
-                          <PhoneInput></PhoneInput>
-                        </div>
+                        <div>{/* <PhoneInput></PhoneInput> */}</div>
                         <div className="mt-4">
                           <div>
-                            <LabelText address"} text="주소"></LabelText>
+                            <LabelText text="주소"></LabelText>
                             <NameInput
                               id={"address"}
                               holder="주소를 입력하세요"
+                              value="주소"
+                              onChange={() => {}}
                             ></NameInput>
                           </div>
                           <div className="mt-4">
-                            <LabelText
-                              id={"healthStatus"}
-                              text="건강상태"
-                            ></LabelText>
+                            <LabelText text="건강상태"></LabelText>
                             <RadioButton
                               itemList={healthStatusItem}
+                              value={senior.health_status}
                               groupName="상태"
+                              onChange={() => {}}
                             ></RadioButton>
                           </div>
                         </div>
                         <div className="mt-6 grid grid-cols-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
                           <div>
-                            <LabelText
-                              id={"senior-aggrementLink"}
-                              text="개인정보동의서 첨부"
-                            />
+                            <LabelText text="개인정보동의서 첨부" />
                             <div className="mt-1">
                               <input
                                 type="file"
@@ -268,7 +265,7 @@ export default function SeniorDetail(sid: sidProps) {
                             </div>
                           </div>
                           <div className="mt-6">
-                            <SearchButton></SearchButton>
+                            {/* <SearchButton></SearchButton> */}
                           </div>
                         </div>
                       </div>
@@ -281,21 +278,21 @@ export default function SeniorDetail(sid: sidProps) {
 
                       <div className="bg-gray-200 mt-6 grid grid-cols-4 gap-x-4 gap-y-6">
                         <div>
-                          <LabelText job-type1"} text="경력사항" />
+                          <LabelText text="경력사항" />
                           {/* <NameInput id={"job-type1"}></NameInput> */}
                         </div>
                         <div>
-                          <LabelText NumberOfHires"} text="직장명" />
+                          <LabelText text="직장명" />
                           {/* <NameInput id={"NumberOfHires"}></NameInput> */}
                         </div>
                         <div>
                           {/* 급여 */}
-                          <LabelText salary"} text="근무기간" />
+                          <LabelText text="근무기간" />
                           {/* <NameInput id={"salary"}></NameInput> */}
                         </div>
                         <div>
                           {/* 근무형태 */}
-                          <LabelText working-type"} text="업무내용" />
+                          <LabelText text="업무내용" />
                           {/* <NameInput id={"working-type"}></NameInput> */}
                         </div>
                       </div>
@@ -339,52 +336,36 @@ export default function SeniorDetail(sid: sidProps) {
 
                             <div>
                               <div className="mt-4">
-                                <LabelText
-                                  id={"company-location"}
-                                  text="희망근무지"
-                                />
+                                <LabelText text="희망근무지" />
 
                                 <div className="mt-4">
-                                  <LabelText
-                                    id={"company-address"}
-                                    text="희망직종"
-                                  />
+                                  <LabelText text="희망직종" />
                                 </div>
                               </div>
                               <div>
                                 <div className="mt-4">
-                                  <LabelText
-                                    id={"wish-salary"}
-                                    text="희망 보수"
-                                  ></LabelText>
+                                  <LabelText text="희망 보수"></LabelText>
                                   <NameInput
                                     id={"wish-salary"}
                                     holder="만원/월"
+                                    value=""
+                                    onChange={() => {}}
                                   ></NameInput>
                                 </div>
                                 <div className="mt-4">
-                                  <LabelText
-                                    id={"work-hour"}
-                                    text="근무 시간"
-                                  ></LabelText>
+                                  <LabelText text="근무 시간"></LabelText>
                                 </div>
                               </div>
 
                               <div className="mt-6 grid grid-cols-1 gap-y-2">
                                 <div>
-                                  <LabelText
-                                    id={"work-type"}
-                                    text="근무 형태"
-                                  ></LabelText>
+                                  <LabelText text="근무 형태"></LabelText>
                                 </div>
                               </div>
                               <div className="mt-4 mb-8">
                                 <div>
-                                  <LabelText
-                                    id={"senior-etc"}
-                                    text="특이사항/자격사항"
-                                  />
-                                  <TextAreaBox></TextAreaBox>
+                                  <LabelText text="특이사항/자격사항" />
+                                  {/* <TextAreaBox></TextAreaBox> */}
                                 </div>
                               </div>
                             </div>

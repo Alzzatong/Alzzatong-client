@@ -1,3 +1,5 @@
+import { RadioitemName } from "@/components/Template/Button/RadioButton";
+
 export interface SeniorData {
     name: string;
     regi_first_num: string;
@@ -92,10 +94,10 @@ export interface SaveSeniorCareer extends SeniorCareer {
 // }
 
 
-export const healthStatusItem = [
-  { id: 1, title: "좋은편" },
-  { id: 2, title: "보통" },
-  { id: 3, title: "나쁜편" },
+export const healthStatusItem: RadioitemName[] = [
+  { id: "1", title: "건강" },
+  { id: "2", title: "보통" },
+  { id: "3", title: "병약" },
 ];
 
 export const genderItem = [
