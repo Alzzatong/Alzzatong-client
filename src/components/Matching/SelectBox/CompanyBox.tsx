@@ -24,8 +24,14 @@ export default function CompanyBox({ companyBox }: CompanyBoxProps) {
       <div className="flex-1 truncate">
         <div className="flex">
           {companyBox.recruit.map(
-            (recruit: { job_type: string; job_availablility: boolean }) => (
-              <EmploymentStatusTextBox employmentTextBox={recruit} />
+            (
+              recruit: { job_type: string; job_availablility: boolean },
+              index: number
+            ) => (
+              <EmploymentStatusTextBox
+                key={index}
+                employmentTextBox={recruit}
+              />
             )
           )}
         </div>

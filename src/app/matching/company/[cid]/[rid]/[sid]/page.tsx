@@ -48,7 +48,7 @@ export default function CompanyMatchingRecruitsSeniorDetailPage(props: any) {
         <form className="lg:grid lg:gap-x-12 xl:gap-x-16">
           <div>
             <h1 className="text-4xl	font-medium text-gray-900">상세조회</h1>
-            // 시니어 파트 컴포넌트 되면 적용
+            {/* // 시니어 파트 컴포넌트 되면 적용 */}
             <MeetingSchedule
               date={date}
               value={time}
