@@ -7,12 +7,14 @@ interface RadioitemName {
 }
 
 interface Props {
+  id: string;
   itemList: RadioitemName[];
   groupName: string;
-  onChange: any;
-  value: string | number; // 현재 선택된 라디오 버튼의 id
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string | number; // 현재 선택된 라디오 버튼의 id
 }
 const RadioNumberButton: React.FC<Props> = ({
+  id,
   itemList,
   groupName,
   value,
@@ -26,8 +28,10 @@ const RadioNumberButton: React.FC<Props> = ({
           {itemList.map((RadioitemName) => (
             <div key={RadioitemName.id} className="flex items-center">
               <input
+                id={id}
                 name={groupName}
                 type="radio"
+                value={RadioitemName.id}
                 className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                 onBlur={onChange}
               />

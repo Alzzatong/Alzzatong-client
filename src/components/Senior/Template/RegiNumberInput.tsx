@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 
 interface props {
-  firstSelect : any;
-  secondSelect : any;
-  onBlur?: any;
+  firstSelect: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  secondSelect: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  initialFirstPart?: string;
+  initialSecondPart?: string;
 }
 
-const RegiNumberInput = ({firstSelect, secondSelect, onBlur} : props) => {
+const RegiNumberInput = ({firstSelect, secondSelect, initialFirstPart, initialSecondPart} : props) => {
 
   const [isValid, setIsValid] = useState<boolean>(true);
 
-  const [firstPart, setFirstPart] = useState<string>("");
-  const [secondPart, setSecondPart] = useState<string>("");
+  const [firstPart, setFirstPart] = useState<string>(initialFirstPart || "");
+  const [secondPart, setSecondPart] = useState<string>(initialSecondPart || "");
 
   const handleFirstPartChange = ( event: React.ChangeEvent<HTMLInputElement> ) => {
     setFirstPart(event.target.value);
@@ -54,9 +55,9 @@ const RegiNumberInput = ({firstSelect, secondSelect, onBlur} : props) => {
             id="regi_first_num"
             name="regi_first_num"
             autoComplete="string"
+            value={firstPart}
             className={`block w-full p-2 rounded-md bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm`}
             onChange={handleFirstPartChange}
-            onBlur={onBlur}
             maxLength={6}
           />
           <div className="w-auto flex items-center justify-center mx-2">-</div>
@@ -65,13 +66,13 @@ const RegiNumberInput = ({firstSelect, secondSelect, onBlur} : props) => {
             id="regi_second_num"
             name="regi_second_num"
             autoComplete="string"
+            value={secondPart}
             className={`block w-full p-2 rounded-md bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm`}
             onChange={handleSecondPartChange}
-            onBlur={onBlur}
             maxLength={7}
           />
         </div>
-        <p>{alert}</p>
+        <p className="text-gray-500 text-sm">{alert}</p>
       </div>
     </div>
   );
