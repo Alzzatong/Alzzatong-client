@@ -1,5 +1,4 @@
 import MatchingTabSeniorSearch from "@/components/Matching/Search/MatchingTabSeniorSearch";
-import BigTitle from "@/components/Template/LabelText/BigTitle";
 
 export default function SeniorMatchingPage(props: any) {
     return (

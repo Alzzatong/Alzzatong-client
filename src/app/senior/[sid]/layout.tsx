@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import SeniorDetail from "@/components/Senior/Detail";
 import SeniorConsult from "@/components/Senior/Consult";
 import TabNavigation from "@/components/Senior/TabNav/TabNavigation";
-import BigTitle from "@/components/Template/LabelText/BigTitle";
+// import BigTitle from "@/components/Template/LabelText/BigTitle";
 import { SeniorConsultJoinAdmin, SeniorJoinWishCareer } from "@/components/Senior/Interface/SeniorInterface";
 import { getSeniorConsultSelect, getSeniorWishCareerSelect } from "@/queries/SelectSenior";
 import { ConvertToIdType } from "@/components/Senior/Template/ConvertToIdType";
@@ -56,18 +56,20 @@ export default function DetailPage(sid: IdType) {
           <div className="pageContent mt-8">
           {currentTab == "구직자 상세조회" ? (
             <main>
-              <BigTitle
+              {/* <BigTitle
                 text="구직자 상세조회"
                 className="text-4xl font-bold text-gray-900"
-              />
+              /> */}
+              <div className="text-4xl font-bold text-gray-900">구직자 상세조회</div>
               {joinData && <SeniorDetail sidData={joinData}></SeniorDetail>}
             </main>
           ) : (
             <main>
-              <BigTitle
+              {/* <BigTitle
                 text="상담내역"
                 className="text-4xl font-bold text-gray-900"
-              />
+              /> */}
+              <div className="text-4xl font-bold text-gray-900">상담내역</div>
               {consultField && <SeniorConsult sidData={consultField}></SeniorConsult>}
             </main>
           )}

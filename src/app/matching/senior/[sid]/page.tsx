@@ -2,7 +2,7 @@
 import { SmallJobCode } from "@/components/Senior/Interface/SeniorInterface";
 import CalculateAge from "@/components/Senior/Template/CalculateAge";
 import CancelButton from "@/components/Template/Button/CancelButton";
-import BigTitle from "@/components/Template/LabelText/BigTitle";
+// import BigTitle from "@/components/Template/LabelText/BigTitle";
 import {
   getAllRecruitByLocation,
   getSeniorLightSearch,
@@ -48,10 +48,11 @@ export default function SeniorMatchingCampanyPage(props: any) {
   return (
     <div className="bg-gray-50" style={{ maxHeight: "800px" }}>
       <div className="mx-auto max-w-2xl px-4  pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
-        <BigTitle
+        {/* <BigTitle
           text="구직자 매칭"
           className="mt-2 mb-4 text-4xl font-bold text-gray-900"
-        ></BigTitle>
+        ></BigTitle> */}
+        <div className="mt-2 mb-4 text-4xl font-bold text-gray-900">구직자 매칭</div>
         <div>
           <div
             role="list"

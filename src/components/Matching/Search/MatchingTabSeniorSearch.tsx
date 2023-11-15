@@ -8,7 +8,7 @@ import {
 } from "@/components/Senior/Interface/SeniorInterface";
 import { supabase } from "@/lib/supabase/supabase";
 import { useEffect, useRef, useState } from "react";
-import BigTitle from "@/components/Template/LabelText/BigTitle";
+// import BigTitle from "@/components/Template/LabelText/BigTitle";
 import Link from "next/link";
 import ReadingGlassIcon from "@/styles/svgs/ReadingGlassIcon";
 
@@ -124,10 +124,11 @@ export default function MatchingTabSeniorSearch() {
   return (
     <form className="search-area">
       <div className="bg-slate-50 mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
-        <BigTitle
+        {/* <BigTitle
           text="구직자 매칭"
           className="mt-2 mb-4 text-4xl font-bold text-gray-900"
-        ></BigTitle>
+        ></BigTitle> */}
+        <div className="text-4xl font-bold text-gray-900">구직자 매칭</div>
         <div className="flex mt-4 gap-3 h-15">
           <input
             type="text"

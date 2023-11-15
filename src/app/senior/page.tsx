@@ -9,7 +9,7 @@ import {
   PencilSquareIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import BigTitle from "@/components/Template/LabelText/BigTitle";
+// import BigTitle from "@/components/Template/LabelText/BigTitle";
 
 const navigation = [
   {
@@ -44,18 +44,20 @@ export default function Senior(props: any) {
           <div className="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
             {currentTab === "조회" ? (
               <main>
-                <BigTitle
+                {/* <BigTitle
                   text="조회"
                   className="text-4xl font-bold text-gray-900"
-                />
+                /> */}
+                <div className="text-4xl font-bold text-gray-900">조회</div>
                 <SeniorSearch />
               </main>
             ) : (
               <main>
-                <BigTitle
+                {/* <BigTitle
                   text="구직자 등록"
                   className="text-4xl font-bold text-gray-900"
-                />
+                /> */}
+                <div className="text-4xl font-bold text-gray-900">구직자 등록</div>
                 <SeniorRegister />
               </main>
             )}

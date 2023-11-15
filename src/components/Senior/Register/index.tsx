@@ -30,7 +30,7 @@ import StringInput from "@/components/Template/Input/StringInput";
 import NumberInput from "@/components/Template/Input/NumberInput";
 import RadioNumberButton from "@/components/Template/Button/RadioNumberButton";
 import AgreementButton from "../Template/AgreementButton";
-import BigTitle from "@/components/Template/LabelText/BigTitle";
+// import BigTitle from "@/components/Template/LabelText/BigTitle";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -552,7 +552,7 @@ export default function SeniorRegister() {
                       id="gender"
                       itemList={GenderItem}
                       groupName="성별"
-                      onSelect={(e) => handleDropBoxSeniorTableChange(e)}
+                      onSelect={(e:React.ChangeEvent<HTMLSelectElement>) => handleDropBoxSeniorTableChange(e)}
                     />
                   </div>
                 </div>
@@ -651,7 +651,7 @@ export default function SeniorRegister() {
                       <LabelText text="업무내용" />
                     </li>
                   </ul>
-                  {careerData.map((data, i) => (
+                  {careerData.map((data:SeniorCareer, i:number) => (
                     <ul
                       key={i}
                       className="grid grid-cols-9 gap-x-4 gap-y-6 mt-3 justify-items-center"
@@ -662,7 +662,7 @@ export default function SeniorRegister() {
                           id="company_name"
                           holder="회사명"
                           value={data.company_name}
-                          onChange={(e) => handleCareerTableInputChange(e, i)}
+                          onChange={(e:React.ChangeEvent<HTMLInputElement>) => handleCareerTableInputChange(e, i)}
                         />
                       </li>
                       <li className="col-span-2 flex">추후 추가</li>
@@ -671,7 +671,7 @@ export default function SeniorRegister() {
                           id="task_type"
                           holder="업무 내용"
                           value={data.task_type}
-                          onChange={(e) => handleCareerTableInputChange(e, i)}
+                          onChange={(e:React.ChangeEvent<HTMLInputElement>) => handleCareerTableInputChange(e, i)}
                         />
                       </li>
                       <li className="col-span-1 justify-items-end mt-4">
@@ -699,7 +699,7 @@ export default function SeniorRegister() {
                         />
                       </div>
                     </div>
-                    {wishlistData.map((wishlist, i) => (
+                    {wishlistData.map((wishlist:SeniorWishList, i:number) => (
                       <div
                         key={i}
                         className="mt-2 border-t border-gray-200 pt-7"
@@ -726,14 +726,14 @@ export default function SeniorRegister() {
                               id="location"
                               itemList={Location}
                               groupName="근무지 대분류"
-                              onSelect={(e) => selectFirstLocation(e, i)}
+                              onSelect={(e:React.ChangeEvent<HTMLSelectElement>) => selectFirstLocation(e, i)}
                             />
                             {firstLocation[i] && (
                               <DropBox
                                 id="location_detail"
                                 itemList={LocationDetail[firstLocation[i]]}
                                 groupName="근무지 중분류"
-                                onSelect={(e) => selectSecondLocation(e, i)}
+                                onSelect={(e:React.ChangeEvent<HTMLSelectElement>) => selectSecondLocation(e, i)}
                               />
                             )}
                           </div>
@@ -744,14 +744,14 @@ export default function SeniorRegister() {
                               id="job_code_number"
                               itemList={BigJobCode}
                               groupName="직종 대분류"
-                              onSelect={(e) => selectBigJobCode(e, i)}
+                              onSelect={(e:React.ChangeEvent<HTMLSelectElement>) => selectBigJobCode(e, i)}
                             />
                             {bigJobCode[i] && (
                               <DropBox
                                 id="job_type_name"
                                 itemList={SmallJobCode[bigJobCode[i].id]}
                                 groupName="직종 중분류"
-                                onSelect={(e) => selectSamllJobCode(e, i)}
+                                onSelect={(e:React.ChangeEvent<HTMLSelectElement>) => selectSamllJobCode(e, i)}
                               />
                             )}
                           </div>
@@ -763,7 +763,7 @@ export default function SeniorRegister() {
                                 id="salary"
                                 holder="만원/월"
                                 value={wishlist.salary}
-                                onChange={(e) =>
+                                onChange={(e:React.ChangeEvent<HTMLInputElement>) =>
                                   handleSeniorWishListTableInputChange(e, i)
                                 }
                               />
@@ -774,7 +774,7 @@ export default function SeniorRegister() {
                                 id="work_hour"
                                 itemList={WorkHourItem}
                                 groupName="근무 시간"
-                                onSelect={(e) =>
+                                onSelect={(e:React.ChangeEvent<HTMLSelectElement>) =>
                                   handleSeniorWishListTableInputChange(e, i)
                                 }
                               />
@@ -796,7 +796,7 @@ export default function SeniorRegister() {
                                       type="radio"
                                       className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                       value={list.id}
-                                      onChange={(e) =>
+                                      onChange={(e:React.ChangeEvent<HTMLInputElement>) =>
                                         handleSeniorWishListTableInputChange(
                                           e,
                                           i
@@ -820,7 +820,7 @@ export default function SeniorRegister() {
                                   id="etc"
                                   holder="기타사항"
                                   value={wishlist.etc}
-                                  onChange={(e) => handleTextAreaChange(e, i)}
+                                  onBlur={(e:React.ChangeEvent<HTMLTextAreaElement>) => handleTextAreaChange(e, i)}
                                 />
                               </div>
                             </div>
