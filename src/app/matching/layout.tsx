@@ -16,7 +16,7 @@ import { AppProps } from "next/app";
 const navigation = [
   {
     name: "구직자",
-    href: "#search",
+    href: "/matching/senior",
     icon: UserIcon,
   },
   {
