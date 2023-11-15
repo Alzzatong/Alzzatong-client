@@ -1,11 +1,13 @@
 "use client";
-import { WishListType } from "@/components/Senior/Search";
 import ManAgeCalculate from "@/components/Senior/Template/ManAgeCalculate";
 import { supabase } from "@/lib/supabase/supabase";
 import Link from "next/link";
 import { use, useEffect, useRef, useState } from "react";
 import RecruitBox from "../SelectBox/RecruitBox";
-import { SeniorData } from "@/components/Senior/Interface/SeniorInterface";
+import {
+  SeniorData,
+  SeniorJoinWish,
+} from "@/components/Senior/Interface/SeniorInterface";
 import SeniorBox from "../SelectBox/SeniorBox";
 import { get } from "http";
 import { getSeniorInfoList } from "@/services/supabase/matchingCompanyAPI";
@@ -29,7 +31,7 @@ export interface SeniorBoxType {
   phone_num: string;
   agreement_link: string;
   created_at: Date;
-  senior_wishlist: WishListType[];
+  senior_wishlist: SeniorJoinWish[];
 }
 // Wishlist도 선언 필요
 

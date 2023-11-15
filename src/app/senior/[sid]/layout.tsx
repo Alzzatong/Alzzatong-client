@@ -4,9 +4,14 @@ import SeniorDetail from "@/components/Senior/Detail";
 import SeniorConsult from "@/components/Senior/Consult";
 import TabNavigation from "@/components/Senior/TabNav/TabNavigation";
 // import BigTitle from "@/components/Template/LabelText/BigTitle";
-import { SeniorConsultJoinAdmin, SeniorJoinWishCareer } from "@/components/Senior/Interface/SeniorInterface";
-import { getSeniorConsultSelect, getSeniorWishCareerSelect } from "@/queries/SelectSenior";
-import { ConvertToIdType } from "@/components/Senior/Template/ConvertToIdType";
+import {
+  SeniorConsultJoinAdmin,
+  SeniorJoinWishCareer,
+} from "@/components/Senior/Interface/SeniorInterface";
+import {
+  getSeniorConsultSelect,
+  getSeniorWishCareerSelect,
+} from "@/queries/SelectSenior";
 
 interface IdParams {
   sid: number;
@@ -21,14 +26,20 @@ interface sidProps {
 
 export default function DetailPage(sid: IdType) {
   const [currentTab, setCurrentTab] = useState("구직자 상세조회");
-  const [joinData, setJoinData] = useState<SeniorJoinWishCareer[] | undefined>();
+  const [joinData, setJoinData] = useState<
+    SeniorJoinWishCareer[] | undefined
+  >();
   const [isLoading, setIsLoading] = useState(false);
-  const [consultField, setConsultField] = useState<SeniorConsultJoinAdmin[] | undefined>();
+  const [consultField, setConsultField] = useState<
+    SeniorConsultJoinAdmin[] | undefined
+  >();
 
   useEffect(() => {
     setIsLoading(true);
-    getSeniorWishCareerSelect(sid.params.sid).then(data => setJoinData(data));
-    getSeniorConsultSelect(sid.params.sid).then(data => setConsultField(data));
+    getSeniorWishCareerSelect(sid.params.sid).then((data) => setJoinData(data));
+    getSeniorConsultSelect(sid.params.sid).then((data) =>
+      setConsultField(data)
+    );
     setIsLoading(false);
   }, [sid]);
 
@@ -54,25 +65,29 @@ export default function DetailPage(sid: IdType) {
           <div className="whiteSpace" />
           <TabNavigation handleClick={handleClick} currentTab={currentTab} />
           <div className="pageContent mt-8">
-          {currentTab == "구직자 상세조회" ? (
-            <main>
-              {/* <BigTitle
+            {currentTab == "구직자 상세조회" ? (
+              <main>
+                {/* <BigTitle
                 text="구직자 상세조회"
                 className="text-4xl font-bold text-gray-900"
               /> */}
-              <div className="text-4xl font-bold text-gray-900">구직자 상세조회</div>
-              {joinData && <SeniorDetail sidData={joinData}></SeniorDetail>}
-            </main>
-          ) : (
-            <main>
-              {/* <BigTitle
+                <div className="text-4xl font-bold text-gray-900">
+                  구직자 상세조회
+                </div>
+                {joinData && <SeniorDetail sidData={joinData}></SeniorDetail>}
+              </main>
+            ) : (
+              <main>
+                {/* <BigTitle
                 text="상담내역"
                 className="text-4xl font-bold text-gray-900"
               /> */}
-              <div className="text-4xl font-bold text-gray-900">상담내역</div>
-              {consultField && <SeniorConsult sidData={consultField}></SeniorConsult>}
-            </main>
-          )}
+                <div className="text-4xl font-bold text-gray-900">상담내역</div>
+                {consultField && (
+                  <SeniorConsult sidData={consultField}></SeniorConsult>
+                )}
+              </main>
+            )}
           </div>
           <div className="sidebarContent"></div>
         </div>
