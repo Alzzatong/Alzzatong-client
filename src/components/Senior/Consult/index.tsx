@@ -96,7 +96,7 @@ export default function SeniorConsult(sidData:SeniorDetailProps) {
                   itemList={Score}
                   groupName="근무지 대분류"
                   defaultValue={""}
-                  onBlur={(e) => handleScoreChange(e)}
+                  onBlur={(e:React.ChangeEvent<HTMLSelectElement>) => handleScoreChange(e)}
                 />
               </div>
 
@@ -106,7 +106,7 @@ export default function SeniorConsult(sidData:SeniorDetailProps) {
                   id="job_availability"
                   itemList={JobAvailability}
                   groupName="구직 상태"
-                  onSelect={(e) => handleJobAvailability(e)}
+                  onSelect={(e:React.ChangeEvent<HTMLSelectElement>) => handleJobAvailability(e)}
                 />
               </div>
             </div>
