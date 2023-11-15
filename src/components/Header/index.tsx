@@ -8,8 +8,7 @@ const navigation = [
   { name: "구직자", href: "/senior" },
   { name: "구인처", href: "/company" },
   { name: "매칭", href: "/matching" },
-  { name: "메일", href: "/email" },
-  { name: "문자", href: "/sms" },
+  { name: "알림", href: "/notice" },
 ];
 
 export default function Example() {
