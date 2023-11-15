@@ -15,7 +15,7 @@ export default function StringInput({ id , holder, value, onChange }: Props) {
         id={id}
         name={id}
         placeholder={holder}
-        defaultValue={value}
+        value={value}
         onChange={onChange}
         autoComplete="off"
         className="block w-full p-2 rounded-md ring-1 ring-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"

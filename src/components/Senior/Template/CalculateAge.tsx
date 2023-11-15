@@ -4,7 +4,6 @@ interface props {
 }
 
 const CalculateAge = ({regiNumFirst, regiNumSecond} : props) => {
-    console.log(regiNumFirst, regiNumSecond );
 
     // 현재 년도 가져오기
     const today = new Date();
