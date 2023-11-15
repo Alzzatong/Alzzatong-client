@@ -1,5 +1,9 @@
-export default function matching(){
-    return <>
-      매칭!!
+import MatchingTabSeniorSearch from "@/components/Matching/Search/MatchingTabSeniorSearch";
+
+export default function matching() {
+  return (
+    <>
+      <MatchingTabSeniorSearch />
     </>
-  }
+  );
+}

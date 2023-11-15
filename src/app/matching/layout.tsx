@@ -29,24 +29,9 @@ const navigation = [
     href: "/matching/meeting_manage",
     icon: ChatBubbleOvalLeftEllipsisIcon,
   },
-  {
-    name: "매칭관리",
-    href: "#matching_manage",
-    icon: UsersIcon,
-  },
-  {
-    name: "매칭등록",
-    href: "#matching_register",
-    icon: PaperClipIcon,
-  },
-  {
-    name: "조회/사후관리",
-    href: "#after_manage",
-    icon: Cog8ToothIcon,
-  },
 ];
 
-function MatchingLayout({children}: { children: React.ReactNode }) {
+function MatchingLayout({ children }: { children: React.ReactNode }) {
   const [currentTab, setCurrentTab] = useState("조회");
 
   return (
