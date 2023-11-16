@@ -12,7 +12,6 @@ import {
   getSeniorConsultSelect,
   getSeniorWishCareerSelect,
 } from "@/queries/SelectSenior";
-import { ConvertToIdType } from "@/components/Senior/Template/ConvertToIdType";
 
 interface IdParams {
   sid: number;
