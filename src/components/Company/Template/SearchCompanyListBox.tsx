@@ -12,13 +12,13 @@ export const SearchCompanyListBox: React.FC<any> = ({ data, sid }) => {
     <div>
       {data &&
         data.map((company: any) => {
-          return company.recruit.map((list: any, index: number) => {
+          return company.recruit.map((list: any) => {
             return (
               <div
-                key={index}
+                key={list.id}
                 className="flex w-full mt-2 items-center justify-between space-x-6 p-6 bg-gray-100 shadow rounded-lg"
               >
-                <Link href={`/matching/senior/${senior_id}/${company.id}/`}>
+                <Link href={`/matching/senior/${sid}/${list.id}/`}>
                   <div className="truncate">
                     <div className="flex-1 gap-1">
                       <div className="mt-1 space-x-3">
