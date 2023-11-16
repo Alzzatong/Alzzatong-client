@@ -30,15 +30,15 @@ export default function CompanyMatchingRecruitsSeniorDetailPage(props: any) {
       content: content,
       status: 0,
     });
+    //저장되었습니다 팝업창  확인 누르면 meeting_mamange로 페이지 이동
+    alert("저장되었습니다.");
+    window.location.href = `/matching/meeting_manage`;
   };
 
   const handleCancel = (event: FormEvent) => {
     event.preventDefault();
-    //초기화
-    setDate(null);
-    setTime(null);
-    setContent("");
-    // 페이지 최상단으로 이동
+    // 이전 페이지로 이동
+    window.history.back();
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
