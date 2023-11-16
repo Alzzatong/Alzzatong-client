@@ -27,7 +27,7 @@ const CircleM: React.FC<SVGProps<SVGSVGElement>> = (props) => (
           cy="4"
           r="101"
           stroke="white"
-          stroke-width="40"
+          strokeWidth="40"
         />
       </g>
     </g>
