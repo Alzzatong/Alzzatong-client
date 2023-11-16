@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect, FormEvent, useRef } from "react";
 import { supabase } from "@/lib/supabase/supabase";
 import PhoneNumberInput from "@/components/Template/Input/PhoneInput";
 import SeniorNameInput from "../Template/SeniorNameInput";
@@ -65,6 +65,7 @@ export default function SeniorDetail(sidData: SeniorDetailProps) {
     []
   );
   const [smallJobCode, setSmallJobCode] = useState<string[]>([""]);
+  const imageInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     if (sidData && sidData.sidData) {
@@ -279,7 +280,7 @@ export default function SeniorDetail(sidData: SeniorDetailProps) {
     setCareerData([initialSeniorCareerData]);
     // 페이지 최상단으로 이동
     alert("취소되었습니다.");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.history.back();
   };
 
   const handleTextAreaChange = (
@@ -413,21 +414,24 @@ export default function SeniorDetail(sidData: SeniorDetailProps) {
   };
 
   // 파일 제공 동의서 저장 handler 필요
-  const handleAggrementLink = async (fileUrl: string) => {
-    const file = fileUrl;
-    console.log(file);
-    if (file) {
-      console.log("file is 정상");
-    } else {
-      console.log("file is error...");
-    }
-    setSeniorData({
-      ...seniorData,
-      ["agreement_link"]: fileUrl,
-    });
-    console.log(setSeniorData, "handler 동의서");
+  const handleAggrementLink = (): void => {
+    imageInputRef.current?.click();
+    // const handleAggrementLink = async (fileUrl: string) => {
+    // AgreementButton(fileUrl);
+    // const file = fileUrl;
+    // console.log(file);
+    // if (file) {
+    //   console.log("file is 정상");
+    // } else {
+    //   console.log("file is error...");
+    // }
+    // setSeniorData({
+    //   ...seniorData,
+    //   ["agreement_link"]: fileUrl,
+    // });
+    // console.log(setSeniorData, "handler 동의서");
+    return;
   };
-
   const validateData = (
     seniorData: SeniorData,
     wishlistData: SeniorWishList[],
@@ -546,7 +550,7 @@ export default function SeniorDetail(sidData: SeniorDetailProps) {
   };
 
   return (
-    <div>
+    <div className="mt-8">
       <SearchSeniorListBox data={joinData} />
       {joinData &&
         joinData.map((senior_data) => (
@@ -593,7 +597,7 @@ export default function SeniorDetail(sidData: SeniorDetailProps) {
                   <div>
                     <LabelText text="만 나이"></LabelText>
                     <div className="mt-1 flex justify-between">
-                      <div className="mt-1 block w-full p-2 rounded-md bg-white shadow-sm sm:text-sm">
+                      <div className="mt-1 block w-full p-2 rounded-md ring-1 ring-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-600 sm:text-sm bg-white">
                         <CalculateAge
                           regiNumFirst={senior_data.regi_first_num}
                           regiNumSecond={senior_data.regi_second_num}
@@ -603,7 +607,7 @@ export default function SeniorDetail(sidData: SeniorDetailProps) {
                     </div>
                   </div>
                 </div>
-                <div>
+                <div className="mt-2">
                   <LabelText text="전화번호"></LabelText>
                   <PhoneNumberInput
                     onPhoneNumberChange={handlePhoneNumberChange}
@@ -636,55 +640,71 @@ export default function SeniorDetail(sidData: SeniorDetailProps) {
                   </div>
                 </div>
                 <div className="mt-6 grid grid-cols-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
-                  <div>
-                    <LabelText text="개인정보동의서 첨부" />
-                    <div className="mt-1">
-                      {/* <input
-                        type="file"
-                        name="agreement_link"
-                        id="agreement_link"
-                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        onChange={handlerSeniorAggrementLink}
-                      /> */}
-                      <AgreementButton
+                <div>
+              <div className="mb-2">
+                <LabelText text="개인정보동의서 첨부" />
+              </div>
+              <div className="mt-1">
+                <button
+                  className="w-28 p-2 rounded-md ring-1 ring-gray-200 bg-white border-gray-400 shadow-sm sm:text-sm"
+                  onClick={() => {
+                    handleAggrementLink();
+                  }}
+                >
+                  파일 찾기
+                </button>
+                <input
+                  type="file"
+                  name="agreement_link"
+                  id="agreement_link"
+                  ref={imageInputRef}
+                  className="hidden"
+                  onChange={handleAggrementLink}
+                ></input>
+                {/* <AgreementButton
                         key="agreement_link"
                         onfileUrlChange={handleAggrementLink}
-                      />
-                    </div>
-                  </div>
+                      /> */}
+              </div>
+            </div>
                 </div>
               </div>
             </div>
 
             <div className="mt-6">
-              <h2 className="flex text-lg font-medium text-gray-900">
-                선택 항목
-              </h2>
-              <div className="flex justify-end">
-                <AddButton addItem={handleOptionAdd} />
+              <div className="flex">
+                <h2 className="flex-1 text-lg font-medium text-gray-900">
+                  선택 항목
+                </h2>
+                <div className="flex justify-end">
+                  <AddButton addItem={handleOptionAdd} />
+                </div>
               </div>
               <div className="">
-                <div className="mt-5 border-t">
+                <div className="mt-2 border-t">
                   <ul className="mt-6 p-3 bg-gray-200 rounded-md grid grid-cols-9 gap-x-4 gap-y-6 justify-items-center">
-                    <li className="col-span-2">
-                      <LabelText text="경력사항" />
-                    </li>
-                    <li className="col-span-2">
-                      <LabelText text="직장명" />
-                    </li>
-                    <li className="col-span-2">
-                      <LabelText text="근무기간" />
-                    </li>
-                    <li className="col-span-2">
-                      <LabelText text="업무내용" />
-                    </li>
+                  <li className="col-span-1">
+                    <LabelText text="경력사항" />
+                  </li>
+                  <li className="col-span-2">
+                    <LabelText text="직장명" />
+                  </li>
+                  <li className="col-span-3">
+                    <LabelText text="근무기간" />
+                  </li>
+                  <li className="col-span-2">
+                    <LabelText text="업무내용" />
+                  </li>
+                  <li className="col-span-1">
+                    <LabelText text="삭제" />
+                  </li>
                   </ul>
                   {senior_data.career.map((data, i) => (
                     <ul
                       key={i}
                       className="grid grid-cols-9 gap-x-4 gap-y-6 mt-3 justify-items-center"
                     >
-                      <li className="col-span-2">{i + 1}</li>
+                      <li className="col-span-1 mt-2 text-right ml-5">{i + 1}</li>
                       <li className="col-span-2">
                         <UncontrolledStringInput
                           id="company_name"
@@ -693,7 +713,29 @@ export default function SeniorDetail(sidData: SeniorDetailProps) {
                           onBlur={(e) => handleCareerTableInputChange(e, i)}
                         />
                       </li>
-                      <li className="col-span-2 flex">추후 추가</li>
+                      <li className="col-span-3 flex">
+                        <div className="mt-1 flex">
+                          <input
+                            id="start_period"
+                            type="text"
+                            placeholder="2023-10-01"
+                            className="w-full inline p-2 rounded-md ring-1 ring-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            onBlur={(e: React.ChangeEvent<HTMLInputElement>) =>
+                              handleDateTableInputChange(e, i)
+                            }
+                          ></input>
+                          <span className="text-gray-400 mt-1 mx-1">~</span>
+                          <input
+                            id="end_period"
+                            type="text"
+                            placeholder="2023-10-01"
+                            className="w-full inline p-2 rounded-md ring-1 ring-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            onBlur={(e: React.ChangeEvent<HTMLInputElement>) =>
+                              handleDateTableInputChange(e, i)
+                            }
+                          ></input>
+                        </div>
+                      </li>
                       <li className="col-span-2">
                         <UncontrolledStringInput
                           id="task_type"
@@ -702,7 +744,7 @@ export default function SeniorDetail(sidData: SeniorDetailProps) {
                           onBlur={(e) => handleCareerTableInputChange(e, i)}
                         />
                       </li>
-                      <li className="col-span-1 justify-items-end mt-4">
+                      <li className="col-span-1 justify-items-end mt-2 mr-5">
                         <CustomButton
                           label="X"
                           onClick={() => handleOptionRemove(i)}
@@ -713,10 +755,10 @@ export default function SeniorDetail(sidData: SeniorDetailProps) {
                   ))}
                 </div>
 
-                <div className="mt-12">
+                <div className="mt-14">
                   <div>
-                    <div className="grid grid-cols-2 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
-                      <h2 className="flex text-lg font-medium text-gray-900">
+                    <div className="flex">
+                      <h2 className="flex-1 text-lg font-medium text-gray-900">
                         필수 항목
                       </h2>
                       <div className="flex justify-end">
@@ -734,11 +776,11 @@ export default function SeniorDetail(sidData: SeniorDetailProps) {
                       >
                         <div className="flex justify-start">
                           <div className="p-2 bg-white rounded-full border border-blue-500">
-                            <div className="text-blue-500 text-sm font-medium font-['Pretendard'] leading-tight">
+                            <div className="pl-2 text-blue-500 text-sm font-medium font-['Pretendard'] leading-tight">
                               희망근무지{i + 1}
                               <button
                                 type="button"
-                                className="px-2 py-1 text-xs font-semibold text-blue-600 shadow-sm hover:bg-indigo-100"
+                                className="ml-2 px-2 py-1 text-xs font-semibold text-blue-600 shadow-sm rounded-lg hover:bg-indigo-100"
                                 onClick={() => handleRemove(i)}
                               >
                                 <span className="relative">X</span>
@@ -867,7 +909,7 @@ export default function SeniorDetail(sidData: SeniorDetailProps) {
                 onClick={handleSubmitTest}
               >
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  저장
+                  수정
                 </div>
               </button>
               <button
@@ -876,7 +918,7 @@ export default function SeniorDetail(sidData: SeniorDetailProps) {
                 onClick={handleCancel}
               >
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  취소
+                  뒤로
                 </div>
               </button>
             </div>
