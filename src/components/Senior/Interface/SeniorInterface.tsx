@@ -132,6 +132,16 @@ export interface SeniorConsultJoinAdmin {
   admin: GetAdmin;
 }
 
+export interface InsertSeniorConsultJoinAdmin {
+  consult_senior_id: number | undefined | null;
+  senior_id: number;
+  created_at: Date | undefined | null;
+  score: number;
+  job_availability: boolean;
+  admin_id: number;
+  content: string | undefined | null;
+}
+
 export interface GetAdmin {
   admin_id: number;
   name: string;
