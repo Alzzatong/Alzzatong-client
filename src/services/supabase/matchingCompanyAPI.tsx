@@ -70,7 +70,7 @@ export const getSeniorInfoList = async ({
   region,
   location,
   job_type,
-  setSeniors
+  setSeniors,
 }: getSeniorInfoListProps) => {
   let { data, error } = await supabase
     .from("senior_wishlist")
@@ -112,11 +112,11 @@ export const getMeetingList = async ({
     .from("meeting")
     // 면접 날짜, 회사이름, 주소, 담당자명, 담당자 연락처, 구직자 명, 면접 상태
     .select(
-      `date, status, company(address, manager_name, manager_phone), senior(name)`
+      `id, date, status, company(company_name, address, manager_name, manager_phone), senior(name)`
     )
     // 사업년도 빈칸이면 1960보다 큰 수 검색
     .gte("company.business_year", year === "" ? 1960 : year)
-    // 회사이름도 포함으로 검색, 만약 빈ㅋ칸이면 모든 회사 검색
+    // 회사이름도 포함으로 검색, 만약 빈칸이면 모든 회사 검색
     .ilike(
       "company.company_name",
       companyName === "" ? "*" : `%${companyName}%`
