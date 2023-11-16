@@ -10,10 +10,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const statusList = [
-  { id: 3, title: "전체" },
-  { id: 0, title: "대기" },
-  { id: 1, title: "완료" },
-  { id: 2, title: "취소" },
+  { id: 3, title: "면접상태 전체" },
+  { id: 0, title: "면접대기" },
+  { id: 1, title: "면접완료" },
+  { id: 2, title: "면접취소" },
 ];
 interface Company {
   company_name: any;
