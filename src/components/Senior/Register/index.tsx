@@ -1,5 +1,5 @@
 "use client";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useRef } from "react";
 import PhoneNumberInput from "@/components/Template/Input/PhoneInput";
 import RegiNumberInput from "../Template/RegiNumberInput";
 import LabelText from "@/components/Template/LabelText/LabelText";
@@ -57,6 +57,7 @@ export default function SeniorRegister() {
     []
   );
   const [smallJobCode, setSmallJobCode] = useState<string[]>([""]);
+  const imageInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleSeniorTableInputChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -224,21 +225,23 @@ export default function SeniorRegister() {
 
       // Insert into career Table
       for (let i = 0; i < careerData.length; i++) {
-        if (careerData[i]["company_name"] !== "" || careerData[i]["task_type"] !== "") {
+        if (
+          careerData[i]["company_name"] !== "" ||
+          careerData[i]["task_type"] !== ""
+        ) {
           const careerDataWithId = { ...careerData[i], senior_id: seniorId };
           const { data: career_data, error: career_error } = await supabase
-          .from("career")
-          .insert([careerDataWithId])
-          .select("task_type");
+            .from("career")
+            .insert([careerDataWithId])
+            .select("task_type");
           if (career_error) {
             console.log(
               `Error inserting ${i}'st data into Career table:`,
               career_error
-              );
-            }
+            );
           }
-
         }
+      }
 
       if (window.confirm("저장되었습니다.")) {
         window.location.href = "/senior";
@@ -281,12 +284,13 @@ export default function SeniorRegister() {
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
-    const updateCareerData = [...careerData];
-    updateCareerData[index] = {
-      ...updateCareerData[index],
-      [e.target.id]: new Date(e.target.value),
-    };
-    setCareerData(updateCareerData);
+    // const updateCareerData = [...careerData];
+    // updateCareerData[index] = {
+    //   ...updateCareerData[index],
+    //   [e.target.id]: new Date(e.target.value),
+    // };
+    // setCareerData(updateCareerData);
+    return;
   };
 
   const handleDropBoxSeniorTableChange = (
@@ -298,9 +302,7 @@ export default function SeniorRegister() {
     });
   };
 
-  const handleRadioInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleRadioInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setHealth(Number(e.target.value));
     setSeniorData({
       ...seniorData,
@@ -398,19 +400,23 @@ export default function SeniorRegister() {
   };
 
   // 파일 제공 동의서 저장 handler 필요
-  const handleAggrementLink = async (fileUrl: string) => {
-    const file = fileUrl;
-    console.log(file);
-    if (file) {
-      console.log("file is 정상");
-    } else {
-      console.log("file is error...");
-    }
-    setSeniorData({
-      ...seniorData,
-      ["agreement_link"]: fileUrl,
-    });
-    console.log(setSeniorData, "handler 동의서");
+  const handleAggrementLink = (): void => {
+    imageInputRef.current?.click();
+    // const handleAggrementLink = async (fileUrl: string) => {
+    // AgreementButton(fileUrl);
+    // const file = fileUrl;
+    // console.log(file);
+    // if (file) {
+    //   console.log("file is 정상");
+    // } else {
+    //   console.log("file is error...");
+    // }
+    // setSeniorData({
+    //   ...seniorData,
+    //   ["agreement_link"]: fileUrl,
+    // });
+    // console.log(setSeniorData, "handler 동의서");
+    return;
   };
 
   const validateData = (
@@ -432,7 +438,7 @@ export default function SeniorRegister() {
       "phone_num",
       // "agreement_link", Null 가능
     ];
-    
+
     // SeniorWishList 객체에 대한 필드
     const wishlistDataFields = [
       "location",
@@ -445,7 +451,7 @@ export default function SeniorRegister() {
       "work_type",
       // "etc", Null 가능
     ];
-    
+
     // SeniorCareer 객체에 대한 필드 << 선택사항
     const careerDataFields = [
       "company_name",
@@ -531,327 +537,370 @@ export default function SeniorRegister() {
   };
 
   return (
-        <form className="lg:grid lg:gap-x-12 xl:gap-x-16">
-            <div className="pb-10">
-              <div className="mt-20">
-                <h2 className="text-lg font-medium text-gray-900">필수 항목</h2>
-                <div className="mt-2 border-t border-gray-200"></div>
-                <div className="mt-4 grid grid-cols-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
-                  <div>
-                    <LabelText text="성명"></LabelText>
-                    <StringInput
-                      id="name"
-                      holder="성명"
-                      value={seniorData.name}
-                      onChange={handleSeniorTableInputChange}
-                    />
-                  </div>
-                  <div>
-                    <LabelText text="성별"></LabelText>
-                    <DropBox
-                      id="gender"
-                      itemList={GenderItem}
-                      groupName="성별"
-                      onSelect={(e:React.ChangeEvent<HTMLSelectElement>) => handleDropBoxSeniorTableChange(e)}
-                    />
-                  </div>
+    <form className="lg:grid lg:gap-x-12 xl:gap-x-16">
+      <div className="pb-10">
+        <div className="mt-20">
+          <h2 className="text-lg font-medium text-gray-900">필수 항목</h2>
+          <div className="mt-2 border-t border-gray-200"></div>
+          <div className="mt-4 grid grid-cols-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
+            <div>
+              <LabelText text="성명"></LabelText>
+              <StringInput
+                id="name"
+                holder="성명"
+                value={seniorData.name}
+                onChange={handleSeniorTableInputChange}
+              />
+            </div>
+            <div>
+              <LabelText text="성별"></LabelText>
+              <DropBox
+                id="gender"
+                itemList={GenderItem}
+                groupName="성별"
+                onSelect={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                  handleDropBoxSeniorTableChange(e)
+                }
+              />
+            </div>
+          </div>
+          <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+            <div>
+              {/* - 주민번호가 중복되지 않는지 확인 버튼 추가 필요 */}
+              <LabelText text="주민번호"></LabelText>
+              <RegiNumberInput
+                firstSelect={selectFirstReginumber}
+                secondSelect={selectSecondReginumber}
+              />
+            </div>
+            <div>
+              <LabelText text="만 나이"></LabelText>
+              <div className="mt-1 flex justify-between">
+                <div className="mt-1 block w-full p-2 rounded-md ring-1 ring-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-600 sm:text-sm bg-white">
+                  <CalculateAge
+                    regiNumFirst={firstReginum}
+                    regiNumSecond={secondReginum}
+                  />
+                  세
                 </div>
-                <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
-                  <div>
-                    {/* - 주민번호가 중복되지 않는지 확인 버튼 추가 필요 */}
-                    <LabelText text="주민번호"></LabelText>
-                    <RegiNumberInput
-                      firstSelect={selectFirstReginumber}
-                      secondSelect={selectSecondReginumber}
-                    />
-                  </div>
-                  <div>
-                    <LabelText text="만 나이"></LabelText>
-                    <div className="mt-1 flex justify-between">
-                      <div className="mt-1 block w-full p-2 rounded-md bg-white shadow-sm sm:text-sm">
-                        <CalculateAge
-                          regiNumFirst={firstReginum}
-                          regiNumSecond={secondReginum}
-                        />
-                        세
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <LabelText text="전화번호"></LabelText>
-                  <PhoneNumberInput
-                    onPhoneNumberChange={handlePhoneNumberChange}
-                    reset={reset}
-                    setReset={setReset}
-                  ></PhoneNumberInput>
-                </div>
-                <div className="mt-4">
-                  <div>
-                    <LabelText text="주소"></LabelText>
-                    <StringInput
-                      id="address"
-                      holder="주소를 입력하세요"
-                      value={seniorData.address}
-                      onChange={handleSeniorTableInputChange}
-                    />
-                  </div>
-                  <div className="mt-4">
-                    <LabelText text="건강상태"></LabelText>
-                    <RadioNumberButton
-                      id="health_status"
-                      itemList={HealthStatusItem}
-                      groupName="건강상태"
-                      value={health}
-                      onChange={handleRadioInputChange}
-                    />
-                  </div>
-                </div>
-                <div className="mt-6 grid grid-cols-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
-                  <div>
-                    <LabelText text="개인정보동의서 첨부" />
-                    <div className="mt-1">
-                      {/* <input
-                        type="file"
-                        name="agreement_link"
-                        id="agreement_link"
-                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        onChange={handlerSeniorAggrementLink}
-                      /> */}
-                      <AgreementButton
+              </div>
+            </div>
+          </div>
+          <div className="mt-2">
+            <LabelText text="전화번호"></LabelText>
+            <PhoneNumberInput
+              onPhoneNumberChange={handlePhoneNumberChange}
+              reset={reset}
+              setReset={setReset}
+            ></PhoneNumberInput>
+          </div>
+          <div className="mt-4">
+            <div>
+              <LabelText text="주소"></LabelText>
+              <StringInput
+                id="address"
+                holder="주소를 입력하세요"
+                value={seniorData.address}
+                onChange={handleSeniorTableInputChange}
+              />
+            </div>
+            <div className="mt-4">
+              <LabelText text="건강상태"></LabelText>
+              <RadioNumberButton
+                id="health_status"
+                itemList={HealthStatusItem}
+                groupName="건강상태"
+                value={health}
+                onChange={handleRadioInputChange}
+              />
+            </div>
+          </div>
+          <div className="mt-6 grid grid-cols-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
+            <div>
+              <div className="mb-2">
+                <LabelText text="개인정보동의서 첨부" />
+              </div>
+              <div className="mt-1">
+                <button
+                  className="w-28 p-2 rounded-md ring-1 ring-gray-200 bg-white border-gray-400 shadow-sm sm:text-sm"
+                  onClick={() => {
+                    handleAggrementLink();
+                  }}
+                >
+                  파일 찾기
+                </button>
+                <input
+                  type="file"
+                  name="agreement_link"
+                  id="agreement_link"
+                  ref={imageInputRef}
+                  className="hidden"
+                  onChange={handleAggrementLink}
+                ></input>
+                {/* <AgreementButton
                         key="agreement_link"
                         onfileUrlChange={handleAggrementLink}
-                      />
-                    </div>
-                  </div>
-                </div>
+                      /> */}
               </div>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <div className="mt-6">
-              <h2 className="flex text-lg font-medium text-gray-900">
-                선택 항목
-              </h2>
-              <div className="flex justify-end">
-                <AddButton addItem={handleOptionAdd} />
-              </div>
-              <div className="">
-                <div className="mt-5 border-t">
-                  <ul className="mt-6 p-3 bg-gray-200 rounded-md grid grid-cols-9 gap-x-4 gap-y-6 justify-items-center">
-                    <li className="col-span-2">
-                      <LabelText text="경력사항" />
-                    </li>
-                    <li className="col-span-2">
-                      <LabelText text="직장명" />
-                    </li>
-                    <li className="col-span-2">
-                      <LabelText text="근무기간" />
-                    </li>
-                    <li className="col-span-2">
-                      <LabelText text="업무내용" />
-                    </li>
-                  </ul>
-                  {careerData.map((data:SeniorCareer, i:number) => (
-                    <ul
-                      key={i}
-                      className="grid grid-cols-9 gap-x-4 gap-y-6 mt-3 justify-items-center"
-                    >
-                      <li className="col-span-2">{i + 1}</li>
-                      <li className="col-span-2">
-                        <StringInput
-                          id="company_name"
-                          holder="회사명"
-                          value={data.company_name}
-                          onChange={(e:React.ChangeEvent<HTMLInputElement>) => handleCareerTableInputChange(e, i)}
-                        />
-                      </li>
-                      <li className="col-span-2 flex">추후 추가</li>
-                      <li className="col-span-2">
-                        <StringInput
-                          id="task_type"
-                          holder="업무 내용"
-                          value={data.task_type}
-                          onChange={(e:React.ChangeEvent<HTMLInputElement>) => handleCareerTableInputChange(e, i)}
-                        />
-                      </li>
-                      <li className="col-span-1 justify-items-end mt-4">
-                        <CustomButton
-                          label="X"
-                          onClick={() => handleOptionRemove(i)}
-                          className="rounded px-2 py-1 text-xs font-semibold text-gray-600 shadow-sm hover:bg-slate-300"
-                        />
-                      </li>
-                    </ul>
-                  ))}
+      <div className="mt-6">
+        <div className="flex">
+          <h2 className="flex-1 text-lg font-medium text-gray-900">선택 항목</h2>
+          <div className="flex justify-end">
+            <AddButton addItem={handleOptionAdd} />
+          </div>
+        </div>
+        <div className="">
+          <div className="mt-2 border-t">
+            <ul className="mt-6 p-3 bg-gray-200 rounded-md grid grid-cols-9 gap-x-4 gap-y-6 justify-items-center">
+              <li className="col-span-1">
+                <LabelText text="경력사항" />
+              </li>
+              <li className="col-span-2">
+                <LabelText text="직장명" />
+              </li>
+              <li className="col-span-3">
+                <LabelText text="근무기간" />
+              </li>
+              <li className="col-span-2">
+                <LabelText text="업무내용" />
+              </li>
+              <li className="col-span-1">
+                <LabelText text="삭제" />
+              </li>
+            </ul>
+            {careerData.map((data: SeniorCareer, i: number) => (
+              <ul
+                key={i}
+                className="grid grid-cols-9 gap-x-4 gap-y-6 mt-3 justify-items-center"
+              >
+                <li className="col-span-1 mt-2 text-right ml-5">{i + 1}</li>
+                <li className="col-span-2">
+                  <StringInput
+                    id="company_name"
+                    holder="회사명"
+                    value={data.company_name}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleCareerTableInputChange(e, i)
+                    }
+                  />
+                </li>
+                <li className="col-span-3 flex">
+                  <div className="mt-1 flex">
+                    <input
+                      id="start_period"
+                      type="text"
+                      placeholder="2023-10-01"
+                      className="w-full inline p-2 rounded-md ring-1 ring-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      onBlur={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        handleDateTableInputChange(e, i)
+                      }
+                    ></input>
+                    <span className="text-gray-400 mt-1 mx-1">~</span>
+                    <input
+                      id="end_period"
+                      type="text"
+                      placeholder="2023-10-01"
+                      className="w-full inline p-2 rounded-md ring-1 ring-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      onBlur={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        handleDateTableInputChange(e, i)
+                      }
+                    ></input>
+                  </div>
+                </li>
+                <li className="col-span-2">
+                  <StringInput
+                    id="task_type"
+                    holder="업무 내용"
+                    value={data.task_type}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleCareerTableInputChange(e, i)
+                    }
+                  />
+                </li>
+                <li className="col-span-1 justify-items-end mt-2 mr-5">
+                  <CustomButton
+                    label="X"
+                    onClick={() => handleOptionRemove(i)}
+                    className="rounded px-2 py-1 text-xs font-semibold text-gray-600 shadow-sm hover:bg-slate-300"
+                  />
+                </li>
+              </ul>
+            ))}
+          </div>
+
+          <div className="mt-14">
+            <div>
+              <div className="flex">
+                <h2 className="flex-1 text-lg font-medium text-gray-900">
+                  필수 항목
+                </h2>
+                <div className="flex justify-end">
+                  <CustomButton
+                    label="+ 추가하기"
+                    onClick={handleAdd}
+                    className="rounded bg-indigo-50 px-2 py-1 text-xs font-semibold text-blue-600 shadow-sm hover:bg-indigo-100"
+                  />
                 </div>
+              </div>
+              {wishlistData.map((wishlist: SeniorWishList, i: number) => (
+                <div key={i} className="mt-2 border-t border-gray-200 pt-7">
+                  <div className="flex justify-start">
+                    <div className="p-2 bg-white rounded-full border border-blue-500">
+                      <div className="text-blue-500 text-sm font-medium font-['Pretendard'] leading-tight">
+                        희망근무지{i + 1}
+                        <button
+                          type="button"
+                          className="ml-2 px-2 py-1 text-xs font-semibold text-blue-600 shadow-sm rounded-lg hover:bg-indigo-100"
+                          onClick={() => handleRemove(i)}
+                        >
+                          <span className="relative">X</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
 
-                <div className="mt-12">
                   <div>
-                    <div className="grid grid-cols-2 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
-                      <h2 className="flex text-lg font-medium text-gray-900">
-                        필수 항목
-                      </h2>
-                      <div className="flex justify-end">
-                        <CustomButton
-                          label="+ 추가하기"
-                          onClick={handleAdd}
-                          className="rounded bg-indigo-50 px-2 py-1 text-xs font-semibold text-blue-600 shadow-sm hover:bg-indigo-100"
+                    <div className="mt-4">
+                      <LabelText text="희망근무지" />
+                      <DropBox
+                        id="location"
+                        itemList={Location}
+                        groupName="근무지 대분류"
+                        onSelect={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                          selectFirstLocation(e, i)
+                        }
+                      />
+                      {firstLocation[i] && (
+                        <DropBox
+                          id="location_detail"
+                          itemList={LocationDetail[firstLocation[i]]}
+                          groupName="근무지 중분류"
+                          onSelect={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                            selectSecondLocation(e, i)
+                          }
+                        />
+                      )}
+                    </div>
+
+                    <div className="mt-4">
+                      <LabelText text="희망직종" />
+                      <DropBox
+                        id="job_code_number"
+                        itemList={BigJobCode}
+                        groupName="직종 대분류"
+                        onSelect={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                          selectBigJobCode(e, i)
+                        }
+                      />
+                      {bigJobCode[i] && (
+                        <DropBox
+                          id="job_type_name"
+                          itemList={SmallJobCode[bigJobCode[i].id]}
+                          groupName="직종 중분류"
+                          onSelect={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                            selectSamllJobCode(e, i)
+                          }
+                        />
+                      )}
+                    </div>
+
+                    <div>
+                      <div className="mt-4">
+                        <LabelText text="희망보수 (만원/월)"></LabelText>
+                        <NumberInput
+                          id="salary"
+                          holder="만원/월"
+                          value={wishlist.salary}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            handleSeniorWishListTableInputChange(e, i)
+                          }
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <LabelText text="근무 시간"></LabelText>
+                        <DropBox
+                          id="work_hour"
+                          itemList={WorkHourItem}
+                          groupName="근무 시간"
+                          onSelect={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                            handleSeniorWishListTableInputChange(e, i)
+                          }
                         />
                       </div>
                     </div>
-                    {wishlistData.map((wishlist:SeniorWishList, i:number) => (
-                      <div
-                        key={i}
-                        className="mt-2 border-t border-gray-200 pt-7"
-                      >
-                        <div className="flex justify-start">
-                          <div className="p-2 bg-white rounded-full border border-blue-500">
-                            <div className="text-blue-500 text-sm font-medium font-['Pretendard'] leading-tight">
-                              희망근무지{i + 1}
-                              <button
-                                type="button"
-                                className="px-2 py-1 text-xs font-semibold text-blue-600 shadow-sm hover:bg-indigo-100"
-                                onClick={() => handleRemove(i)}
-                              >
-                                <span className="relative">X</span>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
 
-                        <div>
-                          <div className="mt-4">
-                            <LabelText text="희망근무지" />
-                            <DropBox
-                              id="location"
-                              itemList={Location}
-                              groupName="근무지 대분류"
-                              onSelect={(e:React.ChangeEvent<HTMLSelectElement>) => selectFirstLocation(e, i)}
-                            />
-                            {firstLocation[i] && (
-                              <DropBox
-                                id="location_detail"
-                                itemList={LocationDetail[firstLocation[i]]}
-                                groupName="근무지 중분류"
-                                onSelect={(e:React.ChangeEvent<HTMLSelectElement>) => selectSecondLocation(e, i)}
-                              />
-                            )}
-                          </div>
+                    <div className="mt-6 grid grid-cols-1 gap-y-2">
+                      <div>
+                        <LabelText text="근무 형태"></LabelText>
+                        {ScheduleItem.map((list) => {
+                          return (
+                            <span key={list.id} className="flex items-center">
+                              <input
+                                id="work_type"
+                                name={`${i}`}
+                                type="radio"
+                                className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                value={list.id}
+                                onChange={(
+                                  e: React.ChangeEvent<HTMLInputElement>
+                                ) => handleSeniorWishListTableInputChange(e, i)}
+                              ></input>
+                              <label className="ml-3 block text-sm font-medium leading-6 text-gray-900">
+                                {list.title}
+                              </label>
+                            </span>
+                          );
+                        })}
+                      </div>
+                    </div>
 
-                          <div className="mt-4">
-                            <LabelText text="희망직종" />
-                            <DropBox
-                              id="job_code_number"
-                              itemList={BigJobCode}
-                              groupName="직종 대분류"
-                              onSelect={(e:React.ChangeEvent<HTMLSelectElement>) => selectBigJobCode(e, i)}
-                            />
-                            {bigJobCode[i] && (
-                              <DropBox
-                                id="job_type_name"
-                                itemList={SmallJobCode[bigJobCode[i].id]}
-                                groupName="직종 중분류"
-                                onSelect={(e:React.ChangeEvent<HTMLSelectElement>) => selectSamllJobCode(e, i)}
-                              />
-                            )}
-                          </div>
-
-                          <div>
-                            <div className="mt-4">
-                              <LabelText text="희망보수 (만원/월)"></LabelText>
-                              <NumberInput
-                                id="salary"
-                                holder="만원/월"
-                                value={wishlist.salary}
-                                onChange={(e:React.ChangeEvent<HTMLInputElement>) =>
-                                  handleSeniorWishListTableInputChange(e, i)
-                                }
-                              />
-                            </div>
-                            <div className="mt-4">
-                              <LabelText text="근무 시간"></LabelText>
-                              <DropBox
-                                id="work_hour"
-                                itemList={WorkHourItem}
-                                groupName="근무 시간"
-                                onSelect={(e:React.ChangeEvent<HTMLSelectElement>) =>
-                                  handleSeniorWishListTableInputChange(e, i)
-                                }
-                              />
-                            </div>
-                          </div>
-
-                          <div className="mt-6 grid grid-cols-1 gap-y-2">
-                            <div>
-                              <LabelText text="근무 형태"></LabelText>
-                              {ScheduleItem.map((list) => {
-                                return (
-                                  <span
-                                    key={list.id}
-                                    className="flex items-center"
-                                  >
-                                    <input
-                                      id="work_type"
-                                      name={`${i}`}
-                                      type="radio"
-                                      className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                      value={list.id}
-                                      onChange={(e:React.ChangeEvent<HTMLInputElement>) =>
-                                        handleSeniorWishListTableInputChange(
-                                          e,
-                                          i
-                                        )
-                                      }
-                                    ></input>
-                                    <label className="ml-3 block text-sm font-medium leading-6 text-gray-900">
-                                      {list.title}
-                                    </label>
-                                  </span>
-                                );
-                              })}
-                            </div>
-                          </div>
-
-                          <div className="mt-4 mb-8">
-                            <div>
-                              <LabelText text="특이사항/자격사항" />
-                              <div className="mt-2">
-                                <TextAreaBox
-                                  id="etc"
-                                  holder="기타사항"
-                                  value={wishlist.etc}
-                                  onBlur={(e:React.ChangeEvent<HTMLTextAreaElement>) => handleTextAreaChange(e, i)}
-                                />
-                              </div>
-                            </div>
-                          </div>
+                    <div className="mt-4 mb-8">
+                      <div>
+                        <LabelText text="특이사항/자격사항" />
+                        <div className="mt-2">
+                          <TextAreaBox
+                            id="etc"
+                            holder="기타사항"
+                            value={wishlist.etc}
+                            onBlur={(
+                              e: React.ChangeEvent<HTMLTextAreaElement>
+                            ) => handleTextAreaChange(e, i)}
+                          />
                         </div>
                       </div>
-                    ))}
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
-            <div className="flex justify-center items-center mt-20 ">
-              <button
-                type="button"
-                className="h-14 w-64 relative bg-blue-500 rounded-full text-center text-white text-xl font-semibold leading-7 hover:bg-blue-600"
-                onClick={handleSubmit}
-              >
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  저장
-                </div>
-              </button>
-              <button
-                type="button"
-                className="h-14 w-64 relative bg-white rounded-full border border-neutral-200 text-center text-zinc-500 text-xl font-semibold leading-7 ml-4 hover:bg-gray-200"
-                onClick={handleCancel}
-              >
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  취소
-                </div>
-              </button>
-            </div>
-        </form>
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-center items-center mt-20 ">
+        <button
+          type="button"
+          className="h-14 w-64 relative bg-blue-500 rounded-full text-center text-white text-xl font-semibold leading-7 hover:bg-blue-600"
+          onClick={handleSubmit}
+        >
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            저장
+          </div>
+        </button>
+        <button
+          type="button"
+          className="h-14 w-64 relative bg-white rounded-full border border-neutral-200 text-center text-zinc-500 text-xl font-semibold leading-7 ml-4 hover:bg-gray-200"
+          onClick={handleCancel}
+        >
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            취소
+          </div>
+        </button>
+      </div>
+    </form>
   );
 }
