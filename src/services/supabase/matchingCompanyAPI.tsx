@@ -108,7 +108,7 @@ export const getMeetingList = async ({
   status,
   setMeetingBoxs,
 }: MeetingBoxType) => {
-  let { data, error } = await supabase
+  let query = supabase
     .from("meeting")
     // 면접 날짜, 회사이름, 주소, 담당자명, 담당자 연락처, 구직자 명, 면접 상태
     .select(
@@ -122,10 +122,13 @@ export const getMeetingList = async ({
       companyName === "" ? "*" : `%${companyName}%`
     )
     // 시니어 이름은 포함으로 검색
-    .ilike("senior.name", seniorName === "" ? "*" : `%${seniorName}%`)
-    // 대기 0, 완료 1, 취소 2, 만약 3이라면 전체검색
-    .gte("status", status === -1 ? 0 : status);
-  //   .filter("status", status === -1 ? "gte" : "eq", status);
+    .ilike("senior.name", seniorName === "" ? "*" : `%${seniorName}%`);
+  // 대기 0, 완료 1, 취소 2, 만약 3이라면 전체검색
+  if (status !== 3) {
+    query = query.filter("status", "eq", status);
+  }
+  let { data, error } = await query;
+
   if (error) console.error("Error loading data: ", error);
   if (data && data.length > 0) {
     setMeetingBoxs(data);
