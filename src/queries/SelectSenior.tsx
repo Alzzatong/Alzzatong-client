@@ -1,3 +1,4 @@
+import { ConsultSenior, InsertSeniorConsultJoinAdmin } from "@/components/Senior/Interface/SeniorInterface";
 import { supabase } from "@/lib/supabase/supabase";
 
 export async function getSeniorWishCareerSelect(sid: number) {
@@ -24,6 +25,37 @@ export async function getSeniorConsultSelect(sid: number) {
     return [];
   }
   return consultData || [];
+}
+
+export async function deleteSeniorConsultSelect(consult_senior_id:number) {
+  //supabase connect (`table:foreignTable(columns)`)
+  const { data, error } = await supabase
+    .from("consult_senior")
+    .delete()
+    .eq("consult_senior_id", consult_senior_id)
+    .single();
+  if (error) {
+    console.log("delete has connect error", error);
+    return [];
+  }
+  return ;
+}
+
+export async function insertSeniorConsultSelect(insert_consultData:any, seniorId:number) {
+  //supabase connect (`table:foreignTable(columns)`)
+  console.log(insert_consultData, " <<<insert_consultData가 잘 들어왔나 확인", seniorId)
+  const { data, error } = await supabase
+    .from("consult_senior")
+    .insert([insert_consultData])
+    .eq("senior_id", seniorId)
+    .single();
+    console.log("상담내역 인서트 진행. 아직 error체크 전", data)
+    if (error) {
+      console.log("delete has connect error", error);
+      return "Plz check again";
+    }
+    console.log("상담내역 인서트 진행. 성공여부를 위한 data확인", data)
+  return ;
 }
 
 export async function getSeniorLightSearch(senior_id: number) {
