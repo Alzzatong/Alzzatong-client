@@ -39,15 +39,14 @@ export default function TabNavigation({ currentTab, handleClick }: props) {
                 href={tab.href}
                 className={classNames(
                   currentTab === tab.name // 현재 탭이면 특정 스타일을 적용합니다.
-                    ? "border-blue-500 text-blue-600"
-                    : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
+                    ? "border-blue-500 text-blue-600 font-['Pretendard']"
+                    : "border-transparent text-gray-500 font-['Pretendard'] hover:border-gray-300 hover:text-gray-700",
                     "whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium"
                 )}
                 aria-current={tab.current ? "page" : undefined}
                 onClick={(event) => {
                   event.preventDefault();
                   handleClick(tab.name); // 탭을 클릭하면 handleClick 함수를 호출합니다.
-                  console.log(tab.name);
                 }}
               >
                 {tab.name}

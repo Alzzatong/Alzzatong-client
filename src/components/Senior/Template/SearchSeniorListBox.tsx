@@ -29,7 +29,7 @@ export const SearchSeniorListBox: React.FC<SearchListBoxProps> = ({ data }) => {
                 className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow"
               >
                 <Link href={`/senior/${data.senior_id}/detail`}>
-                  <ul className="flex w-full items-center justify-between space-x-6 p-6 bg-gray-100 hover:bg-white shadow rounded-lg">
+                  <ul className="flex w-full items-center justify-between space-x-6 p-6 bg-gray-100 shadow rounded-lg">
                     <li className="flex-1 truncate">
                       <div className="gap-1">
                         <div className="mt-1 flex flex-row items-center space-x-3">

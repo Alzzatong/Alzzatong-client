@@ -48,7 +48,7 @@ const RegiNumberInput = ({firstSelect, secondSelect, initialFirstPart, initialSe
         className="block text-sm font-medium text-gray-700"
       >
       </label>
-      <div className="relative mt-2 rounded-md shadow-sm">
+      <div className="relative mt-2 rounded-md">
         <div className="mt-1 flex justify-between">
           <input
             type="string"
@@ -56,7 +56,7 @@ const RegiNumberInput = ({firstSelect, secondSelect, initialFirstPart, initialSe
             name="regi_first_num"
             autoComplete="string"
             value={firstPart}
-            className={`block w-full p-2 rounded-md bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm`}
+            className={`block w-full p-2 rounded-md ring-1 ring-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-600 sm:text-sm bg-white`}
             onChange={handleFirstPartChange}
             maxLength={6}
           />
@@ -67,12 +67,12 @@ const RegiNumberInput = ({firstSelect, secondSelect, initialFirstPart, initialSe
             name="regi_second_num"
             autoComplete="string"
             value={secondPart}
-            className={`block w-full p-2 rounded-md bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm`}
+            className={`block w-full p-2 rounded-md ring-1 ring-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-600 sm:text-sm bg-white`}
             onChange={handleSecondPartChange}
             maxLength={7}
           />
         </div>
-        <p className="text-gray-500 text-sm">{alert}</p>
+        <p className="mt-1 text-center text-gray-500 text-xs bg-gray-50">{alert}</p>
       </div>
     </div>
   );

@@ -65,7 +65,7 @@ export default function SeniorSearch() {
             value={firstReginum}
             onChange={handleYearChange}
           ></NumberInput>
-          <div className="relative flex items-end">
+          <div className="relative flex items-end self-center">
             {/* <SearchButton onClick={handleSearch()}></SearchButton> */}
             <SearchButton onClick={handleSearch}></SearchButton>
           </div>

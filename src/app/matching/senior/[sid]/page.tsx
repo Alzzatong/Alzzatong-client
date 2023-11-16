@@ -30,19 +30,16 @@ export default function SeniorMatchingCampanyPage(props: any) {
           return item.location;
         });
       });
-      console.log(location, "location은??");
       getAllRecruitByLocation(location).then((data) => setRecruitLocation(data));
     }
   }, [seniorDetail]);
 
   //url /matching/senior/으로 이동
   function onButtonClick() {
-    console.log("뒤로가기");
     window.location.href = "/matching/senior/";
   }
 
   const handleLocationCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("추후 추가");
   };
 
   return (
@@ -123,11 +120,11 @@ export default function SeniorMatchingCampanyPage(props: any) {
                                 <div className="grid grid-rows-1">
                                   <div className="col-span-1">
                                     <div className="inline-flex py-2 text-right text-zinc-500 text-sm font-medium font-['Pretendard'] leading-tight">
-                                      <input
+                                      {/* <input
                                         type="checkbox"
                                         className="relative w-5 h-5 left-0 top-0 bg-blue-500 mr-2"
                                         onChange={handleLocationCheck}
-                                      ></input>
+                                      ></input> */}
                                       희망근무지 {wishList.priority}
                                       <div className="text-zinc-300 text-sm font-medium font-['Pretendard'] leading-tight">
                                         &nbsp;|&nbsp;
@@ -137,10 +134,10 @@ export default function SeniorMatchingCampanyPage(props: any) {
                                   </div>
                                   <div className="col-span-1">
                                     <div className="inline-flex py-2 text-right text-zinc-500 text-sm font-medium font-['Pretendard'] leading-tight">
-                                      <input
+                                      {/* <input
                                         type="checkbox"
                                         className="relative w-5 h-5 left-0 top-0 bg-blue-500 mr-2"
-                                      ></input>
+                                      ></input> */}
                                       <div className="inline-flex">
                                         희망직종 {wishList.priority}
                                         <div className="text-zinc-300 text-sm font-medium font-['Pretendard'] leading-tight">
@@ -185,7 +182,7 @@ export default function SeniorMatchingCampanyPage(props: any) {
                 </div>
               </div>
               <div>
-                {recruitLocation && <SearchCompanyListBox data={recruitLocation}></SearchCompanyListBox>}
+                {recruitLocation && <SearchCompanyListBox data={recruitLocation} sid={senior_id}></SearchCompanyListBox>}
               </div>
               </div>
             </div>

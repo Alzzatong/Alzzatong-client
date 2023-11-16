@@ -18,7 +18,7 @@ export default function StringInput({ id , holder, value, onChange }: Props) {
         value={value}
         onChange={onChange}
         autoComplete="off"
-        className="block w-full p-2 rounded-md ring-1 ring-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        className="block w-full p-2 rounded-md ring-1 ring-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-600 sm:text-sm"
       />
     </div>
   );
